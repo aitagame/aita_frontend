@@ -1,0 +1,9 @@
+
+package.json
+package-lock.json
+.vscode
+.gitignore
+/node_modules
+/service
+/debian
+.prettierignore
