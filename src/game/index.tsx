@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Canvas } from "./styled";
-import startGame from "./main";
+import {Game as GameConstuctor } from "./main";
+import { gameData } from "./gameData";
 
 export const Game = React.memo(() => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -9,7 +10,8 @@ export const Game = React.memo(() => {
 		if(!canvas) throw new Error("Canvas not found");
 		const ctx = canvas.getContext("2d");
 		if(!ctx) throw new Error("Context identifier is not supported");
-		startGame(ctx, canvas);
+		const game = new GameConstuctor(gameData);
+		game.startGame(ctx, canvas);
 	})
 	return <Canvas width = "800px" height = "600px" ref = {canvasRef}></Canvas>;
 });
