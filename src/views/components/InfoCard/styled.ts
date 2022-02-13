@@ -1,23 +1,33 @@
 import styled from 'styled-components'
-import { InfoCardType } from 'views/types/mainPage'
 
-export const InfoCardWrapper = styled.div<{ type?: InfoCardType }>``
+export const Content = styled.section`
+  width: 100%;
+  height: 100%;
+  padding: ${({ theme }) => `1rem ${theme.gutter.medium}`};
+  background-color: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  overflow: auto;
+`
 
-export const SectionImage = styled.span`
-  img {
-    width: 100%;
-    height: 30vmin;
-    object-fit: cover;
+export const InfoCardWrapper = styled.div<{ background: string }>`
+  width: 30vw;
+  height: 40vh;
+  background-image: ${({ background }) => `url(${background})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  &:hover ${Content} {
+    opacity: 1;
   }
 `
 
-export const Content = styled.section`
-  padding: ${({ theme }) => theme.gutter.medium};
-`
-
 export const SectionTitle = styled.h5`
-  font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
+  font-size: 1.2rem;
+  margin-bottom: 0.5em;
+  color: ${({ theme }) => theme.colors.textReverse};
 `
 export const SectionText = styled.p`
   letter-spacing: 1px;
+  color: ${({ theme }) => theme.colors.textReverse};
 `

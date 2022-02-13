@@ -16,7 +16,7 @@ export const Logo = styled.img``
 
 export const HeaderLink = styled(Link)`
   padding: 0 0.5rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   font-weight: 500;
   :hover {

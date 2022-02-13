@@ -13,7 +13,7 @@ export const MainSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>`
 `
 
 export const SectionImage = styled.span`
-  height: 30vmin;
+  height: 40vmin;
   width: 40vw;
   img {
     width: 100%;
@@ -35,6 +35,8 @@ export const Content = styled.section`
 
 export const SectionTitle = styled.h5`
   font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
+  margin-bottom: 0.5em;
+  font-weight: 500;
 `
 export const SectionText = styled.p`
   letter-spacing: 1px;

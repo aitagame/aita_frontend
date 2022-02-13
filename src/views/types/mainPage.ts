@@ -4,5 +4,3 @@ export interface SectionItem {
   text: string
   url: string
 }
-
-export type InfoCardType = 'round' | 'square'

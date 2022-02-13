@@ -9,10 +9,11 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyle = createGlobalStyle`
 		* {
     box-sizing: border-box;
+    margin: 0;
   }
 
   html {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   body {

@@ -1,17 +1,13 @@
-import { InfoCardType, SectionItem } from 'views/types/mainPage'
-import { InfoCardWrapper, SectionImage, Content, SectionTitle, SectionText } from './styled'
+import { SectionItem } from 'views/types/mainPage'
+import { InfoCardWrapper, Content, SectionTitle, SectionText } from './styled'
 
 interface InfoCardProps {
   cardData: SectionItem
-  type?: InfoCardType
 }
 
-export const InfoCard: React.FC<InfoCardProps> = ({ cardData, type = 'square' }) => {
+export const InfoCard: React.FC<InfoCardProps> = ({ cardData }) => {
   return (
-    <InfoCardWrapper type={type}>
-      <SectionImage>
-        <img src={cardData.url} />
-      </SectionImage>
+    <InfoCardWrapper background={cardData.url}>
       <Content>
         <SectionTitle>{cardData.title}</SectionTitle>
         <SectionText>{cardData.text}</SectionText>

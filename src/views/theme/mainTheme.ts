@@ -2,18 +2,18 @@ import 'typeface-ubuntu'
 
 export const mainTheme = {
   colors: {
-    primary: '#2b2b2b',
-    secondary: '#ff7d09',
-    backgroundPrimary: '#ffffff',
-    backgroundSecondary: '#f5f5f5',
-    text: '#2b2b2b',
-    textReverse: '#ffffff',
+    primary: '#0B132B',
+    secondary: '#E5C17A',
+    backgroundPrimary: '#0B132B',
+    backgroundSecondary: '#121D3F',
+    text: '#ffffff',
+    textReverse: '#0B132B',
   },
   fonts: {
     primary: 'Ubuntu, Roboto, sans-serif',
     sizes: {
-      title: '2.5rem',
-      subtitle: '1.5rem',
+      title: '2.66rem',
+      subtitle: '2rem',
     },
   },
   gutter: {
