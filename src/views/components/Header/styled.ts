@@ -4,10 +4,12 @@ import styled from 'styled-components'
 export const HeaderWrapper = styled.header`
   width: 100vw;
   position: fixed;
+  z-index: 2;
   padding: ${({ theme }) => `1rem ${theme.gutter.medium}}`};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
 `
 
 export const Logo = styled.img``
@@ -19,18 +21,5 @@ export const HeaderLink = styled(Link)`
   font-weight: 500;
   :hover {
     color: ${({ theme }) => theme.colors.secondary};
-  }
-`
-
-export const PlayButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.textReverse};
-  border: 0;
-  border-radius: 0.6rem;
-  outline: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  :hover {
-    opacity: 0.8;
   }
 `

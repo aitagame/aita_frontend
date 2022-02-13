@@ -1,4 +1,5 @@
-import { HeaderLink, HeaderWrapper, Logo, PlayButton } from './styled'
+import { Button } from '../Button'
+import { HeaderLink, HeaderWrapper, Logo } from './styled'
 
 export const Header = () => {
   return (
@@ -10,7 +11,7 @@ export const Header = () => {
         <HeaderLink to="/rooms">Rooms</HeaderLink>
         <HeaderLink to="/play">Play</HeaderLink>
       </div>
-      <PlayButton>Play Game</PlayButton>
+      <Button>Play Game</Button>
     </HeaderWrapper>
   )
 }
