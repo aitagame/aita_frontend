@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const MainWrapper = styled.main`
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.primary};

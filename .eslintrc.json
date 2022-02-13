@@ -29,6 +29,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "no-duplicate-imports": 1,
     "react/react-in-jsx-scope": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "react/prop-types": "off"
   }
 }

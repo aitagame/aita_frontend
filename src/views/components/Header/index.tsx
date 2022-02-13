@@ -1,7 +1,7 @@
 import { Button } from '../Button'
 import { HeaderLink, HeaderWrapper, Logo } from './styled'
 
-export const Header = () => {
+export const Header: React.FC = () => {
   return (
     <HeaderWrapper>
       <div>
