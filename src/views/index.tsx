@@ -4,7 +4,8 @@ import { Main } from './main'
 import { Rooms } from './rooms'
 import { Market } from './market'
 import { Game } from '../game'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { mainTheme } from './theme/mainTheme'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -30,14 +31,16 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Router>
-        <Routes>
-          <Route path="/market" element={<Market />} />
-          <Route path="/rooms" element={<Rooms />} />
-          <Route path="/play" element={<Game />} />
-          <Route path="*" element={<Main />} />
-        </Routes>
-      </Router>
+      <ThemeProvider theme={mainTheme}>
+        <Router>
+          <Routes>
+            <Route path="/market" element={<Market />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/play" element={<Game />} />
+            <Route path="*" element={<Main />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
     </>
   )
 }

@@ -11,8 +11,8 @@ export const Content = styled.section`
 `
 
 export const InfoCardWrapper = styled.div<{ background: string }>`
-  width: 30vw;
-  height: 40vh;
+  height: 30vw;
+  min-height: 488px;
   background-image: ${({ background }) => `url(${background})`};
   background-repeat: no-repeat;
   background-size: cover;

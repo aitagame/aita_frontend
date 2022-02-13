@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import { Wrapper } from '../Wrapper'
 
-export const InfoSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>``
+export const InfoSectionWrapper = styled(Wrapper)``
 
 export const Content = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  gap: ${({ theme }) => theme.gutter.medium};
+  gap: ${({ theme }) => theme.gutter.small};
 `
 
 export const SectionTitle = styled.h5`
