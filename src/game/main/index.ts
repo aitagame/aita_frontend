@@ -24,5 +24,5 @@ export default function startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCan
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
   background.src = backgroundImage
-  loaderImages([background], play as any, ctx, canvas)
+  loaderImages([background], play, ctx, canvas)
 }
