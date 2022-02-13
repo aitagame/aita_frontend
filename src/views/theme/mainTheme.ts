@@ -12,8 +12,8 @@ export const mainTheme = {
   fonts: {
     primary: 'Ubuntu, Roboto, sans-serif',
     sizes: {
-      title: '2rem',
-      subtitle: '1rem',
+      title: '2.5rem',
+      subtitle: '1.5rem',
     },
   },
   gutter: {

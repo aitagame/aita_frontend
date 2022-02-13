@@ -1,8 +1,8 @@
-import { MainSectionItem } from 'views/types/mainPage'
+import { SectionItem } from 'views/types/mainPage'
 import { MainSectionWrapper, SectionImage, Content, SectionTitle, SectionText } from './styled'
 
 interface MainSectionProps {
-  section: MainSectionItem
+  section: SectionItem
   reverse: boolean
 }
 

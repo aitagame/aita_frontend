@@ -5,11 +5,12 @@ import { mainTheme } from 'views/theme/mainTheme'
 import { Header } from 'views/components/Header'
 import { Button } from 'views/components/Button'
 import { MainSection } from 'views/components/MainSection'
-import { mainSectionsMock } from 'views/mock/main'
+import { mainSectionsData } from 'views/data/main'
+import { InfoSection } from 'views/components/InfoSection'
 
 export const Main: React.FC = () => {
   const mainSections = useMemo(() => {
-    return mainSectionsMock.map((section, i) => (
+    return mainSectionsData.map((section, i) => (
       <MainSection key={section.id} reverse={i % 2 === 1} section={section} />
     ))
   }, [])
@@ -25,6 +26,7 @@ export const Main: React.FC = () => {
           </PromoContent>
         </PromoWrapper>
         {mainSections}
+        <InfoSection />
       </MainWrapper>
     </ThemeProvider>
   )
