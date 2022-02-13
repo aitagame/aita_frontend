@@ -1,5 +1,5 @@
-import { Wrapper } from "./styled";
+import { Wrapper } from './styled'
 
 export const Market = () => {
-	return <Wrapper>Market</Wrapper>;
-};
+  return <Wrapper>Market</Wrapper>
+}
