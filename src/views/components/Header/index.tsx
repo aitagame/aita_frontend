@@ -1,19 +1,17 @@
-import { Button } from '../Button'
-import { AppLink } from '../AppLink'
 import { Logo } from '../Logo'
-import { HeaderWrapper } from './styled'
+import { HeaderWrapper, HeaderContent } from './styled'
+import { BurgerMenu, MenuList } from '../Menu'
+import { PlayGameButton } from '../PlayGameButton'
 
 export const Header: React.FC = () => {
   return (
     <HeaderWrapper>
-      <div>
+      <HeaderContent>
         <Logo />
-        <AppLink to="/">Main</AppLink>
-        <AppLink to="/market">Market</AppLink>
-        <AppLink to="/rooms">Rooms</AppLink>
-        <AppLink to="/play">Play</AppLink>
-      </div>
-      <Button>Play Game</Button>
+        <MenuList />
+      </HeaderContent>
+      <PlayGameButton />
+      <BurgerMenu />
     </HeaderWrapper>
   )
 }

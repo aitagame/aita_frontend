@@ -1,11 +1,11 @@
 import { PromoTitle, PromoWrapper, MainWrapper, PromoContent } from './styled'
 import { Header } from 'views/components/Header'
-import { Button } from 'views/components/Button'
 import { MainSection } from 'views/components/MainSection'
 import { mainBackground, mainSectionsData } from 'views/data/main'
 import { InfoSection } from 'views/components/InfoSection'
 import { ItemsSection } from 'views/components/ItemsSection'
 import { Footer } from 'views/components/Footer'
+import { PlayGameButton } from 'views/components/PlayGameButton'
 
 export const Main: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ export const Main: React.FC = () => {
       <PromoWrapper background={mainBackground}>
         <PromoContent>
           <PromoTitle>Main Promo Title</PromoTitle>
-          <Button>Join Today</Button>
+          <PlayGameButton title="Join Today" />
         </PromoContent>
       </PromoWrapper>
       {mainSectionsData.map((section, i) => (
