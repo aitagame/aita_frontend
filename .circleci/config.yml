@@ -1,0 +1,91 @@
+version: 2.1
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:16.10.0
+      
+jobs:
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+      - run: 
+          name: "Install dependencies"
+          command: |
+            npm i;
+      - save_cache:
+          key: node_modules-{{ checksum "package-lock.json" }}
+          paths: 
+            - node_modules
+      - run: 
+          name: "Build app"
+          command: |
+            npm run build;
+      - save_cache:
+          key: build-{{ checksum "package-lock.json" }}
+          paths: 
+            - build
+
+  deploy:
+    executor: node-executor
+    parameters:
+      target_host:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: "Test target availability"
+          command: |
+            ssh -o StrictHostKeyChecking=no << parameters.target_host >> 'echo test';
+      - restore_cache:
+          keys:
+            - node_modules-{{ checksum "package-lock.json" }}
+            - node_modules-
+      - restore_cache:
+          keys:
+            - build-{{ checksum "package-lock.json" }}
+            - build-
+      - run: 
+          name: "Deploy"
+          command: |
+            zip aita-fe-build.zip -r .;
+            chmod +x ./install.sh;
+            scp -o StrictHostKeyChecking=no aita-fe-build.zip << parameters.target_host >>:aita-fe-build.zip;
+            scp -o StrictHostKeyChecking=no install.sh << parameters.target_host >>:aita-fe-install.sh;
+            ssh -o StrictHostKeyChecking=no << parameters.target_host >> './aita-fe-install.sh';
+
+
+workflows:
+  aita-fe-deploy-dev:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: develop
+      - deploy:
+          target_host: $DEV_SSH_HOST
+          filters:
+            branches:
+              only: develop
+
+  aita-fe-deploy-prod:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          target_host: $PROD_SSH_HOST
+          filters:
+            branches:
+              only: master
+
+  aita-fe-test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /AITA-\d{1}\d*_[a-zA-Z1-9_-]*/
+
+
+
