@@ -6,6 +6,7 @@ import { Market } from './market'
 import { Game } from '../game'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { mainTheme } from './theme/mainTheme'
+import { mobileDevice } from './theme/mediaQuery'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -24,6 +25,9 @@ const GlobalStyle = createGlobalStyle`
     font-stretch: normal;
     font-style: normal;
     letter-spacing: normal;
+    ${mobileDevice} {
+      text-align: center;
+    }
   }
 	`
 

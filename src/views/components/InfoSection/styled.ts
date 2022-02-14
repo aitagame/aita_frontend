@@ -1,14 +1,20 @@
 import styled from 'styled-components'
-import { Wrapper } from '../Wrapper'
-
-export const InfoSectionWrapper = styled(Wrapper)``
+import { desktopDevice, tabletDevice } from 'views/theme/mediaQuery'
 
 export const Content = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
   gap: ${({ theme }) => theme.gutter.small};
+
+  ${tabletDevice} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  ${desktopDevice} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `
 
 export const SectionTitle = styled.h5`

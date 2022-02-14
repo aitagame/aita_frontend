@@ -1,35 +1,38 @@
 import styled from 'styled-components'
+import { desktopDevice } from 'views/theme/mediaQuery'
 import { Wrapper } from '../Wrapper'
 
 export const MainSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
   background-color: ${({ theme, reverse }) => reverse && theme.colors.backgroundSecondary};
   gap: ${({ theme }) => theme.gutter.medium};
-  @media screen and (max-width: 800px) {
-    flex-direction: column;
+
+  ${desktopDevice} {
+    flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
   }
 `
 
 export const SectionImage = styled.span`
+  width: 100%;
   height: 40vmin;
-  width: 40vw;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  @media screen and (max-width: 800px) {
-    width: 100%;
+  ${desktopDevice} {
+    width: 40vw;
   }
 `
 
 export const Content = styled.section`
-  width: 60vw;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
+  ${desktopDevice} {
+    width: 60vw;
+    text-align: left;
   }
 `
 

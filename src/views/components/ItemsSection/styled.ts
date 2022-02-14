@@ -1,8 +1,6 @@
 import styled from 'styled-components'
+import { desktopDevice } from 'views/theme/mediaQuery'
 import { ItemCardWrapper } from '../ItemCard/styled'
-import { Wrapper } from '../Wrapper'
-
-export const ItemsSectionWrapper = styled(Wrapper)``
 
 export const Content = styled.section`
   display: flex;
@@ -10,8 +8,13 @@ export const Content = styled.section`
   justify-content: center;
   align-items: center;
   gap: ${({ theme }) => theme.gutter.medium};
-  ${ItemCardWrapper} {
-    max-width: 25%;
+  flex-direction: column;
+
+  ${desktopDevice} {
+    flex-direction: row;
+    ${ItemCardWrapper} {
+      max-width: 25%;
+    }
   }
 `
 

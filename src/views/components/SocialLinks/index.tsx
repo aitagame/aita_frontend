@@ -1,4 +1,4 @@
-import { SocialLink, SocialLinksWrapper, SocialText } from './styled'
+import { LinkIcons, SocialLink, SocialLinksWrapper, SocialText } from './styled'
 import { InstagramIcon } from 'views/icons/InstagramIcon'
 import { DiscordIcon } from 'views/icons/DiscordIcon'
 import { FacebookIcon } from 'views/icons/FacebookIcon'
@@ -35,11 +35,13 @@ export const SocialLinks: React.FC = () => {
   return (
     <SocialLinksWrapper>
       <SocialText>Follow us:</SocialText>
-      {(Object.keys(icons) as SocialIconType[]).map(iconKey => (
-        <SocialLink href={icons[iconKey].url} key={iconKey}>
-          {icons[iconKey].icon}
-        </SocialLink>
-      ))}
+      <LinkIcons>
+        {(Object.keys(icons) as SocialIconType[]).map(iconKey => (
+          <SocialLink href={icons[iconKey].url} key={iconKey}>
+            {icons[iconKey].icon}
+          </SocialLink>
+        ))}
+      </LinkIcons>
     </SocialLinksWrapper>
   )
 }

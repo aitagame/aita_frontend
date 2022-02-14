@@ -1,10 +1,11 @@
 import { infoSectionData, mainSectionText, mainSectionTitle } from 'views/data/main'
 import { InfoCard } from '../InfoCard'
-import { InfoSectionWrapper, Content, SectionTitle, SectionText } from './styled'
+import { Wrapper } from '../Wrapper'
+import { Content, SectionTitle, SectionText } from './styled'
 
 export const InfoSection: React.FC = () => {
   return (
-    <InfoSectionWrapper>
+    <Wrapper>
       <SectionTitle>{mainSectionTitle}</SectionTitle>
       <SectionText>{mainSectionText}</SectionText>
       <Content>
@@ -12,6 +13,6 @@ export const InfoSection: React.FC = () => {
           <InfoCard cardData={card} key={card.id} />
         ))}
       </Content>
-    </InfoSectionWrapper>
+    </Wrapper>
   )
 }
