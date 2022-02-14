@@ -5,6 +5,7 @@ import { MainSection } from 'views/components/MainSection'
 import { mainBackground, mainSectionsData } from 'views/data/main'
 import { InfoSection } from 'views/components/InfoSection'
 import { ItemsSection } from 'views/components/ItemsSection'
+import { Footer } from 'views/components/Footer'
 
 export const Main: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const Main: React.FC = () => {
       ))}
       <InfoSection />
       <ItemsSection />
+      <Footer />
     </MainWrapper>
   )
 }
