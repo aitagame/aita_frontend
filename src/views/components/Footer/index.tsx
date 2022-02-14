@@ -6,7 +6,7 @@ import { FooterWrapper, Links } from './styled'
 export const Footer: React.FC = () => {
   return (
     <FooterWrapper>
-      <Logo src="" />
+      <Logo />
       <Links>
         <AppLink to="/">Mobile app</AppLink>
         <AppLink to="/">Community</AppLink>

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { LogoWrapper } from '../Logo'
 
 export const HeaderWrapper = styled.header`
   width: 100vw;
@@ -9,4 +10,9 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+
+  ${LogoWrapper} {
+    display: inline-block;
+    margin-right: 5rem;
+  }
 `

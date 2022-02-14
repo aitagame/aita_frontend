@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   return (
     <HeaderWrapper>
       <div>
-        <Logo src="" />
+        <Logo />
         <AppLink to="/">Main</AppLink>
         <AppLink to="/market">Market</AppLink>
         <AppLink to="/rooms">Rooms</AppLink>
