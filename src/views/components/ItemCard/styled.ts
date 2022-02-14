@@ -4,6 +4,7 @@ import { desktopDevice, tabletDevice } from 'views/theme/mediaQuery'
 export const ItemCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: center;
 
   ${tabletDevice} {
     flex-direction: row;
