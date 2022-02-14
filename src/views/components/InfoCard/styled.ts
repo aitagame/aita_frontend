@@ -4,13 +4,15 @@ import { desktopDevice } from 'views/theme/mediaQuery'
 export const Content = styled.section`
   width: 100%;
   height: 100%;
-  padding: ${({ theme }) => `1rem ${theme.gutter.small}`};
+  padding: ${({ theme }) => `2rem ${theme.gutter.small}`};
   background-color: rgba(255, 255, 255, 0.3);
   opacity: 0;
   transition: opacity 0.3s linear;
   overflow: auto;
+  box-shadow: ${({ theme }) => `inset 0 0 80px 20px ${theme.colors.backgroundPrimary}`};
+
   ${desktopDevice} {
-    padding: ${({ theme }) => `1rem ${theme.gutter.medium}`};
+    padding: ${({ theme }) => `2rem ${theme.gutter.medium}`};
   }
 `
 
@@ -21,6 +23,7 @@ export const InfoCardWrapper = styled.div<{ background: string }>`
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
+  box-shadow: ${({ theme }) => `inset 0 0 80px 30px ${theme.colors.backgroundPrimary}`};
   &:hover ${Content} {
     opacity: 1;
   }
