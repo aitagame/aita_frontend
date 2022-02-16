@@ -1,11 +1,5 @@
 import styled from 'styled-components'
 
-export const MainWrapper = styled.main`
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  color: ${({ theme }) => theme.colors.text};
-  font-family: ${({ theme }) => theme.fonts.primary};
-`
-
 export const PromoWrapper = styled.div<{ background: string }>`
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};

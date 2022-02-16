@@ -9,6 +9,6 @@ export const Button = styled.button`
   padding: 0.5rem 1rem;
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    background-color: ${({ theme }) => theme.colors.secondaryLight};
   }
 `

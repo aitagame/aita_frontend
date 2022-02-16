@@ -1,12 +1,13 @@
 import { Routes } from 'react-router'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import { Main } from './main'
-import { Rooms } from './rooms'
-import { Market } from './market'
+import { Main } from 'views/pages/main'
+import { Rooms } from 'views/pages/rooms'
+import { Market } from 'views/pages/market'
 import { Game } from '../game'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { mainTheme } from './theme/mainTheme'
 import { mobileDevice } from './theme/mediaQuery'
+import { Login } from 'views/pages/login'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -41,6 +42,7 @@ export const App = () => {
             <Route path="/market" element={<Market />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/play" element={<Game />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<Main />} />
           </Routes>
         </Router>
