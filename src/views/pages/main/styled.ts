@@ -4,6 +4,7 @@ export const PromoWrapper = styled.div<{ background: string }>`
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;

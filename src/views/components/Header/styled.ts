@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { desktopDevice, mobileDevice } from 'views/theme/mediaQuery'
 import { AppLink } from '../AppLink'
-import { LogoWrapper } from '../Logo'
+import { LogoLink } from '../Logo'
 import { PlayGameButtonStyled } from '../PlayGameButton/styled'
 
 export const HeaderWrapper = styled.header`
@@ -24,8 +24,7 @@ export const HeaderWrapper = styled.header`
 `
 
 export const HeaderContent = styled.div`
-  ${LogoWrapper} {
-    display: inline-block;
+  ${LogoLink} {
     margin-right: 5rem;
   }
   ${mobileDevice} {
