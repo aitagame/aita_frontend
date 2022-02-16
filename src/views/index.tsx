@@ -8,6 +8,8 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { mainTheme } from './theme/mainTheme'
 import { mobileDevice } from './theme/mediaQuery'
 import { Login } from 'views/pages/login'
+import { AuthContext, AuthContextValues } from './context/Auth'
+import { useMemo, useState } from 'react'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -33,19 +35,31 @@ const GlobalStyle = createGlobalStyle`
 	`
 
 export const App = () => {
+  const [walletId, setWalletId] = useState('')
+
+  const authValue = useMemo((): AuthContextValues => {
+    return {
+      walletId,
+      setWalletId,
+      isLoggedIn: !!walletId,
+    }
+  }, [walletId])
+
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={mainTheme}>
-        <Router>
-          <Routes>
-            <Route path="/market" element={<Market />} />
-            <Route path="/rooms" element={<Rooms />} />
-            <Route path="/play" element={<Game />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Main />} />
-          </Routes>
-        </Router>
+        <AuthContext.Provider value={authValue}>
+          <Router>
+            <Routes>
+              <Route path="/market" element={<Market />} />
+              <Route path="/rooms" element={<Rooms />} />
+              <Route path="/play" element={<Game />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<Main />} />
+            </Routes>
+          </Router>
+        </AuthContext.Provider>
       </ThemeProvider>
     </>
   )
