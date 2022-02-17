@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { desktopDevice } from 'views/theme/mediaQuery'
 
 export const PromoWrapper = styled.div<{ background: string }>`
   height: 100vh;
@@ -13,9 +14,12 @@ export const PromoWrapper = styled.div<{ background: string }>`
 
 export const PromoContent = styled.div`
   position: absolute;
-  top: 70vh;
+  top: 40vh;
   width: 100%;
   text-align: center;
+  ${desktopDevice} {
+    top: 70vh;
+  }
 `
 
 export const PromoTitle = styled.h1`

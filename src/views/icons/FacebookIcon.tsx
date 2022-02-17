@@ -5,10 +5,10 @@ export const FacebookIcon: React.FC<{ fill?: string }> = ({ fill = 'unset' }) =>
     height="100%"
     style={
       {
-        'fill-rule': 'evenodd',
-        'clip-rule': 'evenodd',
-        'stroke-linejoin': 'round',
-        'stroke-miterlimit': 2,
+        fillRule: 'evenodd',
+        clipRule: 'evenodd',
+        strokeLinejoin: 'round',
+        strokeMiterlimit: 2,
       } as CSSProperties
     }
     version="1.1"

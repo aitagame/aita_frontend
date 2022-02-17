@@ -10,6 +10,7 @@ import { mobileDevice } from './theme/mediaQuery'
 import { Login } from 'views/pages/login'
 import { AuthContext, AuthContextValues } from './context/Auth'
 import { useMemo, useState } from 'react'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -52,11 +53,13 @@ export const App = () => {
         <AuthContext.Provider value={authValue}>
           <Router>
             <Routes>
-              <Route path="/market" element={<Market />} />
-              <Route path="/rooms" element={<Rooms />} />
-              <Route path="/play" element={<Game />} />
               <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Main />} />
+              <Route path="/" element={<Main />} />
+              <Route path="/" element={<ProtectedRoute />}>
+                <Route path="/market" element={<Market />} />
+                <Route path="/rooms" element={<Rooms />} />
+                <Route path="/play" element={<Game />} />
+              </Route>
             </Routes>
           </Router>
         </AuthContext.Provider>
