@@ -1,16 +1,27 @@
 import styled from 'styled-components'
+import { desktopDevice } from 'views/theme/mediaQuery'
 import { Button } from '../Button'
 
 export const ConnectWalletButton = styled(Button)`
-  max-width: 14vmax;
-  width: 14vmax;
-  height: 15vmax;
-  padding: 3vw 0;
+  width: 30rem;
+  max-width: 100%;
+  padding: 1rem;
   border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 
   svg {
     width: 5vmax;
     height: 5vmax;
+  }
+
+  ${desktopDevice} {
+    flex-direction: column;
+    width: 14vmax;
+    height: 15vmax;
+    max-width: 14vmax;
   }
 `
 
