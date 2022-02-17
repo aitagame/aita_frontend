@@ -11,6 +11,7 @@ import { Login } from 'views/pages/login'
 import { AuthContext, AuthContextValues } from './context/Auth'
 import { useMemo, useState } from 'react'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { NearAuth } from './types/near'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -37,15 +38,21 @@ const GlobalStyle = createGlobalStyle`
 	`
 
 export const App = () => {
-  const [walletId, setWalletId] = useState('')
+  const [nearAuthData, setNearAuthData] = useState<NearAuth>({
+    accountId: '',
+    functionalKey: '',
+    keyStore: '',
+  })
+  const [walletId] = useState('') // TODO: add after api is ready
 
   const authValue = useMemo((): AuthContextValues => {
     return {
+      nearAuth: nearAuthData,
+      setNearAuth: setNearAuthData,
+      isLoggedIn: !!nearAuthData.accountId,
       walletId,
-      setWalletId,
-      isLoggedIn: !!walletId,
     }
-  }, [walletId])
+  }, [nearAuthData, walletId])
 
   return (
     <>
