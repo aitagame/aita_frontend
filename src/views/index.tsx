@@ -9,9 +9,9 @@ import { mainTheme } from './theme/mainTheme'
 import { mobileDevice } from './theme/mediaQuery'
 import { Login } from 'views/pages/login'
 import { AuthContext, AuthContextValues } from './context/Auth'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { NearAuth } from './types/near'
+import { useNearAuth } from './hooks/useAuth'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -38,21 +38,21 @@ const GlobalStyle = createGlobalStyle`
 	`
 
 export const App = () => {
-  const [nearAuthData, setNearAuthData] = useState<NearAuth>({
-    accountId: '',
-    functionalKey: '',
-    keyStore: '',
-  })
+  const { checkNearAuth, nearAuthValues, setNearAuthData } = useNearAuth()
   const [walletId] = useState('') // TODO: add after api is ready
 
   const authValue = useMemo((): AuthContextValues => {
     return {
-      nearAuth: nearAuthData,
+      nearAuth: nearAuthValues,
       setNearAuth: setNearAuthData,
-      isLoggedIn: !!nearAuthData.accountId,
+      isLoggedIn: !!nearAuthValues.accountId,
       walletId,
     }
-  }, [nearAuthData, walletId])
+  }, [nearAuthValues, setNearAuthData, walletId])
+
+  useEffect(() => {
+    checkNearAuth()
+  }, [checkNearAuth])
 
   return (
     <>
