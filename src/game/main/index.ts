@@ -26,7 +26,6 @@ class Background {
     else this.center = new Pointer(width / 2, height / 2)
   }
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(this.img, 0, 0, canvas.width, canvas.height)
   }
 }
