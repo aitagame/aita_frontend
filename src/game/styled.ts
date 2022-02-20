@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Canvas = styled.canvas`
   position: absolute;
@@ -6,4 +6,4 @@ export const Canvas = styled.canvas`
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
-`
+`;

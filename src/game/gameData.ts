@@ -1,8 +1,8 @@
-import backgroundImage from './assets/backgrounds/background2.png'
+import backgroundImage from './assets/backgrounds/background2.png';
 
 export interface IGameData {
-  backgroundImage: string
+  backgroundImage: string;
 }
 export const gameData: IGameData = {
   backgroundImage: backgroundImage,
-}
+};
