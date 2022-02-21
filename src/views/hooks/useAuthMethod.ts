@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { AuthConnectHook, AuthMethod, AuthMethodHook } from 'views/types/auth'
-import { useMetamaskAuth, useNearAuth } from './useAuth'
+import { useMetamaskAuth, useNearAuth } from './useAuthValues'
 import { useMetamask } from './useMetamask'
 import { useNear } from './useNear'
 

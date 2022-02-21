@@ -3,21 +3,23 @@ import { useCallback, useContext, useMemo, useState } from 'react'
 import { AuthContext } from 'views/context/Auth'
 import { MetamaskAuth, NearAuth } from 'views/types/auth'
 import { NearLSWallet } from 'views/types/near'
+import { Profile } from 'views/types/user'
 import { useLocalStorage } from './useLocalStorage'
 
-interface useAuthValues {
+interface UseAuthValues {
   isLoggedIn: boolean
+  profile: Profile
 }
 
-export const useAuth = (): useAuthValues => {
-  const { isLoggedIn, authMethod } = useContext(AuthContext) // TODO: add check for profile existance
+export const useAuthValues = (): UseAuthValues => {
+  const { isLoggedIn, profile } = useContext(AuthContext)
 
   return useMemo(
     () => ({
       isLoggedIn,
-      method: authMethod,
+      profile,
     }),
-    [isLoggedIn, authMethod]
+    [isLoggedIn, profile]
   )
 }
 

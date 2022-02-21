@@ -9,11 +9,16 @@ import { mainTheme } from './theme/mainTheme'
 import { mobileDevice } from './theme/mediaQuery'
 import { Login } from 'views/pages/login'
 import { AuthContext, AuthContextValues } from './context/Auth'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { AuthMethod } from './types/auth'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { useAuthMethod } from './hooks/useAuthMethod'
+import { Profile as ProfilePage } from './pages/profile'
+import AitaService from './service/index.service'
+import { makeAutoObservable } from 'mobx'
+import { observer } from 'mobx-react-lite'
+import { Profile, User } from './types/user'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -39,7 +44,45 @@ const GlobalStyle = createGlobalStyle`
   }
 	`
 
-export const App = () => {
+const getIdentifier = (authMethod: AuthMethod) => {
+  switch (authMethod) {
+    case 'Near':
+      return 'functionalKey'
+    default:
+      return null
+  }
+}
+
+class UserData {
+  user: User = {
+    id: '',
+  }
+  profile: Profile = {
+    id: '',
+    name: '',
+    class: '',
+    rating: 0,
+    is_my: false,
+  }
+
+  constructor() {
+    makeAutoObservable(this)
+  }
+
+  // TODO: clarify what endpoint use and how
+  *getUser(key: string) {
+    const userId: string = yield AitaService.get(`users/${key}`)
+    const userProfile: User = yield AitaService.get(`profiles/${userId}`)
+    if (userProfile.id) {
+      this.user = userProfile
+    }
+  }
+}
+
+const userInfo = new UserData()
+
+export const App = observer(() => {
+  const { user, profile, getUser } = userInfo
   const { getLSValue } = useLocalStorage()
   const [walletId] = useState('') // TODO: add after api is ready
   const [authMethod, setAuthMethod] = useState<AuthMethod>(getLSValue('method', false))
@@ -53,15 +96,31 @@ export const App = () => {
       setValues,
       isLoggedIn: !!values.accountId,
       walletId,
+      user,
+      profile,
     }
-  }, [authMethod, setValues, values, walletId])
+  }, [authMethod, profile, setValues, user, values, walletId])
+
+  const getUserInfo = useCallback(() => {
+    if (!!values.accountId && !user.id) {
+      const identifier = getIdentifier(authMethod)
+      identifier && getUser((values as any)[identifier]) //TODO: fix type
+    }
+  }, [authMethod, getUser, user.id, values])
 
   useEffect(() => {
     localStorage.setItem('method', authMethod)
-    connect().then(() => {
-      checkAuth()
-    })
-  }, [authMethod, checkAuth, connect])
+  }, [authMethod])
+
+  useEffect(() => {
+    const connectWithCheck = async () => {
+      await connect()
+      await checkAuth()
+      await getUserInfo()
+    }
+    connectWithCheck()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authMethod])
 
   return (
     <>
@@ -77,10 +136,13 @@ export const App = () => {
                 <Route path="/rooms" element={<Rooms />} />
                 <Route path="/play" element={<Game />} />
               </Route>
+              <Route path="/" element={<ProtectedRoute profileCheck={false} />}>
+                <Route path="/profile" element={<ProfilePage />} />
+              </Route>
             </Routes>
           </Router>
         </AuthContext.Provider>
       </ThemeProvider>
     </>
   )
-}
+})
