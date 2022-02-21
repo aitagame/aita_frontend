@@ -1,15 +1,11 @@
 import styled from 'styled-components'
-
-export const MainWrapper = styled.main`
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  color: ${({ theme }) => theme.colors.text};
-  font-family: ${({ theme }) => theme.fonts.primary};
-`
+import { desktopDevice } from 'views/theme/mediaQuery'
 
 export const PromoWrapper = styled.div<{ background: string }>`
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -18,9 +14,12 @@ export const PromoWrapper = styled.div<{ background: string }>`
 
 export const PromoContent = styled.div`
   position: absolute;
-  top: 70vh;
+  top: 40vh;
   width: 100%;
   text-align: center;
+  ${desktopDevice} {
+    top: 70vh;
+  }
 `
 
 export const PromoTitle = styled.h1`
