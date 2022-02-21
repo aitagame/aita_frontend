@@ -9,13 +9,14 @@ interface useAuthValues {
 }
 
 export const useAuth = (): useAuthValues => {
-  const { isLoggedIn } = useContext(AuthContext) // TODO: add check for profile existance
+  const { isLoggedIn, authMethod } = useContext(AuthContext) // TODO: add check for profile existance
 
   return useMemo(
     () => ({
       isLoggedIn,
+      method: authMethod,
     }),
-    [isLoggedIn]
+    [isLoggedIn, authMethod]
   )
 }
 
@@ -30,7 +31,6 @@ export const useNearAuth = () => {
   const checkNearAuth = useCallback(() => {
     const nearWalletData: NearLSWallet = getLSValue('_wallet_auth_key')
     const accountId = nearWalletData.accountId
-
     if (!accountId) return
     setNearAuthData({
       accountId,

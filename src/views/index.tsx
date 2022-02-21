@@ -12,6 +12,8 @@ import { AuthContext, AuthContextValues } from './context/Auth'
 import { useEffect, useMemo, useState } from 'react'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { useNearAuth } from './hooks/useAuth'
+import { AuthMethod } from './types/auth'
+import { useNear } from './hooks/useNear'
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -39,20 +41,30 @@ const GlobalStyle = createGlobalStyle`
 
 export const App = () => {
   const { checkNearAuth, nearAuthValues, setNearAuthData } = useNearAuth()
+  const { connectNear } = useNear()
+  const initMethod: AuthMethod = (localStorage.getItem('method') as AuthMethod) || ''
   const [walletId] = useState('') // TODO: add after api is ready
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(initMethod)
 
   const authValue = useMemo((): AuthContextValues => {
     return {
+      authMethod: authMethod,
+      setAuthMethod,
       nearAuth: nearAuthValues,
       setNearAuth: setNearAuthData,
       isLoggedIn: !!nearAuthValues.accountId,
       walletId,
     }
-  }, [nearAuthValues, setNearAuthData, walletId])
+  }, [authMethod, nearAuthValues, setNearAuthData, walletId])
 
   useEffect(() => {
-    checkNearAuth()
-  }, [checkNearAuth])
+    if (authMethod === 'Near') {
+      connectNear().then(() => {
+        checkNearAuth()
+      })
+    }
+    localStorage.setItem('method', authMethod)
+  }, [authMethod, checkNearAuth, connectNear])
 
   return (
     <>

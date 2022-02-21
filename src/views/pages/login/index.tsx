@@ -5,15 +5,17 @@ import { Metamask } from 'views/components/LoginWallets/Metamask'
 import { Near } from 'views/components/LoginWallets/Near'
 import { Title, TitleH2 } from 'views/components/Title'
 import { useAuth } from 'views/hooks/useAuth'
+import { useLocalStorage } from 'views/hooks/useLocalStorage'
 import { ConnectWalletWrapper, LoginContent } from './styled'
 
 export const Login: React.FC = () => {
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
+  const { getLSValue } = useLocalStorage()
 
   useEffect(() => {
-    if (isLoggedIn) navigate('/')
-  }, [isLoggedIn, navigate])
+    if (isLoggedIn) navigate(getLSValue('loginFrom', false) || '/')
+  }, [getLSValue, isLoggedIn, navigate])
 
   return (
     <BaseLayout>
