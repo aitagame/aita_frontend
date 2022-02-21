@@ -6,13 +6,13 @@ import { useNear } from 'views/hooks/useNear'
 
 export const Near: React.FC = () => {
   const { setAuthMethod } = useContext(AuthContext)
-  const { connectNear, signIn } = useNear()
+  const { connect, signIn } = useNear()
 
   return (
     <ConnectWalletButton
       onClick={() => {
         setAuthMethod('Near')
-        connectNear().then(() => {
+        connect().then(() => {
           signIn()
         })
       }}

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { desktopDevice } from 'views/theme/mediaQuery'
-import { Wrapper } from '../Wrapper'
+import { Wrapper } from 'views/components/Wrapper'
 
 export const MainSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>`
   display: flex;

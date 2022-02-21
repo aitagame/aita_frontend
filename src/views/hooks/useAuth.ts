@@ -1,7 +1,8 @@
 import { appConfig } from 'config/appConfig'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { AuthContext } from 'views/context/Auth'
-import { NearAuth, NearLSWallet } from 'views/types/near'
+import { MetamaskAuth, NearAuth } from 'views/types/auth'
+import { NearLSWallet } from 'views/types/near'
 import { useLocalStorage } from './useLocalStorage'
 
 interface useAuthValues {
@@ -41,10 +42,31 @@ export const useNearAuth = () => {
 
   return useMemo(
     () => ({
-      checkNearAuth,
-      nearAuthValues: nearAuthData,
-      setNearAuthData,
+      checkAuth: checkNearAuth,
+      values: nearAuthData,
+      setValues: setNearAuthData,
     }),
     [checkNearAuth, nearAuthData]
+  )
+}
+
+export const useMetamaskAuth = () => {
+  const [values, setValues] = useState<MetamaskAuth>({
+    accountId: '',
+  })
+
+  const checkAuth = useCallback(() => {
+    setValues({
+      accountId: '',
+    })
+  }, [])
+
+  return useMemo(
+    () => ({
+      checkAuth,
+      values,
+      setValues,
+    }),
+    [checkAuth, values]
   )
 }

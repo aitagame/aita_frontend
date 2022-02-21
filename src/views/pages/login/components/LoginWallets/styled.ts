@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { desktopDevice } from 'views/theme/mediaQuery'
-import { Button } from '../Button'
+import { Button } from 'views/components/Button'
 
 export const ConnectWalletButton = styled(Button)`
   width: 30rem;
