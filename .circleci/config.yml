@@ -20,6 +20,7 @@ jobs:
       - run: 
           name: "Build app"
           command: |
+            env > .env;
             npm run build;
       - save_cache:
           key: build-{{ checksum "package-lock.json" }}
@@ -64,6 +65,8 @@ workflows:
               only: develop
       - deploy:
           target_host: $DEV_SSH_HOST
+          requires:
+            - test
           filters:
             branches:
               only: develop
@@ -76,6 +79,8 @@ workflows:
               only: master
       - deploy:
           target_host: $PROD_SSH_HOST
+          requires:
+            - test
           filters:
             branches:
               only: master
