@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const AppLink = styled(Link)`
   padding: 0 0.5rem;
@@ -9,4 +9,4 @@ export const AppLink = styled(Link)`
   :hover {
     color: ${({ theme }) => theme.colors.secondary};
   }
-`
+`;

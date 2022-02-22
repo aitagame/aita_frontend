@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { mobileDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { mobileDevice } from 'views/theme/mediaQuery';
 
 export const SocialLinksWrapper = styled.div`
   display: flex;
@@ -9,15 +9,15 @@ export const SocialLinksWrapper = styled.div`
   ${mobileDevice} {
     flex-direction: column;
   }
-`
+`;
 
-export const SocialText = styled.p``
+export const SocialText = styled.p``;
 
 export const LinkIcons = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-`
+`;
 
 export const SocialLink = styled.a`
   width: 2rem;
@@ -33,4 +33,4 @@ export const SocialLink = styled.a`
     height: 100%;
     fill: ${({ theme }) => theme.colors.text};
   }
-`
+`;

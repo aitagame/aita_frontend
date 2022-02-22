@@ -1,8 +1,8 @@
-import { SectionItem } from 'views/types/mainPage'
-import { InfoCardWrapper, Content, SectionTitle, SectionText } from './styled'
+import { SectionItem } from 'views/types/mainPage';
+import { InfoCardWrapper, Content, SectionTitle, SectionText } from './styled';
 
 interface InfoCardProps {
-  cardData: SectionItem
+  cardData: SectionItem;
 }
 
 export const InfoCard: React.FC<InfoCardProps> = ({ cardData }) => {
@@ -13,5 +13,5 @@ export const InfoCard: React.FC<InfoCardProps> = ({ cardData }) => {
         <SectionText>{cardData.text}</SectionText>
       </Content>
     </InfoCardWrapper>
-  )
-}
+  );
+};
