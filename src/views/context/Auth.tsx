@@ -1,16 +1,16 @@
-import { createContext } from 'react'
-import { AuthMethod, MethodHookValues } from 'views/types/auth'
-import { Profile, User } from 'views/types/user'
+import { createContext } from 'react';
+import { AuthMethod, MethodHookValues } from 'views/types/auth';
+import { Profile, User } from 'views/types/user';
 
 export interface AuthContextValues {
-  isLoggedIn: boolean
-  authMethod: AuthMethod | null
-  setAuthMethod: (method: AuthMethod) => void
-  walletId: string | null
-  values?: MethodHookValues | null
-  setValues?: (data: MethodHookValues) => void
-  profile: Profile
-  user: User
+  isLoggedIn: boolean;
+  authMethod: AuthMethod | null;
+  setAuthMethod: (method: AuthMethod) => void;
+  walletId: string | null;
+  values?: MethodHookValues | null;
+  setValues?: (data: MethodHookValues) => void;
+  profile: Profile;
+  user: User;
 }
 
 const AuthContextData: AuthContextValues = {
@@ -30,6 +30,6 @@ const AuthContextData: AuthContextValues = {
   user: {
     id: '',
   },
-}
+};
 
-export const AuthContext = createContext(AuthContextData)
+export const AuthContext = createContext(AuthContextData);

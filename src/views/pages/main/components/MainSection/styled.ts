@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { desktopDevice } from 'views/theme/mediaQuery'
-import { Wrapper } from 'views/components/Wrapper'
+import styled from 'styled-components';
+import { desktopDevice } from 'views/theme/mediaQuery';
+import { Wrapper } from 'views/components/Wrapper';
 
 export const MainSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>`
   display: flex;
@@ -12,7 +12,7 @@ export const MainSectionWrapper = styled(Wrapper)<{ reverse?: boolean }>`
   ${desktopDevice} {
     flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
   }
-`
+`;
 
 export const SectionImage = styled.span`
   width: 100%;
@@ -25,7 +25,7 @@ export const SectionImage = styled.span`
   ${desktopDevice} {
     width: 40vw;
   }
-`
+`;
 
 export const Content = styled.section`
   width: 100%;
@@ -34,13 +34,13 @@ export const Content = styled.section`
     width: 60vw;
     text-align: left;
   }
-`
+`;
 
 export const SectionTitle = styled.h5`
   font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
   margin-bottom: 0.5em;
   font-weight: 500;
-`
+`;
 export const SectionText = styled.p`
   letter-spacing: 1px;
-`
+`;

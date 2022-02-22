@@ -1,7 +1,7 @@
-import { AppLink } from '../AppLink'
-import { Logo } from '../Logo'
-import { SocialLinks } from '../SocialLinks'
-import { FooterWrapper, Links } from './styled'
+import { AppLink } from '../AppLink';
+import { Logo } from '../Logo';
+import { SocialLinks } from '../SocialLinks';
+import { FooterWrapper, Links } from './styled';
 
 export const Footer: React.FC = () => {
   return (
@@ -14,5 +14,5 @@ export const Footer: React.FC = () => {
       </Links>
       <SocialLinks />
     </FooterWrapper>
-  )
-}
+  );
+};

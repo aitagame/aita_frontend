@@ -1,8 +1,8 @@
-import { SectionItem } from 'views/types/mainPage'
-import { ItemCardWrapper, SectionTitle, SectionText, ItemDescription, ItemImage } from './styled'
+import { SectionItem } from 'views/types/mainPage';
+import { ItemCardWrapper, SectionTitle, SectionText, ItemDescription, ItemImage } from './styled';
 
 interface ItemCardProps {
-  cardData: SectionItem
+  cardData: SectionItem;
 }
 
 export const ItemCard: React.FC<ItemCardProps> = ({ cardData }) => {
@@ -14,5 +14,5 @@ export const ItemCard: React.FC<ItemCardProps> = ({ cardData }) => {
         <SectionText>{cardData.text}</SectionText>
       </ItemDescription>
     </ItemCardWrapper>
-  )
-}
+  );
+};

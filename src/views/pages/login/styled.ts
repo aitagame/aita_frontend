@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import { BaseContent } from 'views/components/BaseLayout/styled'
-import { desktopDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { BaseContent } from 'views/components/BaseLayout/styled';
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const LoginContent = styled(BaseContent)`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`
+`;
 
 export const ConnectWalletWrapper = styled.div`
   width: 100%;
@@ -24,4 +24,4 @@ export const ConnectWalletWrapper = styled.div`
     gap: 1vmax;
     padding: 10vh;
   }
-`
+`;

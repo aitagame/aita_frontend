@@ -239,4 +239,4 @@ export const MetamaskIcon: React.FC<{ fill?: string }> = () => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);

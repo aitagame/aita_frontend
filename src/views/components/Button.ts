@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -11,4 +11,4 @@ export const Button = styled.button`
   :hover {
     background-color: ${({ theme }) => theme.colors.secondaryLight};
   }
-`
+`;

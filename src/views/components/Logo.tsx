@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const LogoLink = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
@@ -7,8 +7,8 @@ export const LogoLink = styled(Link)`
   font-size: 1.3rem;
   text-decoration: none;
   display: inline-block;
-`
+`;
 
 export const Logo: React.FC = () => {
-  return <LogoLink to="/">Aita</LogoLink>
-}
+  return <LogoLink to="/">Aita</LogoLink>;
+};

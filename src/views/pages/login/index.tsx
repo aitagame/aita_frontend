@@ -1,21 +1,21 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { BaseLayout } from 'views/components/BaseLayout'
-import { Metamask } from 'views/pages/login/components/LoginWallets/Metamask'
-import { Near } from 'views/pages/login/components/LoginWallets/Near'
-import { Title, TitleH2 } from 'views/components/Title'
-import { useAuthValues } from 'views/hooks/useAuthValues'
-import { useLocalStorage } from 'views/hooks/useLocalStorage'
-import { ConnectWalletWrapper, LoginContent } from './styled'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { BaseLayout } from 'views/components/BaseLayout';
+import { Metamask } from 'views/pages/login/components/LoginWallets/Metamask';
+import { Near } from 'views/pages/login/components/LoginWallets/Near';
+import { Title, TitleH2 } from 'views/components/Title';
+import { useAuthValues } from 'views/hooks/useAuthValues';
+import { useLocalStorage } from 'views/hooks/useLocalStorage';
+import { ConnectWalletWrapper, LoginContent } from './styled';
 
 export const Login: React.FC = () => {
-  const { isLoggedIn } = useAuthValues()
-  const navigate = useNavigate()
-  const { getLSValue } = useLocalStorage()
+  const { isLoggedIn } = useAuthValues();
+  const navigate = useNavigate();
+  const { getLSValue } = useLocalStorage();
 
   useEffect(() => {
-    if (isLoggedIn) navigate(getLSValue('loginFrom', false) || '/')
-  }, [getLSValue, isLoggedIn, navigate])
+    if (isLoggedIn) navigate(getLSValue('loginFrom', false) || '/');
+  }, [getLSValue, isLoggedIn, navigate]);
 
   return (
     <BaseLayout>
@@ -28,5 +28,5 @@ export const Login: React.FC = () => {
         </ConnectWalletWrapper>
       </LoginContent>
     </BaseLayout>
-  )
-}
+  );
+};

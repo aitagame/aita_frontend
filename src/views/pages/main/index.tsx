@@ -1,11 +1,11 @@
-import { PromoTitle, PromoWrapper, PromoContent } from './styled'
-import { MainSection } from 'views/pages/main/components/MainSection'
-import { mainSectionsData } from 'views/pages/main/data'
-import { InfoSection } from 'views/pages/main/components/InfoSection'
-import { ItemsSection } from 'views/pages/main/components/ItemsSection'
-import { PlayGameButton } from 'views/components/PlayGameButton'
-import promoImage from 'views/assets/promo.jpg'
-import { BaseLayout } from 'views/components/BaseLayout'
+import { PromoTitle, PromoWrapper, PromoContent } from './styled';
+import { MainSection } from 'views/pages/main/components/MainSection';
+import { mainSectionsData } from 'views/pages/main/data';
+import { InfoSection } from 'views/pages/main/components/InfoSection';
+import { ItemsSection } from 'views/pages/main/components/ItemsSection';
+import { PlayGameButton } from 'views/components/PlayGameButton';
+import promoImage from 'views/assets/promo.jpg';
+import { BaseLayout } from 'views/components/BaseLayout';
 
 export const Main: React.FC = () => {
   return (
@@ -22,5 +22,5 @@ export const Main: React.FC = () => {
       <InfoSection />
       <ItemsSection />
     </BaseLayout>
-  )
-}
+  );
+};

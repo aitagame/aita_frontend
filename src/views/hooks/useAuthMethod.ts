@@ -1,35 +1,35 @@
-import { useCallback, useMemo } from 'react'
-import { AuthConnectHook, AuthMethod, AuthMethodHook } from 'views/types/auth'
-import { useMetamaskAuth, useNearAuth } from './useAuthValues'
-import { useMetamask } from './useMetamask'
-import { useNear } from './useNear'
+import { useCallback, useMemo } from 'react';
+import { AuthConnectHook, AuthMethod, AuthMethodHook } from 'views/types/auth';
+import { useMetamaskAuth, useNearAuth } from './useAuthValues';
+import { useMetamask } from './useMetamask';
+import { useNear } from './useNear';
 
 export const useAuthMethod = (method: AuthMethod) => {
   const getMethodHook = useCallback((): (() => AuthMethodHook) => {
     switch (method) {
       case 'Near':
-        return useNearAuth as () => AuthMethodHook
+        return useNearAuth as () => AuthMethodHook;
       case 'Metamask':
-        return useMetamaskAuth
+        return useMetamaskAuth;
       default:
-        return useNearAuth as () => AuthMethodHook // TODO: update types, check why there is an error
+        return useNearAuth as () => AuthMethodHook; // TODO: update types, check why there is an error
     }
-  }, [method])
+  }, [method]);
 
   const getConnectHook = useCallback((): (() => AuthConnectHook) => {
     switch (method) {
       case 'Near':
-        return useNear
+        return useNear;
       case 'Metamask':
-        return useMetamask
+        return useMetamask;
       default:
-        return useNear
+        return useNear;
     }
-  }, [method])
+  }, [method]);
 
-  const { values, setValues, checkAuth } = getMethodHook()()
+  const { values, setValues, checkAuth } = getMethodHook()();
 
-  const { connect } = getConnectHook()()
+  const { connect } = getConnectHook()();
 
   return useMemo(
     () => ({
@@ -39,5 +39,5 @@ export const useAuthMethod = (method: AuthMethod) => {
       connect,
     }),
     [checkAuth, setValues, values, connect]
-  )
-}
+  );
+};

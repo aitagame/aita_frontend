@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { mobileDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { mobileDevice } from 'views/theme/mediaQuery';
 
 export const Burger = styled.div<{ open: boolean }>`
   display: none;
@@ -42,7 +42,7 @@ export const Burger = styled.div<{ open: boolean }>`
   ${mobileDevice} {
     display: flex;
   }
-`
+`;
 
 export const Menu = styled.nav<{ open: boolean }>`
   display: none;
@@ -62,4 +62,4 @@ export const Menu = styled.nav<{ open: boolean }>`
   ${mobileDevice} {
     display: flex;
   }
-`
+`;

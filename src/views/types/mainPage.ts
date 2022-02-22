@@ -1,6 +1,6 @@
 export interface SectionItem {
-  id: string
-  title: string
-  text: string
-  url: string
+  id: string;
+  title: string;
+  text: string;
+  url: string;
 }

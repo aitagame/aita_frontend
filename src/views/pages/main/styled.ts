@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { desktopDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const PromoWrapper = styled.div<{ background: string }>`
   height: 100vh;
@@ -10,7 +10,7 @@ export const PromoWrapper = styled.div<{ background: string }>`
   background-attachment: fixed;
   background-size: cover;
   position: relative;
-`
+`;
 
 export const PromoContent = styled.div`
   position: absolute;
@@ -20,8 +20,8 @@ export const PromoContent = styled.div`
   ${desktopDevice} {
     top: 70vh;
   }
-`
+`;
 
 export const PromoTitle = styled.h1`
   font-size: ${({ theme }) => theme.fonts.sizes.title};
-`
+`;

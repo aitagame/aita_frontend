@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { desktopDevice, mobileDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { desktopDevice, mobileDevice } from 'views/theme/mediaQuery';
 
 export const FooterWrapper = styled.footer`
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
@@ -13,7 +13,7 @@ export const FooterWrapper = styled.footer`
   ${desktopDevice} {
     flex-direction: row;
   }
-`
+`;
 export const Links = styled.div`
   display: flex;
   flex-direction: row;
@@ -21,4 +21,4 @@ export const Links = styled.div`
     flex-direction: column;
     gap: ${({ theme }) => theme.gutter.small};
   }
-`
+`;

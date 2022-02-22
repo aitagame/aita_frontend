@@ -1,7 +1,7 @@
-import { infoSectionData, mainSectionText, mainSectionTitle } from 'views/pages/main/data'
-import { InfoCard } from '../InfoCard'
-import { Wrapper } from 'views/components/Wrapper'
-import { Content, SectionTitle, SectionText } from './styled'
+import { infoSectionData, mainSectionText, mainSectionTitle } from 'views/pages/main/data';
+import { InfoCard } from '../InfoCard';
+import { Wrapper } from 'views/components/Wrapper';
+import { Content, SectionTitle, SectionText } from './styled';
 
 export const InfoSection: React.FC = () => {
   return (
@@ -14,5 +14,5 @@ export const InfoSection: React.FC = () => {
         ))}
       </Content>
     </Wrapper>
-  )
-}
+  );
+};

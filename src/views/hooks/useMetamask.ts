@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
 export const useMetamask = () => {
   const connect = async () => {
-    await null
-  }
+    await null;
+  };
 
   return useMemo(
     () => ({
@@ -11,5 +11,5 @@ export const useMetamask = () => {
       signIn: () => null,
     }),
     []
-  )
-}
+  );
+};

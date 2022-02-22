@@ -1,4 +1,4 @@
 export interface NearLSWallet {
-  accountId: string
-  allKeys: string[]
+  accountId: string;
+  allKeys: string[];
 }

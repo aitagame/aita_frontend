@@ -1,4 +1,4 @@
-import 'typeface-ubuntu'
+import 'typeface-ubuntu';
 
 export const mainTheme = {
   colors: {
@@ -21,4 +21,4 @@ export const mainTheme = {
     small: '1rem',
     medium: '3rem',
   },
-}
+};

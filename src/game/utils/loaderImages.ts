@@ -5,15 +5,15 @@ export default function loaderImages(
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   ...params: any[]
 ) {
-  let counter = 0
-  console.dir(load)
+  let counter = 0;
+  console.dir(load);
   function updateConuter() {
-    counter++
+    counter++;
     if (counter == load.length) {
-      callback(...params)
+      callback(...params);
     }
   }
   load.forEach((el: HTMLImageElement) => {
-    el.onload = updateConuter
-  })
+    el.onload = updateConuter;
+  });
 }
