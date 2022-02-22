@@ -1,16 +1,16 @@
-import { LinkIcons, SocialLink, SocialLinksWrapper, SocialText } from './styled'
-import { InstagramIcon } from 'views/icons/InstagramIcon'
-import { DiscordIcon } from 'views/icons/DiscordIcon'
-import { FacebookIcon } from 'views/icons/FacebookIcon'
-import { TwitterIcon } from 'views/icons/TwitterIcon'
-import { ReactNode } from 'react'
+import { LinkIcons, SocialLink, SocialLinksWrapper, SocialText } from './styled';
+import { InstagramIcon } from 'views/icons/InstagramIcon';
+import { DiscordIcon } from 'views/icons/DiscordIcon';
+import { FacebookIcon } from 'views/icons/FacebookIcon';
+import { TwitterIcon } from 'views/icons/TwitterIcon';
+import { ReactNode } from 'react';
 
 interface SocialIcon {
-  icon: ReactNode
-  url: string
+  icon: ReactNode;
+  url: string;
 }
 
-type SocialIconType = 'facebook' | 'twitter' | 'discord' | 'instagram'
+type SocialIconType = 'facebook' | 'twitter' | 'discord' | 'instagram';
 
 const icons: Record<SocialIconType, SocialIcon> = {
   facebook: {
@@ -29,7 +29,7 @@ const icons: Record<SocialIconType, SocialIcon> = {
     icon: <DiscordIcon />,
     url: '',
   },
-}
+};
 
 export const SocialLinks: React.FC = () => {
   return (
@@ -43,5 +43,5 @@ export const SocialLinks: React.FC = () => {
         ))}
       </LinkIcons>
     </SocialLinksWrapper>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { desktopDevice } from 'views/theme/mediaQuery'
-import { Button } from '../Button'
+import styled from 'styled-components';
+import { desktopDevice } from 'views/theme/mediaQuery';
+import { Button } from '../Button';
 
 export const ConnectWalletButton = styled(Button)`
   width: 30rem;
@@ -23,10 +23,10 @@ export const ConnectWalletButton = styled(Button)`
     height: 15vmax;
     max-width: 14vmax;
   }
-`
+`;
 
 export const WalletName = styled.p`
   font-size: 1rem;
   font-weight: 500;
   margin-top: 0.5rem;
-`
+`;

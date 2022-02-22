@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { desktopDevice, mobileDevice } from 'views/theme/mediaQuery'
-import { AppLink } from '../AppLink'
-import { LogoLink } from '../Logo'
-import { PlayGameButtonStyled } from '../PlayGameButton/styled'
+import styled from 'styled-components';
+import { desktopDevice, mobileDevice } from 'views/theme/mediaQuery';
+import { AppLink } from '../AppLink';
+import { LogoLink } from '../Logo';
+import { PlayGameButtonStyled } from '../PlayGameButton/styled';
 
 export const HeaderWrapper = styled.header`
   width: 100vw;
@@ -21,7 +21,7 @@ export const HeaderWrapper = styled.header`
       display: none;
     }
   }
-`
+`;
 
 export const HeaderContent = styled.div`
   ${LogoLink} {
@@ -32,4 +32,4 @@ export const HeaderContent = styled.div`
       display: none;
     }
   }
-`
+`;

@@ -25,4 +25,4 @@ export const InstagramIcon: React.FC<{ fill?: string }> = ({ fill = 'unset' }) =
       />
     </g>
   </svg>
-)
+);

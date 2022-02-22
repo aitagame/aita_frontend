@@ -1,6 +1,6 @@
-import { MainWrapper } from './styled'
-import { Header } from 'views/components/Header'
-import { Footer } from '../Footer'
+import { MainWrapper } from './styled';
+import { Header } from 'views/components/Header';
+import { Footer } from '../Footer';
 
 export const BaseLayout: React.FC = ({ children }) => {
   return (
@@ -9,5 +9,5 @@ export const BaseLayout: React.FC = ({ children }) => {
       {children}
       <Footer />
     </MainWrapper>
-  )
-}
+  );
+};

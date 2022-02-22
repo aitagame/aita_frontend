@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { AppLink } from '../AppLink'
-import { Burger, Menu } from './styled'
+import { useState } from 'react';
+import { AppLink } from '../AppLink';
+import { Burger, Menu } from './styled';
 
 export const MenuList: React.FC = () => {
   return (
@@ -10,11 +10,11 @@ export const MenuList: React.FC = () => {
       <AppLink to="/rooms">Rooms</AppLink>
       <AppLink to="/play">Play</AppLink>
     </>
-  )
-}
+  );
+};
 
 export const BurgerMenu: React.FC = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -27,5 +27,5 @@ export const BurgerMenu: React.FC = () => {
         <MenuList />
       </Menu>
     </>
-  )
-}
+  );
+};

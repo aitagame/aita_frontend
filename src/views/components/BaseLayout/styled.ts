@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const MainWrapper = styled.main`
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
@@ -7,9 +7,9 @@ export const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-`
+`;
 
 export const BaseContent = styled.div`
   flex: 2;
   padding-top: 3.9rem;
-`
+`;

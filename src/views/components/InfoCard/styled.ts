@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { desktopDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const Content = styled.section`
   width: 100%;
@@ -14,7 +14,7 @@ export const Content = styled.section`
   ${desktopDevice} {
     padding: ${({ theme }) => `2rem ${theme.gutter.medium}`};
   }
-`
+`;
 
 export const InfoCardWrapper = styled.div<{ background: string }>`
   height: 30vw;
@@ -27,14 +27,14 @@ export const InfoCardWrapper = styled.div<{ background: string }>`
   &:hover ${Content} {
     opacity: 1;
   }
-`
+`;
 
 export const SectionTitle = styled.h5`
   font-size: 1.2rem;
   margin-bottom: 0.5em;
   color: ${({ theme }) => theme.colors.textReverse};
-`
+`;
 export const SectionText = styled.p`
   letter-spacing: 1px;
   color: ${({ theme }) => theme.colors.textReverse};
-`
+`;

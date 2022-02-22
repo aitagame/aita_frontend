@@ -1,1 +1,1 @@
-export type AuthMethod = 'Near' | 'Metamask'
+export type AuthMethod = 'Near' | 'Metamask';

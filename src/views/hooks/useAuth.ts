@@ -1,15 +1,15 @@
-import { appConfig } from 'config/appConfig'
-import { useCallback, useContext, useMemo, useState } from 'react'
-import { AuthContext } from 'views/context/Auth'
-import { NearAuth, NearLSWallet } from 'views/types/near'
-import { useLocalStorage } from './useLocalStorage'
+import { appConfig } from 'config/appConfig';
+import { useCallback, useContext, useMemo, useState } from 'react';
+import { AuthContext } from 'views/context/Auth';
+import { NearAuth, NearLSWallet } from 'views/types/near';
+import { useLocalStorage } from './useLocalStorage';
 
 interface useAuthValues {
-  isLoggedIn: boolean
+  isLoggedIn: boolean;
 }
 
 export const useAuth = (): useAuthValues => {
-  const { isLoggedIn, authMethod } = useContext(AuthContext) // TODO: add check for profile existance
+  const { isLoggedIn, authMethod } = useContext(AuthContext); // TODO: add check for profile existance
 
   return useMemo(
     () => ({
@@ -17,27 +17,27 @@ export const useAuth = (): useAuthValues => {
       method: authMethod,
     }),
     [isLoggedIn, authMethod]
-  )
-}
+  );
+};
 
 export const useNearAuth = () => {
-  const { getLSValue } = useLocalStorage()
+  const { getLSValue } = useLocalStorage();
   const [nearAuthData, setNearAuthData] = useState<NearAuth>({
     accountId: '',
     functionalKey: '',
     keyStore: '',
-  })
+  });
 
   const checkNearAuth = useCallback(() => {
-    const nearWalletData: NearLSWallet = getLSValue('_wallet_auth_key')
-    const accountId = nearWalletData.accountId
-    if (!accountId) return
+    const nearWalletData: NearLSWallet = getLSValue('_wallet_auth_key');
+    const accountId = nearWalletData.accountId;
+    if (!accountId) return;
     setNearAuthData({
       accountId,
       functionalKey: nearWalletData.allKeys[0],
       keyStore: getLSValue(`near-api-js:keystore:${accountId}:${appConfig.nearNetworkId}`, false),
-    })
-  }, [getLSValue])
+    });
+  }, [getLSValue]);
 
   return useMemo(
     () => ({
@@ -46,5 +46,5 @@ export const useNearAuth = () => {
       setNearAuthData,
     }),
     [checkNearAuth, nearAuthData]
-  )
-}
+  );
+};
