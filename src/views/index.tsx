@@ -104,7 +104,8 @@ export const App = observer(() => {
   const getUserInfo = useCallback(() => {
     if (!!values.accountId && !user.id) {
       const identifier = getIdentifier(authMethod);
-      identifier && getUser((values as any)[identifier]); //TODO: fix type
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      identifier && getUser((values as any)[identifier]);
     }
   }, [authMethod, getUser, user.id, values]);
 
