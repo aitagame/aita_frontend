@@ -1,25 +1,26 @@
-import 'styled-components'
+import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      primary: string
-      secondary: string
-      backgroundPrimary: string
-      backgroundSecondary: string
-      text: string
-      textReverse: string
-    }
+      primary: string;
+      secondary: string;
+      secondaryLight: string;
+      backgroundPrimary: string;
+      backgroundSecondary: string;
+      text: string;
+      textReverse: string;
+    };
     fonts: {
-      primary: string
+      primary: string;
       sizes: {
-        title: string
-        subtitle: string
-      }
-    }
+        title: string;
+        subtitle: string;
+      };
+    };
     gutter: {
-      small: string
-      medium: string
-    }
+      small: string;
+      medium: string;
+    };
   }
 }

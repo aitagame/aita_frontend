@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { mobileDevice } from 'views/theme/mediaQuery'
+import styled from 'styled-components';
+import { mobileDevice } from 'views/theme/mediaQuery';
 
 export const Burger = styled.div<{ open: boolean }>`
   display: none;
@@ -42,24 +42,24 @@ export const Burger = styled.div<{ open: boolean }>`
   ${mobileDevice} {
     display: flex;
   }
-`
+`;
 
 export const Menu = styled.nav<{ open: boolean }>`
   display: none;
   flex-direction: column;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.backgroundSecondary};
+  background: ${({ theme }) => `${theme.colors.backgroundSecondary}d9`};
   text-align: center;
   padding: ${({ theme }) => theme.gutter.small};
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
   transition: transform 0.3s ease-in-out;
-  transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(-130%)')};
+  transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(-130vh)')};
   width: 100vw;
   gap: 2rem;
-  box-shadow: ${({ theme }) => `0 23px 28px 23px ${theme.colors.backgroundSecondary}`};
+  height: 100vh;
   ${mobileDevice} {
     display: flex;
   }
-`
+`;

@@ -20,11 +20,12 @@ jobs:
       - run: 
           name: "Build app"
           command: |
+            env > .env;
             npm run build;
-      - save_cache:
-          key: build-{{ checksum "package-lock.json" }}
-          paths: 
-            - build
+      # - save_cache:
+      #     key: build-{{ checksum "package-lock.json" }}
+      #     paths: 
+      #       - build
 
   deploy:
     executor: node-executor
@@ -41,13 +42,20 @@ jobs:
           keys:
             - node_modules-{{ checksum "package-lock.json" }}
             - node_modules-
-      - restore_cache:
-          keys:
-            - build-{{ checksum "package-lock.json" }}
-            - build-
+      # - restore_cache:
+      #     keys:
+      #       - build-{{ checksum "package-lock.json" }}
+      #       - build-
+      - run: 
+          name: "Build app"
+          command: |
+            env > .env;
+            npm run build;
+
       - run: 
           name: "Deploy"
           command: |
+            rm -f aita-fe-build.zip ;
             zip aita-fe-build.zip -r .;
             chmod +x ./install.sh;
             scp -o StrictHostKeyChecking=no aita-fe-build.zip << parameters.target_host >>:aita-fe-build.zip;
@@ -64,6 +72,8 @@ workflows:
               only: develop
       - deploy:
           target_host: $DEV_SSH_HOST
+          requires:
+            - test
           filters:
             branches:
               only: develop
@@ -76,6 +86,8 @@ workflows:
               only: master
       - deploy:
           target_host: $PROD_SSH_HOST
+          requires:
+            - test
           filters:
             branches:
               only: master
