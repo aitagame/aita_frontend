@@ -1,7 +1,6 @@
 import loaderImages from '../utils/loaderImages';
 import { gameData } from '../gameData';
 import getPressedKeys from 'game/utils/useButtons';
-import { dir } from 'console';
 class Pointer {
   x: number;
   y: number;
@@ -120,7 +119,7 @@ class Player {
     this.state = 'idle';
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
-    this.dx = 10;
+    this.dx = 200;
   }
   update(dt: number) {
     const left = this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft');
