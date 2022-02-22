@@ -1,6 +1,7 @@
 import loaderImages from '../utils/loaderImages';
-import { IGameData } from '../gameData';
-
+import { gameData } from '../gameData';
+import getPressedKeys from 'game/utils/useButtons';
+import { dir } from 'console';
 class Pointer {
   x: number;
   y: number;
@@ -53,20 +54,115 @@ class Background {
   }
 }
 
+class Animation {
+  img: HTMLImageElement;
+  count: number;
+  sizeFrame: Pointer;
+  currentFrame: number;
+  speed: number;
+  scale = 2;
+  constructor(src: string, count: number, sizeFrame: Pointer, speed: number) {
+    this.img = new Image(sizeFrame.x, sizeFrame.y);
+    this.img.src = src;
+    this.count = count;
+    this.sizeFrame = sizeFrame;
+    this.currentFrame = 0;
+    this.speed = speed;
+    this.scale = 2;
+  }
+  update(dt: number) {
+    this.currentFrame += this.speed * dt;
+  }
+  render(ctx: CanvasRenderingContext2D, cords: Pointer, direction?: string) {
+    if (direction === 'right') {
+      ctx.save();
+      ctx.scale(-1, 1);
+      ctx.drawImage(
+        this.img,
+        this.sizeFrame.x * (Math.round(this.currentFrame) % this.count),
+        0,
+        this.sizeFrame.x,
+        this.sizeFrame.y,
+        -cords.x,
+        cords.y,
+        -this.sizeFrame.x * this.scale,
+        this.sizeFrame.y * this.scale
+      );
+      ctx.restore();
+    } else {
+      ctx.drawImage(
+        this.img,
+        this.sizeFrame.x * (Math.round(this.currentFrame) % this.count),
+        0,
+        this.sizeFrame.x,
+        this.sizeFrame.y,
+        cords.x,
+        cords.y,
+        this.sizeFrame.x * this.scale,
+        this.sizeFrame.y * this.scale
+      );
+    }
+  }
+}
+
 class Player {
   cords: Pointer;
-  constructor(cords: Pointer) {
+  state: string;
+  pressedKeys: Map<string, boolean>;
+  dx: number;
+  direction: string;
+  static animations = {
+    idle: new Animation(gameData.idleAnimationImage, 4, new Pointer(62, 43), 7),
+    move: new Animation(gameData.moveAnimationImage, 4, new Pointer(62, 43), 7),
+  };
+  constructor(cords: Pointer, pressedKeys: Map<string, boolean>) {
     this.cords = cords;
+    this.state = 'idle';
+    this.direction = 'left';
+    this.pressedKeys = pressedKeys;
+    this.dx = 10;
+  }
+  update(dt: number) {
+    const left = this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft');
+    const right = this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight');
+
+    if (left) {
+      this.cords.x -= this.dx * dt;
+      this.state = 'move';
+      if (!right) this.direction = 'left';
+    }
+    if (right) {
+      this.cords.x += this.dx * dt;
+      this.state = 'move';
+      if (!left) this.direction = 'right';
+    }
+    if (!left && !right) {
+      this.state = 'idle';
+    }
+
+    if (this.state === 'idle') {
+      Player.animations.idle.update(dt);
+    } else if (this.state === 'move') {
+      Player.animations.move.update(dt);
+    }
+  }
+  render(ctx: CanvasRenderingContext2D) {
+    if (this.state === 'idle') {
+      Player.animations.idle.render(ctx, this.cords, this.direction);
+    } else if (this.state === 'move') {
+      Player.animations.move.render(ctx, this.cords, this.direction);
+    }
   }
 }
 export class Game {
   background: Background;
   players: Player[];
   lastFrameUpdate: number;
-
-  constructor(gameData: IGameData, canvas: HTMLCanvasElement) {
+  pressedKeys: Map<string, boolean>;
+  constructor(canvas: HTMLCanvasElement) {
+    this.pressedKeys = getPressedKeys();
     this.background = new Background(1600, 844, gameData.backgroundImage, new Pointer(980, 400));
-    this.players = [];
+    this.players = [new Player(new Pointer(800, 400), this.pressedKeys)];
     this.lastFrameUpdate = Date.now();
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
@@ -84,17 +180,22 @@ export class Game {
   }
 
   update(dt: number) {
-    //console.log(dt)
+    this.players[0].update(dt);
   }
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.background.render(ctx, canvas);
+    this.players[0].render(ctx);
   }
 
   startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    loaderImages([this.background.img], this.play.bind(this), ctx, canvas);
+    loaderImages(
+      [this.background.img, Player.animations.idle.img],
+      this.play.bind(this),
+      ctx,
+      canvas
+    );
   }
 }
