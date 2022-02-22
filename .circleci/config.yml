@@ -27,6 +27,14 @@ jobs:
       #     paths: 
       #       - build
 
+  fail:
+    executor: node-executor
+    steps:
+      - run:
+          name: "Throw an error on unsupported branch"
+          command: |
+            exit 1;
+            
   deploy:
     executor: node-executor
     parameters:
@@ -51,7 +59,6 @@ jobs:
           command: |
             env > .env;
             npm run build;
-
       - run: 
           name: "Deploy"
           command: |
@@ -61,7 +68,6 @@ jobs:
             scp -o StrictHostKeyChecking=no aita-fe-build.zip << parameters.target_host >>:aita-fe-build.zip;
             scp -o StrictHostKeyChecking=no install.sh << parameters.target_host >>:aita-fe-install.sh;
             ssh -o StrictHostKeyChecking=no << parameters.target_host >> './aita-fe-install.sh';
-
 
 workflows:
   aita-fe-deploy-dev:
@@ -99,5 +105,9 @@ workflows:
             branches:
               only: /AITA-\d{1}\d*_[a-zA-Z1-9_-]*/
 
-
-
+  aita-fe-fail:
+    jobs:
+      - fail:
+          filters:
+            branches:
+              ignore: /develop|master|(AITA-\d{1}\d*_[a-zA-Z1-9_-]*)/
