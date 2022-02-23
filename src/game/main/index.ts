@@ -199,6 +199,6 @@ export class Game {
   }
 
   stopGame() {
-    return false;
+    return true;
   }
 }
