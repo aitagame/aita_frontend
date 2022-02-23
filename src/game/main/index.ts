@@ -122,9 +122,8 @@ class Player {
     this.dx = 200;
   }
   update(dt: number) {
-    const left = this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft');
-    const right = this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight');
-
+    const left = !!(this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft'));
+    const right = !!(this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight'));
     if (left) {
       this.cords.x -= this.dx * dt;
       this.state = 'move';
@@ -135,7 +134,7 @@ class Player {
       this.state = 'move';
       if (!left) this.direction = 'right';
     }
-    if (!left && !right) {
+    if (left === right) {
       this.state = 'idle';
     }
 
