@@ -1,6 +1,7 @@
 import loaderImages from '../utils/loaderImages';
 import { gameData } from '../gameData';
 import getPressedKeys from 'game/utils/useButtons';
+
 class Pointer {
   x: number;
   y: number;
@@ -157,6 +158,7 @@ export class Game {
   players: Player[];
   lastFrameUpdate: number;
   pressedKeys: Map<string, boolean>;
+  idRequestAnimationFrame: number;
   constructor(canvas: HTMLCanvasElement) {
     this.pressedKeys = getPressedKeys();
     this.background = new Background(1600, 844, gameData.backgroundImage, new Pointer(980, 400));
@@ -173,7 +175,7 @@ export class Game {
     const dt = (now - this.lastFrameUpdate) / 1000;
     this.update(dt);
     this.render(ctx, canvas);
-    requestAnimationFrame(() => this.play(ctx, canvas));
+    this.idRequestAnimationFrame = requestAnimationFrame(() => this.play(ctx, canvas));
     this.lastFrameUpdate = now;
   }
 
@@ -198,6 +200,7 @@ export class Game {
   }
 
   stopGame() {
-    return true;
+    console.log('test');
+    cancelAnimationFrame(this.idRequestAnimationFrame);
   }
 }
