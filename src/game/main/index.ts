@@ -112,7 +112,7 @@ class Player {
   dx: number;
   dy: number;
   ddy: number;
-  isJamp: boolean;
+  isJump: boolean;
   direction: string;
   static animations = {
     idle: new Animation(gameData.idleAnimationImage, 4, new Pointer(62, 43), 7),
@@ -126,7 +126,7 @@ class Player {
     this.dx = 200;
     this.ddy = 600;
     this.dy = 0;
-    this.isJamp = false;
+    this.isJump = false;
   }
   update(dt: number) {
     const left = !!(this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft'));
@@ -147,13 +147,13 @@ class Player {
       this.state = 'move';
       if (!left) this.direction = 'right';
     }
-    if (this.pressedKeys.get('KeyW') && !this.isJamp) {
+    if (this.pressedKeys.get('KeyW') && !this.isJump) {
       this.dy = -280;
-      this.isJamp = true;
+      this.isJump = true;
     }
     if (this.cords.y > 600 - 20) {
       this.cords.y = 600 - 20;
-      this.isJamp = false;
+      this.isJump = false;
     }
     if (left === right) {
       this.state = 'idle';
