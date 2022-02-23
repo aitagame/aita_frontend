@@ -110,6 +110,9 @@ class Player {
   state: string;
   pressedKeys: Map<string, boolean>;
   dx: number;
+  dy: number;
+  ddy: number;
+  isJamp: boolean;
   direction: string;
   static animations = {
     idle: new Animation(gameData.idleAnimationImage, 4, new Pointer(62, 43), 7),
@@ -121,10 +124,19 @@ class Player {
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
     this.dx = 200;
+    this.ddy = 600;
+    this.dy = 0;
+    this.isJamp = false;
   }
   update(dt: number) {
     const left = !!(this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft'));
     const right = !!(this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight'));
+
+    this.cords.y += this.dy * dt;
+    this.dy += this.ddy * dt;
+    if (this.dy > 900) {
+      this.dy = 900;
+    }
     if (left) {
       this.cords.x -= this.dx * dt;
       this.state = 'move';
@@ -134,6 +146,14 @@ class Player {
       this.cords.x += this.dx * dt;
       this.state = 'move';
       if (!left) this.direction = 'right';
+    }
+    if (this.pressedKeys.get('KeyW') && !this.isJamp) {
+      this.dy = -280;
+      this.isJamp = true;
+    }
+    if (this.cords.y > 600 - 20) {
+      this.cords.y = 600 - 20;
+      this.isJamp = false;
     }
     if (left === right) {
       this.state = 'idle';
