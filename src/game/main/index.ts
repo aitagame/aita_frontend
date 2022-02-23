@@ -197,4 +197,8 @@ export class Game {
       canvas
     );
   }
+
+  stopGame() {
+    return false;
+  }
 }
