@@ -7,6 +7,7 @@ export const Game = React.memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isModal, setModal] = useState(false);
   const isModalForEvent = useRef(false);
+
   function toggleModal() {
     isModalForEvent.current = !isModalForEvent.current;
     setModal(isModalForEvent.current);

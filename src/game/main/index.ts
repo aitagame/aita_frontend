@@ -1,6 +1,7 @@
 import loaderImages from '../utils/loaderImages';
 import { gameData } from '../gameData';
 import getPressedKeys from 'game/utils/useButtons';
+
 class Pointer {
   x: number;
   y: number;
@@ -109,6 +110,9 @@ class Player {
   state: string;
   pressedKeys: Map<string, boolean>;
   dx: number;
+  dy: number;
+  ddy: number;
+  isJump: boolean;
   direction: string;
   static animations = {
     idle: new Animation(gameData.idleAnimationImage, 4, new Pointer(62, 43), 7),
@@ -120,11 +124,19 @@ class Player {
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
     this.dx = 200;
+    this.ddy = 600;
+    this.dy = 0;
+    this.isJump = false;
   }
   update(dt: number) {
-    const left = this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft');
-    const right = this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight');
+    const left = !!(this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft'));
+    const right = !!(this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight'));
 
+    this.cords.y += this.dy * dt;
+    this.dy += this.ddy * dt;
+    if (this.dy > 900) {
+      this.dy = 900;
+    }
     if (left) {
       this.cords.x -= this.dx * dt;
       this.state = 'move';
@@ -135,7 +147,15 @@ class Player {
       this.state = 'move';
       if (!left) this.direction = 'right';
     }
-    if (!left && !right) {
+    if (this.pressedKeys.get('KeyW') && !this.isJump) {
+      this.dy = -280;
+      this.isJump = true;
+    }
+    if (this.cords.y > 600 - 20) {
+      this.cords.y = 600 - 20;
+      this.isJump = false;
+    }
+    if (left === right) {
       this.state = 'idle';
     }
 
@@ -158,6 +178,7 @@ export class Game {
   players: Player[];
   lastFrameUpdate: number;
   pressedKeys: Map<string, boolean>;
+  idRequestAnimationFrame: number;
   constructor(canvas: HTMLCanvasElement) {
     this.pressedKeys = getPressedKeys();
     this.background = new Background(1600, 844, gameData.backgroundImage, new Pointer(980, 400));
@@ -174,7 +195,7 @@ export class Game {
     const dt = (now - this.lastFrameUpdate) / 1000;
     this.update(dt);
     this.render(ctx, canvas);
-    requestAnimationFrame(() => this.play(ctx, canvas));
+    this.idRequestAnimationFrame = requestAnimationFrame(() => this.play(ctx, canvas));
     this.lastFrameUpdate = now;
   }
 
@@ -199,6 +220,7 @@ export class Game {
   }
 
   stopGame() {
-    return true;
+    console.log('test');
+    cancelAnimationFrame(this.idRequestAnimationFrame);
   }
 }
