@@ -14,6 +14,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { useNearAuth } from './hooks/useAuth';
 import { AuthMethod } from './types/auth';
 import { useNear } from './hooks/useNear';
+import { HelloWorld } from './pages/helloWorldNEAR';
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -74,6 +75,7 @@ export const App = () => {
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/helloWorld" element={<HelloWorld />} />
               <Route path="/" element={<Main />} />
               <Route path="/" element={<ProtectedRoute />}>
                 <Route path="/market" element={<Market />} />
