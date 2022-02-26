@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { desktopDevice } from 'views/theme/mediaQuery';
-import { tabletDevice } from 'views/theme/mediaQuery';
-import { mobileDevice } from 'views/theme/mediaQuery';
+import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
 
 export const Input = styled.input`
   text-align: center;
