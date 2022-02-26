@@ -19,6 +19,8 @@ import AitaService from './service/index.service';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { Profile, User } from './types/user';
+import { useNear } from './hooks/useNear';
+import { HelloWorld } from './pages/helloWorldNEAR';
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -134,6 +136,7 @@ export const App = observer(() => {
               <Route path="/" element={<Main />} />
               <Route path="/" element={<ProtectedRoute />}>
                 <Route path="/market" element={<Market />} />
+                <Route path="/helloWorld" element={<HelloWorld />} />
                 <Route path="/rooms" element={<Rooms />} />
                 <Route path="/play" element={<Game />} />
               </Route>
