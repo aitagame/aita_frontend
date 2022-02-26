@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
 
 export const ModalWrapper = styled.div`
-  // display: none;
   position: fixed;
   top: 0;
   z-index: 1;

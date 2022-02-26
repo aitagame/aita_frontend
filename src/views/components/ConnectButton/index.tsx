@@ -7,9 +7,9 @@ export const ConnectButton: React.FC<{ title?: string }> = ({
 }) => {
   const navigate = useNavigate();
 
-  const onPlay = useCallback(() => {
+  const onProfile = useCallback(() => {
     navigate('/profile');
   }, [navigate]);
 
-  return <ConnectButtonStyled onClick={onPlay}>{title}</ConnectButtonStyled>;
+  return <ConnectButtonStyled onClick={onProfile}>{title}</ConnectButtonStyled>;
 };
