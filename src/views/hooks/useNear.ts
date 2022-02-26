@@ -36,7 +36,7 @@ const signIn = () => {
 export const useNear = () => {
   return useMemo(
     () => ({
-      connectNear,
+      connect: connectNear,
       signIn,
     }),
     []

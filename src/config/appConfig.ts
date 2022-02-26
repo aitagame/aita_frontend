@@ -1,6 +1,7 @@
 const {
   REACT_APP_URL: baseUrl,
   REACT_APP_APP_NAME: appName,
+  REACT_APP_API_URL: apiUrl,
   REACT_APP_NEAR_CONTRACT_REQUESTING_ACCESS: nearContractAccess,
   REACT_APP_NEAR_EXPLORER_URL: nearExplorerUrl,
   REACT_APP_NEAR_HELPER_URL: nearHelperUrl,
@@ -14,6 +15,7 @@ const getConfigValue = (value: string | undefined, defaultValue = ''): string =>
 
 export const appConfig = {
   baseUrl: getConfigValue(baseUrl, 'http://localhost:3005'),
+  apiUrl: getConfigValue(apiUrl),
   nearContractAccess: getConfigValue(nearContractAccess),
   appName: getConfigValue(appName),
   nearExplorerUrl: getConfigValue(nearExplorerUrl),
