@@ -8,14 +8,16 @@ import { useNear } from 'views/hooks/useNear';
 export const Hackathon = () => {
   const { contract } = useNear();
   const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
   const [modalStatus, setModalStatus] = useState<HackathonModalStatus | null>(null);
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (contract as any).hello({ name });
+      const response = await (contract as any).hello({ name });
       setModalStatus('success');
+      setMessage(response);
     } catch (e) {
       setModalStatus('error');
     }
@@ -40,7 +42,9 @@ export const Hackathon = () => {
           </Button>
         </FormWrapper>
       </HackathonWrapper>
-      {modalStatus && <HackathonModal onClose={closeModal} status={modalStatus} name={name} />}
+      {modalStatus && (
+        <HackathonModal onClose={closeModal} status={modalStatus} message={message} />
+      )}
     </>
   );
 };
