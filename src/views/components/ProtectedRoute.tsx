@@ -15,7 +15,7 @@ export const ProtectedRoute: React.FC<{ profileCheck?: boolean }> = ({ profileCh
   }, [isLoggedIn, pathname, setPreviousePage]);
 
   if (!isLoggedIn) return <Navigate to="/login" replace />;
-  if (profileCheck && !profile.id) return <Navigate to="/profile" replace />;
+  // if (profileCheck && !profile.id) return <Navigate to="/profile" replace />;
 
   return <Outlet />;
 };
