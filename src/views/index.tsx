@@ -12,10 +12,8 @@ import { AuthContext, AuthContextValues } from './context/Auth';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthMethod } from './types/auth';
-<<<<<<< HEAD
 import { useNear } from './hooks/useNear';
 import { HelloWorld } from './pages/helloWorldNEAR';
-=======
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthMethod } from './hooks/useAuthMethod';
 import { Profile as ProfilePage } from './pages/profile';
@@ -23,7 +21,6 @@ import AitaService from './service/index.service';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { Profile, User } from './types/user';
->>>>>>> develop
 
 const GlobalStyle = createGlobalStyle`
 		* {
