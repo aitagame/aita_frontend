@@ -1,6 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Button = styled.button`
+interface ButtonProps {
+  size?: 'medium' | 'large';
+}
+
+const largeButtonStyle = css`
+  width: 100%;
+  padding: 1rem;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+`;
+
+export const Button = styled.button<ButtonProps>`
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.textReverse};
   border: 0;
@@ -11,4 +22,6 @@ export const Button = styled.button`
   :hover {
     background-color: ${({ theme }) => theme.colors.secondaryLight};
   }
+
+  ${({ size = 'medium' }) => size === 'large' && largeButtonStyle}
 `;

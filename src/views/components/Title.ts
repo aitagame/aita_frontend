@@ -13,7 +13,8 @@ export const TitleH1 = styled.h1<{ fz?: string; mb?: string }>`
   color: ${({ theme }) => theme.colors.text};
   font-weight: 500;
 `;
-export const TitleH2 = styled.h1<{ fz?: string; mb?: string }>`
+
+export const TitleH2 = styled.h2<{ fz?: string; mb?: string }>`
   font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.subtitle};
   margin-bottom: ${({ mb }) => mb || 'initial'};
   color: ${({ theme }) => theme.colors.text};

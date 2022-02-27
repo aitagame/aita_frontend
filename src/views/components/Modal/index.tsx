@@ -1,26 +1,31 @@
-import { ModalContent, ModalWrapper, MainTitle, SubHeader, ConnectButtonStyled } from './styled';
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { CloseIconBox, ModalContent, ModalWrapper } from './styled';
+import { Title, TitleH2 } from '../Title';
+import { CloseIcon } from 'views/icons/CloseIcon';
 
-export const ConnectButton: React.FC<{ title?: string }> = ({
-  title = 'Click here to continue',
-}) => {
-  const navigate = useNavigate();
+interface ModalProps {
+  onClose?: () => void;
+  title?: string;
+  subtitle?: string;
+}
 
-  const onProfile = useCallback(() => {
-    navigate('/profile');
-  }, [navigate]);
-
-  return <ConnectButtonStyled onClick={onProfile}>{title}</ConnectButtonStyled>;
-};
-
-export const Modal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ isOpen }) => {
+export const Modal: React.FC<ModalProps> = ({ title, subtitle, onClose, children }) => {
   return (
-    <ModalWrapper isOpen={isOpen}>
+    <ModalWrapper>
       <ModalContent>
-        <MainTitle>Successful</MainTitle>
-        <SubHeader>Insert sample sentence here</SubHeader>
-        <ConnectButton />
+        <CloseIconBox onClick={onClose}>
+          <CloseIcon />
+        </CloseIconBox>
+        {title && (
+          <TitleH2 mb="2.2rem" fz="2.6rem">
+            {title}
+          </TitleH2>
+        )}
+        {subtitle && (
+          <Title mb="2rem" fz="2rem">
+            {subtitle}
+          </Title>
+        )}
+        {children}
       </ModalContent>
     </ModalWrapper>
   );

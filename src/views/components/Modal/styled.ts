@@ -1,82 +1,51 @@
 import styled from 'styled-components';
-import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
+import { desktopDevice } from 'views/theme/mediaQuery';
+import { Title, TitleH2 } from '../Title';
 
-export const ModalWrapper = styled.div<{ isOpen: boolean }>`
+export const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   overflow: hidden;
-  padding-top: 7rem;
   margin: auto;
   overflow: auto;
-  width: 100%;
-  height: 100%;
-  display: ${({ isOpen }) => (isOpen ? null : 'none')};
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
 `;
 
 export const ModalContent = styled.div`
-  background-color: ${({ theme }) => theme.colors.text};
-  width: 100%;
-  height: 551px;
+  background-color: white;
+  max-height: 90%;
   border-radius: 30px;
   margin: auto;
-
-  ${desktopDevice} {
-    width: 763px;
-  }
-
-  ${tabletDevice} {
-    width: 85%;
-  }
-  ${mobileDevice} {
-    width: 85%;
-  }
-`;
-
-export const MainTitle = styled.h2<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '2rem'};
-  // margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: #000000;
-  font-weight: 500;
-  text-align: center;
-  position: relative;
-  top: 8rem;
-`;
-
-export const SubHeader = styled.h6<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '1.5rem'};
-  // margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: #000000;
-  font-weight: 500;
-  text-align: center;
-  position: relative;
-  top: 10rem;
-`;
-
-export const ConnectButtonStyled = styled.button`
-  background-color: ${({ theme }) => theme.colors.secondary};
+  width: 85%;
   color: ${({ theme }) => theme.colors.textReverse};
-  border: 0;
-  font-size: 20px;
-  border-radius: 2rem;
-  outline: none;
-  padding: 1rem;
-  cursor: pointer;
+  padding: ${({ theme }) => theme.gutter.medium};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  top: 14rem;
-  :hover {
-    background-color: ${({ theme }) => theme.colors.secondaryLight};
+
+  ${TitleH2}, ${Title} {
+    color: ${({ theme }) => theme.colors.textReverse};
   }
+
   ${desktopDevice} {
-    width: 500px;
-    margin: 2rem 0;
+    width: 60%;
   }
-  ${tabletDevice} {
-    width: 55%;
-    margin: 2rem auto;
-  }
-  ${mobileDevice} {
-    width: 55%;
-    margin: 2rem auto;
+`;
+
+export const CloseIconBox = styled.div`
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  svg {
+    fill: ${({ theme }) => theme.colors.primary};
   }
 `;
