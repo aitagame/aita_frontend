@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './views';
+import { App } from './views/App';
 import { Buffer } from 'buffer';
 
 global.Buffer = global.Buffer || Buffer;

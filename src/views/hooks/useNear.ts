@@ -1,6 +1,7 @@
-import { keyStores, connect, ConnectConfig, WalletConnection } from 'near-api-js';
+import { keyStores, connect, ConnectConfig, WalletConnection, Contract } from 'near-api-js';
 import { appConfig } from 'config/appConfig';
 import { useMemo } from 'react';
+import { ContractMethods } from 'near-api-js/lib/contract';
 const keyStore = new keyStores.BrowserLocalStorageKeyStore();
 
 interface NearConfig extends ConnectConfig {
@@ -18,10 +19,16 @@ const nearConfig: NearConfig = {
 };
 
 let wallet: WalletConnection;
+let contract: Contract;
 
 const connectNear = async () => {
   const near = await connect(nearConfig);
   wallet = new WalletConnection(near, '');
+  contract = new Contract(wallet.account(), appConfig.aitaNearNet, {
+    viewMethods: ['hello'],
+    changeMethods: [],
+    sender: wallet.account(),
+  } as ContractMethods);
 };
 
 const signIn = () => {
@@ -38,6 +45,7 @@ export const useNear = () => {
     () => ({
       connect: connectNear,
       signIn,
+      contract,
     }),
     []
   );

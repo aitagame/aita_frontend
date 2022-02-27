@@ -22,6 +22,11 @@ export const Button = styled.button<ButtonProps>`
   :hover {
     background-color: ${({ theme }) => theme.colors.secondaryLight};
   }
+  :disabled {
+    background-color: ${({ theme }) => theme.colors.secondaryLight};
+    opacity: 0.6;
+    cursor: initial;
+  }
 
   ${({ size = 'medium' }) => size === 'large' && largeButtonStyle}
 `;
