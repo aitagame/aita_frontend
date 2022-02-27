@@ -1,5 +1,10 @@
-import { Wrapper } from 'views/components/Wrapper';
+import { UserName, ProfileContent, CreateCharacterWrapper } from './styled';
 
 export const Profile = () => {
-  return <Wrapper>Profile</Wrapper>;
+  return (
+    <ProfileContent>
+      <UserName>userName.near</UserName>
+      <CreateCharacterWrapper></CreateCharacterWrapper>
+    </ProfileContent>
+  );
 };
