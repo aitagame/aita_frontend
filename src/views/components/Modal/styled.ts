@@ -33,3 +33,51 @@ export const ModalContent = styled.div`
     width: 85%;
   }
 `;
+
+export const MainTitle = styled.h2<{ fz?: string; mb?: string }>`
+  font-size: ${({ fz }) => fz || '2rem'};
+  // margin-bottom: ${({ mb }) => mb || 'initial'};
+  color: #000000;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  top: 8rem;
+`;
+
+export const SubHeader = styled.h6<{ fz?: string; mb?: string }>`
+  font-size: ${({ fz }) => fz || '1.5rem'};
+  // margin-bottom: ${({ mb }) => mb || 'initial'};
+  color: #000000;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  top: 10rem;
+`;
+
+export const ConnectButtonStyled = styled.button`
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.textReverse};
+  border: 0;
+  font-size: 20px;
+  border-radius: 2rem;
+  outline: none;
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  top: 14rem;
+  :hover {
+    background-color: ${({ theme }) => theme.colors.secondaryLight};
+  }
+  ${desktopDevice} {
+    width: 500px;
+    margin: 2rem 0;
+  }
+  ${tabletDevice} {
+    width: 55%;
+    margin: 2rem auto;
+  }
+  ${mobileDevice} {
+    width: 55%;
+    margin: 2rem auto;
+  }
+`;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
   text-align: center;
   font-size: 20px;
   padding: 1rem;
