@@ -8,6 +8,7 @@ const {
   REACT_APP_NEAR_NETWORK_ID: nearNetworkId,
   REACT_APP_NEAR_NODE_URL: nearNodeUrl,
   REACT_APP_NEAR_WALLET_URL: nearWalletUrl,
+  REACT_APP_AITA_NEAR_NET: aitaNearNet,
 } = process.env;
 
 const getConfigValue = (value: string | undefined, defaultValue = ''): string =>
@@ -23,4 +24,5 @@ export const appConfig = {
   nearNetworkId: getConfigValue(nearNetworkId),
   nearNodeUrl: getConfigValue(nearNodeUrl),
   nearWalletUrl: getConfigValue(nearWalletUrl),
+  aitaNearNet: getConfigValue(aitaNearNet),
 };
