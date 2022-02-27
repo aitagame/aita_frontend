@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
   top: 0;
   z-index: 1;
@@ -11,8 +11,7 @@ export const ModalWrapper = styled.div`
   overflow: auto;
   width: 100%;
   height: 100%;
-  ${desktopDevice} {
-  }
+  display: ${({ isOpen }) => (isOpen ? null : 'none')};
 `;
 
 export const ModalContent = styled.div`

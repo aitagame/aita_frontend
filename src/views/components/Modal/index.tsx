@@ -14,9 +14,9 @@ export const ConnectButton: React.FC<{ title?: string }> = ({
   return <ConnectButtonStyled onClick={onProfile}>{title}</ConnectButtonStyled>;
 };
 
-export const Modal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = () => {
+export const Modal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ isOpen }) => {
   return (
-    <ModalWrapper>
+    <ModalWrapper isOpen={isOpen}>
       <ModalContent>
         <MainTitle>Successful</MainTitle>
         <SubHeader>Insert sample sentence here</SubHeader>
