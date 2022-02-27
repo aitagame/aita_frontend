@@ -12,7 +12,7 @@ const titles: Record<HackathonModalStatus, string> = {
 
 const subTitles = (name: string): Record<HackathonModalStatus, string> => ({
   success: `Yeeeh, ${name}! Near says "Hello"!`,
-  error: `Oh now, ${name}. Seems Near is not connected.`,
+  error: `Oh no, ${name}. It seems Near is not connected.`,
 });
 
 interface HackathonModalProps {
@@ -24,7 +24,7 @@ interface HackathonModalProps {
 export const HackathonModal: React.FC<HackathonModalProps> = ({ onClose, status, name }) => {
   const navigate = useNavigate();
   const onProceedClick = useCallback(() => {
-    navigate('/profile');
+    navigate('/play'); // TODO: change on profile when the page is ready
   }, [navigate]);
   return (
     <Modal title={titles[status]} subtitle={subTitles(name)[status]} onClose={onClose}>
