@@ -13,6 +13,7 @@ export const Hackathon = () => {
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (contract as any).hello({ name });
       setModalStatus('success');
     } catch (e) {
