@@ -10,17 +10,20 @@ declare module 'styled-components' {
       backgroundSecondary: string;
       text: string;
       textReverse: string;
+      textDisabled: string;
     };
     fonts: {
       primary: string;
       sizes: {
         title: string;
         subtitle: string;
+        input: string;
       };
     };
     gutter: {
       small: string;
       medium: string;
+      elements: string;
     };
   }
 }

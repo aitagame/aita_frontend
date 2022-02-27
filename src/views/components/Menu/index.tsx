@@ -9,6 +9,7 @@ export const MenuList: React.FC = () => {
       <AppLink to="/market">Market</AppLink>
       <AppLink to="/rooms">Rooms</AppLink>
       <AppLink to="/play">Play</AppLink>
+      <AppLink to="/hackathon">Encode/NEAR Challenges</AppLink>
     </>
   );
 };
