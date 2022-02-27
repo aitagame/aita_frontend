@@ -1,82 +1,54 @@
 import styled from 'styled-components';
-import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
+import { desktopDevice } from 'views/theme/mediaQuery';
+import { Button } from '../Button';
+import { Title, TitleH2 } from '../Title';
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
   top: 0;
   z-index: 1;
   overflow: hidden;
-  padding-top: 7rem;
+  padding-top: 5rem;
   margin: auto;
   overflow: auto;
   width: 100%;
   height: 100%;
-  display: ${({ isOpen }) => (isOpen ? null : 'none')};
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
 export const ModalContent = styled.div`
   background-color: ${({ theme }) => theme.colors.text};
-  width: 100%;
-  height: 551px;
-  border-radius: 30px;
+  height: 34rem;
+  border-radius: 2rem;
   margin: auto;
-
+  width: 85%;
   ${desktopDevice} {
-    width: 763px;
-  }
-
-  ${tabletDevice} {
-    width: 85%;
-  }
-  ${mobileDevice} {
-    width: 85%;
+    width: 55%;
   }
 `;
 
-export const MainTitle = styled.h2<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '2rem'};
-  // margin-bottom: ${({ mb }) => mb || 'initial'};
+export const MainTitle = styled(TitleH2)`
   color: #000000;
-  font-weight: 500;
   text-align: center;
   position: relative;
   top: 8rem;
 `;
 
-export const SubHeader = styled.h6<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '1.5rem'};
-  // margin-bottom: ${({ mb }) => mb || 'initial'};
+export const SubHeader = styled(Title)`
   color: #000000;
-  font-weight: 500;
   text-align: center;
   position: relative;
   top: 10rem;
 `;
 
-export const ConnectButtonStyled = styled.button`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.textReverse};
-  border: 0;
-  font-size: 20px;
-  border-radius: 2rem;
-  outline: none;
+export const ConnectButtonStyled = styled(Button)`
+  font-size: 1.25rem;
   padding: 1rem;
-  cursor: pointer;
   position: relative;
   top: 14rem;
-  :hover {
-    background-color: ${({ theme }) => theme.colors.secondaryLight};
-  }
+  width: 55%;
+  margin: 2rem auto;
   ${desktopDevice} {
-    width: 500px;
-    margin: 2rem 0;
-  }
-  ${tabletDevice} {
-    width: 55%;
-    margin: 2rem auto;
-  }
-  ${mobileDevice} {
-    width: 55%;
-    margin: 2rem auto;
+    width: 31.25rem;
   }
 `;

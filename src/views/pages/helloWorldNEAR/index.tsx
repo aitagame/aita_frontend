@@ -6,16 +6,10 @@ import {
   Header,
 } from './styled';
 import React from 'react';
-import { Input } from 'views/components/NameInput';
+import { Input } from 'views/components/Input';
 import { Modal } from 'views/components/Modal';
 
-export const SubmitButton: React.FC<{ title?: string; onClick: () => void }> = ({
-  title = 'Submit',
-}) => {
-  return <SubmitButtonStyled>{title}</SubmitButtonStyled>;
-};
-
-export const Form: React.FC = () => {
+export const Form: React.FC<{ title?: string }> = ({ title = 'Submit' }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const openModal = () => {
@@ -30,7 +24,7 @@ export const Form: React.FC = () => {
     <>
       <FormWrapper>
         <Input />
-        <SubmitButton onClick={openModal} />
+        <SubmitButtonStyled onClick={openModal}>{title}</SubmitButtonStyled>
       </FormWrapper>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
     </>
@@ -41,7 +35,7 @@ export const HelloWorld = () => {
   return (
     <BackgroundWrapper>
       <ContentWrapper>
-        <Header>Hello there!</Header>
+        <Header fz="2rem">Hello there!</Header>
         <Form />
       </ContentWrapper>
     </BackgroundWrapper>

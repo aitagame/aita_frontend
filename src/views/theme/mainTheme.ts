@@ -9,6 +9,7 @@ export const mainTheme = {
     backgroundSecondary: '#121D3F',
     text: '#ffffff',
     textReverse: '#0B132B',
+    placeholderText: '#c4c4c4',
   },
   fonts: {
     primary: 'Ubuntu, Roboto, sans-serif',

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { desktopDevice, tabletDevice, mobileDevice } from 'views/theme/mediaQuery';
+import { Button } from 'views/components/Button';
+import { TitleH1 } from 'views/components/Title';
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const BackgroundWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
@@ -8,7 +10,7 @@ export const BackgroundWrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.main`
-  position: absolute;
+  position: relative;
   top: 35vh;
   width: 100%;
   text-align: center;
@@ -26,40 +28,22 @@ export const FormWrapper = styled.form`
    padding: 2rem 0;
    margin: auto;
    ${desktopDevice} {
-      width:500px;
+      width:31.25rem;
    }
 `;
 
-export const SubmitButtonStyled = styled.button`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.textReverse};
-  border: 0;
-  font-size: 20px;
-  border-radius: 2rem;
-  outline: none;
+export const SubmitButtonStyled = styled(Button)`
+  font-size: 1.25rem;
   padding: 1rem;
-  cursor: pointer;
-  :hover {
-    background-color: ${({ theme }) => theme.colors.secondaryLight};
-  }
+  position: relative;
+  top: 14rem;
+  width: 55%;
+  margin: 2rem auto;
   ${desktopDevice} {
-    width: 500px;
-    margin: 2rem 0;
-  }
-  ${tabletDevice} {
-    width: 55%;
-    margin: 2rem auto;
-  }
-  ${mobileDevice} {
-    width: 55%;
-    margin: 2rem auto;
+    width: 27rem;
   }
 `;
 
-export const Header = styled.h1<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '2rem'};
-  // margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 500;
+export const Header = styled(TitleH1)`
   text-align: center;
 `;
