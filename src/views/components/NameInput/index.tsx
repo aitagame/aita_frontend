@@ -1,12 +1,12 @@
 import React from 'react';
-import { Input } from './styled';
+import { StyledInput } from './styled';
 
-export const NameInput: React.FC<{ placeholder?: string }> = ({
+export const Input: React.FC<{ placeholder?: string; type?: string }> = ({
   placeholder = 'Insert name here',
 }) => {
   return (
     <>
-      <Input type="text" placeholder={placeholder} />
+      <StyledInput type="text" placeholder={placeholder} />
     </>
   );
 };
