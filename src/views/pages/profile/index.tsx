@@ -1,10 +1,14 @@
-import { UserName, ProfileContent, CreateCharacterWrapper } from './styled';
+import { CharacterSelection } from './component/Characters';
+import { UserName, ProfileContentWrapper, CreateCharacterWrapper, NameDisplay } from './styled';
 
 export const Profile = () => {
   return (
-    <ProfileContent>
+    <ProfileContentWrapper>
       <UserName>userName.near</UserName>
-      <CreateCharacterWrapper></CreateCharacterWrapper>
-    </ProfileContent>
+      <CreateCharacterWrapper>
+        <NameDisplay placeholder="Display Name" />
+        <CharacterSelection />
+      </CreateCharacterWrapper>
+    </ProfileContentWrapper>
   );
 };
