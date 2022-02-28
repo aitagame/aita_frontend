@@ -7,6 +7,7 @@ export const mainTheme = {
     secondaryLight: '#FFEAC0',
     backgroundPrimary: '#0B132B',
     backgroundSecondary: '#121D3F',
+    backgroundTertiary: '#ffffff',
     text: '#ffffff',
     textReverse: '#0B132B',
     textDisabled: '#c4c4c4',

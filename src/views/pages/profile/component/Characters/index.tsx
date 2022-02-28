@@ -1,5 +1,8 @@
-import { SelectCharacter, SubHeader, Wrapper } from './styled';
+import { SelectCharacter, SubHeader, Wrapper, StartGameButton } from './styled';
 import { WaterElement } from './Water';
+import { EarthElement } from './Earth';
+import { FireElement } from './Fire';
+import { AirElement } from './Air';
 
 export const CharacterSelection = () => {
   return (
@@ -7,7 +10,11 @@ export const CharacterSelection = () => {
       <SubHeader>Select Class Type</SubHeader>
       <SelectCharacter>
         <WaterElement />
+        <EarthElement />
+        <FireElement />
+        <AirElement />
       </SelectCharacter>
+      <StartGameButton>Start Game</StartGameButton>
     </Wrapper>
   );
 };
