@@ -18,23 +18,24 @@ export const CharacterTypeWrapper = styled(Button)`
   max-width: 100%;
   padding: 1rem;
   border-radius: 0.5rem;
-  display: block;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 1rem;
   background-color: ${({ theme }) => theme.colors.text};
 
   :hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    box-shadow: ${({ theme }) => `inset 0 0 20px 20px ${theme.colors.secondary}`};
   }
   :active {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    box-shadow: ${({ theme }) => `inset 0 0 20px 20px ${theme.colors.secondary}`};
     opacity: 0.6;
     cursor: initial;
   }
 
   ${desktopDevice} {
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     width: 14vmax;
     height: 18vmax;
     max-width: 14vmax;
@@ -44,5 +45,5 @@ export const CharacterTypeWrapper = styled(Button)`
 export const ElementName = styled.p`
   font-size: 1rem;
   font-weight: 500;
-  margin-top: 1rem;
+  margin: 0.5rem 0;
 `;
