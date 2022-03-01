@@ -106,8 +106,8 @@ export const App = observer(() => {
   }, [authMethod, profile, setValues, user, values, walletId]);
 
   const getUserInfo = useCallback(() => {
-    console.log(user.id);
     if (!!values.accountId && !user.id) {
+      console.log(user.id, values.accountId);
       const identifier = getIdentifier(authMethod);
       identifier && getUser(values, identifier);
     }

@@ -46,6 +46,10 @@ class AitaService {
     const url = `${this.apiUrl}/${path}`;
     return this._retrieveData<unknown, T>(url);
   }
+  public async post<T, A>(path: string, data: A) {
+    const url = `${this.apiUrl}/${path}`;
+    return this._retrieveData<unknown, T>(url, 'post', data);
+  }
 }
 
 export default new AitaService();
