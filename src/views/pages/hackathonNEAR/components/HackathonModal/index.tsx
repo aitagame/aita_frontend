@@ -10,24 +10,24 @@ const titles: Record<HackathonModalStatus, string> = {
   error: 'Error!',
 };
 
-const subTitles = (name: string): Record<HackathonModalStatus, string> => ({
-  success: `Yeeeh, ${name}! Near says "Hello"!`,
-  error: `Oh now, ${name}. Seems Near is not connected.`,
+const subTitles = (message: string): Record<HackathonModalStatus, string> => ({
+  success: `Yeeeh! Near says "${message}"!`,
+  error: `Oh no. It seems Near is not connected.`,
 });
 
 interface HackathonModalProps {
   onClose: () => void;
   status: HackathonModalStatus;
-  name: string;
+  message: string;
 }
 
-export const HackathonModal: React.FC<HackathonModalProps> = ({ onClose, status, name }) => {
+export const HackathonModal: React.FC<HackathonModalProps> = ({ onClose, status, message }) => {
   const navigate = useNavigate();
   const onProceedClick = useCallback(() => {
-    navigate('/profile');
+    navigate('/play'); // TODO: change on profile when the page is ready
   }, [navigate]);
   return (
-    <Modal title={titles[status]} subtitle={subTitles(name)[status]} onClose={onClose}>
+    <Modal title={titles[status]} subtitle={subTitles(message)[status]} onClose={onClose}>
       {status === 'success' && (
         <Button size="large" onClick={onProceedClick}>
           Click here to continue
