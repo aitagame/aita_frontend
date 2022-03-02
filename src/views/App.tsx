@@ -133,7 +133,7 @@ export const App = observer(() => {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Main />} />
-              <Route path="/" element={<ProtectedRoute />}>
+              <Route path="/" element={<ProtectedRoute profileCheck={false} />}>
                 <Route path="/market" element={<Market />} />
                 <Route path="/rooms" element={<Rooms />} />
                 <Route path="/play" element={<Game />} />
