@@ -1,27 +1,27 @@
 import { Element } from 'views/types/profilePage';
-import airElementImage from 'views/assets/Air.png';
-import fireElementImage from 'views/assets/Fire.png';
-import earthElementImage from 'views/assets/Earth.png';
-import waterElementImage from 'views/assets/Water.png';
+import airElementImage from 'views/assets/air.png';
+import fireElementImage from 'views/assets/fire.png';
+import earthElementImage from 'views/assets/earth.png';
+import waterElementImage from 'views/assets/water.png';
 
 export const characterTypeElement: Element[] = [
   {
-    id: 'Earth',
+    id: 'earth',
     name: 'Earth',
     url: earthElementImage,
   },
   {
-    id: 'Air',
+    id: 'air',
     name: 'Air',
     url: airElementImage,
   },
   {
-    id: 'Fire',
+    id: 'fire',
     name: 'Fire',
     url: fireElementImage,
   },
   {
-    id: 'Water',
+    id: 'water',
     name: 'Water',
     url: waterElementImage,
   },

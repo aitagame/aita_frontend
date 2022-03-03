@@ -7,12 +7,12 @@ import { Input } from 'views/components/Input';
 export const UserName = styled(Title)`
   display: flex;
   justify-content: center;
-  margin: 3rem 0 1.5rem;
+  margin: 2.5rem 0 1.5rem;
   font-weight: 300;
   font-size: 1rem;
   ${desktopDevice} {
     justify-content: start;
-    margin: 3rem 0 1.5rem 6rem;
+    margin: 2.5rem 0 1.5rem 6rem;
   }
 `;
 
@@ -27,7 +27,7 @@ export const CreateCharacterWrapper = styled.div`
 `;
 
 export const NameDisplay = styled(Input)`
-  margin: 3rem auto;
+  margin: 2rem auto;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   color: ${({ theme }) => theme.colors.text};
   border-bottom: 0.03rem solid white;
@@ -36,4 +36,5 @@ export const NameDisplay = styled(Input)`
   text-align: center;
   font-size: 1rem;
   display: flex;
+  text-decoration: wavy underline;
 `;

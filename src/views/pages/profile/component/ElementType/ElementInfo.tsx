@@ -1,4 +1,4 @@
-import { CharacterTypeWrapper, ElementName, ElementImage } from './styled';
+import { CharacterTypeButton, ElementName, ElementImage } from './styled';
 import { Element } from 'views/types/profilePage';
 
 interface ElementTypeProps {
@@ -7,9 +7,9 @@ interface ElementTypeProps {
 
 export const CharacterType: React.FC<ElementTypeProps> = ({ elementData }) => {
   return (
-    <CharacterTypeWrapper>
+    <CharacterTypeButton>
       <ElementImage src={elementData.url} />
       <ElementName>{elementData.name}</ElementName>
-    </CharacterTypeWrapper>
+    </CharacterTypeButton>
   );
 };

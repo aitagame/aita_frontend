@@ -1,17 +1,19 @@
 import { CharacterType } from '../ElementType/ElementInfo';
-import { SelectCharacter, SubHeader, Wrapper, StartGameButton } from './styled';
+import { SelectCharacter, SubHeader } from './styled';
 import { characterTypeElement } from 'views/pages/profile/data';
+import { Wrapper } from 'views/components/Wrapper';
+import { PlayGameButton } from 'views/components/PlayGameButton';
 
 export const CharacterSelection = () => {
   return (
     <Wrapper>
-      <SubHeader>Select Class Type</SubHeader>
+      <SubHeader mb="3rem">Select Class Type</SubHeader>
       <SelectCharacter>
         {characterTypeElement.map(el => (
           <CharacterType elementData={el} key={el.id} />
         ))}
       </SelectCharacter>
-      <StartGameButton>Start Game</StartGameButton>
+      <PlayGameButton>Start Game</PlayGameButton>
     </Wrapper>
   );
 };

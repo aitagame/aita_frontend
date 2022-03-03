@@ -13,7 +13,7 @@ export const ElementImage = styled.img`
   }
 `;
 
-export const CharacterTypeWrapper = styled(Button)`
+export const CharacterTypeButton = styled(Button)`
   width: 30rem;
   max-width: 100%;
   padding: 1rem;
