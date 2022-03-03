@@ -2,16 +2,20 @@ import { Logo } from '../Logo';
 import { HeaderWrapper, HeaderContent } from './styled';
 import { BurgerMenu, MenuList } from '../Menu';
 import { PlayGameButton } from '../PlayGameButton';
+interface HeaderProps {
+  withMenu?: boolean;
+  withPlayButton?: boolean;
+}
 
-export const Header: React.FC = () => {
+export const Header: React.FC<HeaderProps> = ({ withMenu = true, withPlayButton = true }) => {
   return (
     <HeaderWrapper>
       <HeaderContent>
         <Logo />
-        <MenuList />
+        {withMenu && <MenuList />}
       </HeaderContent>
-      <PlayGameButton />
-      <BurgerMenu />
+      {withPlayButton && <PlayGameButton />}
+      {withMenu && <BurgerMenu />}
     </HeaderWrapper>
   );
 };
