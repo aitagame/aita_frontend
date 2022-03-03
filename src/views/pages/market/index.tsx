@@ -1,5 +1,12 @@
-import { Wrapper } from './styled';
+import { ContentWrapper, TitleMarket } from './styled';
+import { BaseLayout } from 'views/components/BaseLayout';
 
 export const Market = () => {
-  return <Wrapper>Market</Wrapper>;
+  return (
+    <BaseLayout>
+      <ContentWrapper>
+        <TitleMarket>Coming Soon</TitleMarket>
+      </ContentWrapper>
+    </BaseLayout>
+  );
 };
