@@ -1,13 +1,24 @@
-import { MainWrapper } from './styled';
+import { BaseContent, MainWrapper } from './styled';
 import { Header } from 'views/components/Header';
 import { Footer } from '../Footer';
 
-export const BaseLayout: React.FC = ({ children }) => {
+interface BaseLayoutProps {
+  withMenu?: boolean;
+  withFooter?: boolean;
+  withPlayButton?: boolean;
+}
+
+export const BaseLayout: React.FC<BaseLayoutProps> = ({
+  children,
+  withMenu = true,
+  withFooter = true,
+  withPlayButton = true,
+}) => {
   return (
     <MainWrapper>
-      <Header />
-      {children}
-      <Footer />
+      <Header withMenu={withMenu} withPlayButton={withPlayButton} />
+      <BaseContent>{children}</BaseContent>
+      {withFooter && <Footer />}
     </MainWrapper>
   );
 };
