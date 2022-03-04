@@ -1,7 +1,6 @@
 import loaderImages from '../utils/loaderImages';
 import getPressedKeys from 'game/utils/useButtons';
-import { gameData } from '../gameData';
-import { Pointer } from './pointer';
+import { images, mediaData, gameData } from '../gameData';
 import { Background } from './background';
 import { Platform } from './platform';
 import { Player } from './player';
@@ -14,17 +13,15 @@ export class Game {
   idRequestAnimationFrame: number;
   constructor(canvas: HTMLCanvasElement) {
     this.pressedKeys = getPressedKeys();
-    this.background = new Background(1600, 844, gameData.backgroundImage, new Pointer(980, 400));
-    this.players = [new Player(new Pointer(800, 400), this.pressedKeys)];
-    this.platforms = [
-      new Platform(80, 500, 150, 20),
-      new Platform(500, 309, 150, 20),
-      new Platform(900, 250, 150, 20),
-      new Platform(1050, 120, 20, 150),
-      new Platform(900, 410, 170 + 150, 20),
-      new Platform(1070, 250, 150, 20),
-      new Platform(80, 600, 1500, 20),
-    ];
+    this.background = new Background(
+      images.background,
+      mediaData.background.size,
+      mediaData.background.center
+    );
+    this.players = [new Player(gameData.player.startPosition, this.pressedKeys)];
+    this.platforms = gameData.platforms.map(
+      platform => new Platform(platform.cords, platform.size)
+    );
     this.lastFrameUpdate = Date.now();
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
@@ -68,7 +65,6 @@ export class Game {
   }
 
   stopGame() {
-    console.log('test');
     cancelAnimationFrame(this.idRequestAnimationFrame);
   }
 }
