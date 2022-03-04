@@ -1,7 +1,6 @@
-import { gameData } from 'game/gameData';
+import { images, gameData, mediaData } from 'game/gameData';
 import { Pointer } from './pointer';
 import { Animation } from './animation';
-
 export class Player {
   cords: Pointer;
   lastCords: Pointer;
@@ -14,18 +13,18 @@ export class Player {
   isJump: boolean;
   direction: string;
   static animations = {
-    idle: new Animation(gameData.idleAnimationImage, 4, new Pointer(62, 43), 7),
-    move: new Animation(gameData.moveAnimationImage, 4, new Pointer(62, 43), 7),
+    idle: new Animation(images.idleAnimation, mediaData.idleAnimation),
+    move: new Animation(images.moveAnimation, mediaData.moveAnimation),
   };
   constructor(cords: Pointer, pressedKeys: Map<string, boolean>) {
     this.cords = cords;
     this.lastCords = new Pointer(cords.x, cords.y);
-    this.size = 16;
+    this.size = gameData.player.size;
     this.state = 'idle';
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
-    this.dx = 400;
-    this.ddy = 600 * 1.5;
+    this.dx = gameData.player.dx;
+    this.ddy = gameData.player.ddy;
     this.dy = 0;
     this.isJump = false;
   }
@@ -34,14 +33,11 @@ export class Player {
     this.lastCords.y = this.cords.y;
     const left = !!(this.pressedKeys.get('KeyA') || this.pressedKeys.get('ArrowLeft'));
     const right = !!(this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight'));
-    if (this.pressedKeys.get('KeyW') && !this.isJump) {
-      this.dy = -580;
+    const up = !!(this.pressedKeys.get('KeyW') || this.pressedKeys.get('ArrowUp'));
+
+    if (up && !this.isJump) {
+      this.dy = -gameData.player.jumpPower;
       this.isJump = true;
-    }
-    this.cords.y += this.dy * dt;
-    this.dy += this.ddy * dt;
-    if (this.dy > 900 * 1.5) {
-      this.dy = 900 * 1.5;
     }
     if (left) {
       this.cords.x -= this.dx * dt;
@@ -53,7 +49,11 @@ export class Player {
       this.state = 'move';
       if (!left) this.direction = 'right';
     }
+    this.cords.y += this.dy * dt;
+    this.dy += this.ddy * dt;
+    this.dy = Math.min(this.dy, gameData.player.maxDy);
     this.isJump = true;
+
     if (left === right) {
       this.state = 'idle';
     }
