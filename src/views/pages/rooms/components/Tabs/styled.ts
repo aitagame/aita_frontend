@@ -11,13 +11,17 @@ export const TabsPaneBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  width: 100%;
+  margin: auto;
   ${mobileDevice} {
     flex-direction: column;
+    width: 100%;
   }
 `;
 
 export const TabPane = styled.button<{ selected?: boolean }>`
+  cursor: pointer;
+  font-size: 1rem;
   padding: 0.4rem 2rem;
   border: 0;
   outline: none;
@@ -25,7 +29,7 @@ export const TabPane = styled.button<{ selected?: boolean }>`
   color: ${({ theme, selected }) => (selected ? theme.colors.textReverse : 'inherit')};
   ${mobileDevice} {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem;
   }
 `;
 

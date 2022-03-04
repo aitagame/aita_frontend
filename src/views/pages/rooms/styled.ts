@@ -17,3 +17,15 @@ export const RoomsWrapper = styled(Wrapper)`
     }
   }
 `;
+
+export const ContentWrapper = styled.div`
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
+  height: 60vh;
+  padding: 11rem;
+  font-size: 2rem;
+  ${mobileDevice} {
+    text-align: center;
+    padding: 11rem 0;
+  }
+`;
