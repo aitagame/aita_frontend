@@ -16,3 +16,9 @@ export const SelectCharacter = styled.div`
 export const SubHeader = styled(Title)`
   text-align: center;
 `;
+
+export const ButtonWrapper = styled.div`
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 3rem;
+`;

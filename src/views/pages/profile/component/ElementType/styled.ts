@@ -16,7 +16,6 @@ export const ElementImage = styled.img`
 export const CharacterTypeButton = styled(Button)`
   width: 30rem;
   max-width: 100%;
-  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
