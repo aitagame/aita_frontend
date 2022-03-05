@@ -1,10 +1,11 @@
 import { BaseLayout } from 'views/components/BaseLayout';
 import { Tabs } from './components/Tabs';
 import { RoomsWrapper, ContentWrapper } from './styled';
+import { RoomsList } from './components/RoomList';
 
 const tabs = [
   { title: 'Main', content: <div>main</div>, id: 'main' },
-  { title: 'Rooms', content: <div>playRrooms</div>, id: 'playRooms' },
+  { title: 'Rooms', content: <RoomsList />, id: 'playRooms' },
   { title: 'Market', content: <ContentWrapper>Coming Soon</ContentWrapper>, id: 'market' },
   {
     title: 'Achievements',

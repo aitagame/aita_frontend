@@ -25,7 +25,6 @@ export const ContentWrapper = styled.div`
   padding: 11rem;
   font-size: 2rem;
   ${mobileDevice} {
-    text-align: center;
     padding: 11rem 0;
   }
 `;
