@@ -1,8 +1,8 @@
-import { ContentWrapper, RoomHeader, RoomListWrapper, RoomButton } from './styled';
+import { RoomBaseLayout, RoomHeader, RoomListWrapper, RoomButton } from './styled';
 
 export const RoomsList = () => {
   return (
-    <ContentWrapper>
+    <RoomBaseLayout>
       <RoomListWrapper>
         <RoomHeader>Friendly Game</RoomHeader>
         <RoomButton>Join</RoomButton>
@@ -15,6 +15,6 @@ export const RoomsList = () => {
         <RoomHeader>A Rating Game</RoomHeader>
         <RoomButton>Join</RoomButton>
       </RoomListWrapper>
-    </ContentWrapper>
+    </RoomBaseLayout>
   );
 };
