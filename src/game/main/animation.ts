@@ -19,8 +19,12 @@ export class Animation {
     this.scale = params.scale;
     this.currentFrame = 0;
   }
+  reset() {
+    this.currentFrame = 0;
+  }
   update(dt: number) {
     this.currentFrame += this.speed * dt;
+    return this.currentFrame >= this.countFrame;
   }
   render(ctx: CanvasRenderingContext2D, cords: Pointer, direction?: string) {
     cords = new Pointer(cords.x + this.shift.x, cords.y + this.shift.y);
