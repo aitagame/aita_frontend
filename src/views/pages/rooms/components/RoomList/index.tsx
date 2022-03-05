@@ -12,7 +12,7 @@ export const RoomsList = () => {
         <RoomButton>Join</RoomButton>
       </RoomListWrapper>
       <RoomListWrapper>
-        <RoomHeader>Rating Game</RoomHeader>
+        <RoomHeader>A Rating Game</RoomHeader>
         <RoomButton>Join</RoomButton>
       </RoomListWrapper>
     </ContentWrapper>
