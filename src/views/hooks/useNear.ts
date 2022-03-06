@@ -20,13 +20,19 @@ const nearConfig: NearConfig = {
 
 let wallet: WalletConnection;
 let contract: Contract;
+let nftContract: Contract;
 
 const connectNear = async () => {
   const near = await connect(nearConfig);
   wallet = new WalletConnection(near, '');
-  contract = new Contract(wallet.account(), appConfig.aitaNearNet, {
+  contract = new Contract(wallet.account(), appConfig.nearContractAccess, {
     viewMethods: ['hello'],
     changeMethods: [],
+    sender: wallet.account(),
+  } as ContractMethods);
+  nftContract = new Contract(wallet.account(), appConfig.nearNftContract, {
+    viewMethods: [],
+    changeMethods: ['nft_mint'],
     sender: wallet.account(),
   } as ContractMethods);
 };
@@ -46,6 +52,8 @@ export const useNear = () => {
       connect: connectNear,
       signIn,
       contract,
+      nftContract,
+      wallet,
     }),
     []
   );

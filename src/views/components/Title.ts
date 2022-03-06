@@ -20,3 +20,10 @@ export const TitleH2 = styled.h2<{ fz?: string; mb?: string }>`
   color: ${({ theme }) => theme.colors.text};
   font-weight: 500;
 `;
+
+export const Label = styled.h2<{ fz?: string; mb?: string }>`
+  font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.input};
+  margin-bottom: ${({ mb }) => mb || '0.5rem'};
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: 500;
+`;
