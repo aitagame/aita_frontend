@@ -4,6 +4,7 @@ import { images, mediaData, gameData } from '../gameData';
 import { Background } from './background';
 import { Platform } from './platform';
 import { Player } from './player';
+import { Pointer } from './pointer';
 export class Game {
   background: Background;
   players: Player[];
@@ -18,7 +19,12 @@ export class Game {
       mediaData.background.size,
       mediaData.background.center
     );
-    this.players = [new Player(gameData.player.startPosition, this.pressedKeys)];
+    this.players = [
+      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire'),
+      new Player(new Pointer(950, 300), new Map(), 'water'),
+      new Player(new Pointer(1060, 300), new Map(), 'wind'),
+      new Player(new Pointer(1170, 300), new Map(), 'earth'),
+    ];
     this.platforms = gameData.platforms.map(
       platform => new Platform(platform.cords, platform.size)
     );
@@ -39,17 +45,19 @@ export class Game {
   }
 
   update(dt: number) {
-    this.players[0].update(dt);
-    this.platforms.forEach(platform => {
-      if (platform.isCollised(this.players[0])) {
-        platform.collide(this.players[0]);
-      }
+    this.players.forEach(player => player.update(dt));
+    this.players.forEach(player => {
+      this.platforms.forEach(platform => {
+        if (platform.isCollised(player)) {
+          platform.collide(player);
+        }
+      });
     });
   }
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.players[0].render(ctx);
+    this.players.forEach(player => player.render(ctx));
     this.platforms.forEach(platform => platform.render(ctx));
   }
 
@@ -57,7 +65,7 @@ export class Game {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     loaderImages(
-      [this.background.img, Player.animations.idle.img],
+      [this.background.img, this.players[0].animations.idle.img],
       this.play.bind(this),
       ctx,
       canvas

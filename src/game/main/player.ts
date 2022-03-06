@@ -3,15 +3,21 @@ import { Pointer } from './pointer';
 import { Animation } from './animation';
 
 class Projectile {
+  element: string;
   cords: Pointer;
   direction: string;
   dx: number;
   isActive: boolean;
   creationTime: number;
-  animation = new Animation(images.fireProjectile, mediaData.fireProjectile);
-  constructor() {
+  animation: Animation;
+  constructor(element: string) {
+    this.element = element;
     this.isActive = false;
     this.creationTime = Date.now();
+    this.animation = new Animation(
+      images[this.element].projectile,
+      mediaData[this.element].projectile
+    );
   }
 
   activate(cords: Pointer, direction: string) {
@@ -40,6 +46,7 @@ class Projectile {
   }
 }
 export class Player {
+  element: string;
   cords: Pointer;
   lastCords: Pointer;
   size: number;
@@ -52,16 +59,12 @@ export class Player {
   direction: string;
   attackInterval: number;
   attackDelay: number;
+  timeLastChangeElement: number;
   timeLastAttack: number;
   projectiles: Projectile[];
-
-  static animations = {
-    idle: new Animation(images.idleAnimation, mediaData.idleAnimation),
-    move: new Animation(images.moveAnimation, mediaData.moveAnimation),
-    attack: new Animation(images.attackAnimation, mediaData.attackAnimation),
-  };
-
-  constructor(cords: Pointer, pressedKeys: Map<string, boolean>) {
+  animations: Record<string, Animation>;
+  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: string) {
+    this.element = element;
     this.cords = cords;
     this.lastCords = new Pointer(cords.x, cords.y);
     this.size = gameData.player.size;
@@ -72,12 +75,43 @@ export class Player {
     this.ddy = gameData.player.ddy;
     this.dy = 0;
     this.isJump = false;
+    this.timeLastChangeElement = 0;
     this.timeLastAttack = 0;
     this.attackInterval = gameData.player.attackInterval;
     this.attackDelay = gameData.player.attackDelay;
+    this.animations = {
+      idle: new Animation(
+        images[this.element].idleAnimation,
+        mediaData[this.element].idleAnimation
+      ),
+      move: new Animation(
+        images[this.element].moveAnimation,
+        mediaData[this.element].moveAnimation
+      ),
+      attack: new Animation(
+        images[this.element].attackAnimation,
+        mediaData[this.element].attackAnimation
+      ),
+    };
     this.projectiles = [];
   }
-
+  changeElement(element: string) {
+    this.element = element;
+    this.animations = {
+      idle: new Animation(
+        images[this.element].idleAnimation,
+        mediaData[this.element].idleAnimation
+      ),
+      move: new Animation(
+        images[this.element].moveAnimation,
+        mediaData[this.element].moveAnimation
+      ),
+      attack: new Animation(
+        images[this.element].attackAnimation,
+        mediaData[this.element].attackAnimation
+      ),
+    };
+  }
   update(dt: number) {
     this.lastCords.x = this.cords.x;
     this.lastCords.y = this.cords.y;
@@ -85,17 +119,25 @@ export class Player {
     const right = !!(this.pressedKeys.get('KeyD') || this.pressedKeys.get('ArrowRight'));
     const up = !!(this.pressedKeys.get('KeyW') || this.pressedKeys.get('ArrowUp'));
     const attack = !!(this.pressedKeys.get('KeyJ') || this.pressedKeys.get('KeyZ'));
-
+    const changeElement = !!this.pressedKeys.get('KeyR');
+    if (changeElement && Date.now() - this.timeLastChangeElement > 250) {
+      //AITA -- Aqua Inferno Terra Airos
+      if (this.element == 'water') this.changeElement('fire');
+      else if (this.element == 'fire') this.changeElement('earth');
+      else if (this.element == 'earth') this.changeElement('wind');
+      else if (this.element == 'wind') this.changeElement('water');
+      this.timeLastChangeElement = Date.now();
+    }
     if (attack && (Date.now() - this.timeLastAttack) / 1000 > this.attackInterval) {
       this.timeLastAttack = Date.now();
       this.state = 'attack';
-      this.projectiles.push(new Projectile());
+      this.projectiles.push(new Projectile(this.element));
     }
     this.projectiles.forEach(projectile => {
       //TODO: move attackAnimation.speed to gameData
       if (
         (Date.now() - projectile.creationTime) / 1000 >
-        this.attackDelay / mediaData.attackAnimation.speed
+        this.attackDelay / mediaData.fire.attackAnimation.speed
       ) {
         projectile.activate(this.cords.copy(), this.direction);
       }
@@ -125,13 +167,13 @@ export class Player {
     }
     this.projectiles.forEach(projectile => projectile.update(dt));
     if (this.state === 'idle') {
-      Player.animations.idle.update(dt);
+      this.animations.idle.update(dt);
     } else if (this.state === 'move') {
-      Player.animations.move.update(dt);
+      this.animations.move.update(dt);
     } else if (this.state == 'attack') {
-      if (Player.animations.attack.update(dt)) {
+      if (this.animations.attack.update(dt)) {
         this.state = 'idle';
-        Player.animations.attack.reset();
+        this.animations.attack.reset();
       }
     }
   }
@@ -139,11 +181,11 @@ export class Player {
   render(ctx: CanvasRenderingContext2D) {
     this.projectiles.forEach(projectile => projectile.render(ctx));
     if (this.state === 'idle') {
-      Player.animations.idle.render(ctx, this.cords, this.direction);
+      this.animations.idle.render(ctx, this.cords, this.direction);
     } else if (this.state === 'move') {
-      Player.animations.move.render(ctx, this.cords, this.direction);
+      this.animations.move.render(ctx, this.cords, this.direction);
     } else if (this.state == 'attack') {
-      Player.animations.attack.render(ctx, this.cords, this.direction);
+      this.animations.attack.render(ctx, this.cords, this.direction);
     }
   }
 }

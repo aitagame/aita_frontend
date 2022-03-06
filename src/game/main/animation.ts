@@ -4,7 +4,8 @@ import { IAnimation } from 'game/gameData';
 export class Animation {
   img: HTMLImageElement;
   size: Pointer;
-  shift: Pointer;
+  leftShift: Pointer;
+  rightShift: Pointer;
   countFrame: number;
   speed: number;
   scale: number;
@@ -13,7 +14,8 @@ export class Animation {
     this.img = new Image(params.sizeFrame.x, params.sizeFrame.y);
     this.img.src = src;
     this.size = params.sizeFrame;
-    this.shift = params.shift;
+    this.leftShift = params.leftShift;
+    this.rightShift = params.rightShift;
     this.countFrame = params.countFrame;
     this.speed = params.speed;
     this.scale = params.scale;
@@ -27,7 +29,12 @@ export class Animation {
     return this.currentFrame >= this.countFrame;
   }
   render(ctx: CanvasRenderingContext2D, cords: Pointer, direction?: string) {
-    cords = new Pointer(cords.x + this.shift.x, cords.y + this.shift.y);
+    if (direction == 'right') {
+      cords = new Pointer(cords.x + this.rightShift.x, cords.y + this.rightShift.y);
+    } else {
+      cords = new Pointer(cords.x + this.leftShift.x, cords.y + this.leftShift.y);
+    }
+
     if (direction === 'right') {
       ctx.save();
       ctx.scale(-1, 1);
