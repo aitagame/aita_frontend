@@ -7,7 +7,7 @@ import { Profile } from 'views/types/user';
 import { useLocalStorage } from './useLocalStorage';
 
 interface UseAuthValues {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | null;
   profile: Profile;
 }
 
@@ -26,7 +26,7 @@ export const useAuthValues = (): UseAuthValues => {
 export const useNearAuth = () => {
   const { getLSValue } = useLocalStorage();
   const [nearAuthData, setNearAuthData] = useState<NearAuth>({
-    accountId: '',
+    accountId: null,
     functionalKey: '',
     keyStore: '',
   });
@@ -34,10 +34,9 @@ export const useNearAuth = () => {
   const checkNearAuth = useCallback(() => {
     const nearWalletData: NearLSWallet = getLSValue('_wallet_auth_key');
     const accountId = nearWalletData.accountId;
-    if (!accountId) return;
     setNearAuthData({
-      accountId,
-      functionalKey: nearWalletData.allKeys[0],
+      accountId: accountId || '',
+      functionalKey: nearWalletData.allKeys ? nearWalletData.allKeys[0] : '',
       keyStore: getLSValue(`near-api-js:keystore:${accountId}:${appConfig.nearNetworkId}`, false),
     });
   }, [getLSValue]);

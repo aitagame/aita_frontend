@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from 'views/components/Button';
 import { HackathonModal, HackathonModalStatus } from './components/HackathonModal';
 import { useNear } from 'views/hooks/useNear';
+import { AppLink } from 'views/components/AppLink';
 
 export const Hackathon = () => {
   const { contract } = useNear();
@@ -41,6 +42,7 @@ export const Hackathon = () => {
             Submit
           </Button>
         </FormWrapper>
+        <AppLink to="nft">Mint NFT</AppLink>
       </HackathonWrapper>
       {modalStatus && (
         <HackathonModal onClose={closeModal} status={modalStatus} message={message} />
