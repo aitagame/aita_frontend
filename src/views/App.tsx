@@ -96,7 +96,7 @@ export const App = observer(() => {
       setAuthMethod,
       values,
       setValues,
-      isLoggedIn: !!values.accountId,
+      isLoggedIn: values.accountId === null ? null : !!values.accountId,
       walletId,
       user,
       profile,
