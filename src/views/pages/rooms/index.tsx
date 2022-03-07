@@ -7,7 +7,7 @@ import { Hackathon } from '../hackathonNEAR';
 const tabs = [
   { title: 'Profile', content: <Hackathon />, id: 'profile' },
   { title: 'Rooms', content: <RoomsList />, id: 'playRooms' },
-  { title: 'Market', content: <ContentWrapper>Coming Soon</ContentWrapper>, id: 'market' },
+  { title: 'Rating', content: <ContentWrapper>Coming Soon</ContentWrapper>, id: 'rating' },
   {
     title: 'Achievements',
     content: <ContentWrapper>Coming Soon</ContentWrapper>,
