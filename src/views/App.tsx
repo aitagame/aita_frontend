@@ -19,7 +19,8 @@ import AitaService from './service/index.service';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { Profile, User } from './types/user';
-import { Hackathon } from 'views/pages/hackathonNEAR';
+import { Hackathon } from './pages/hackathonNEAR';
+import { HackathonNFT } from './pages/hackathonNEAR/nft';
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -98,7 +99,7 @@ export const App = observer(() => {
       setAuthMethod,
       values,
       setValues,
-      isLoggedIn: !!values.accountId,
+      isLoggedIn: values.accountId === null ? null : !!values.accountId,
       walletId,
       user,
       profile,
@@ -148,6 +149,7 @@ export const App = observer(() => {
               </Route>
               <Route path="/" element={<ProtectedRoute profileCheck={false} />}>
                 <Route path="/hackathon" element={<Hackathon />} />
+                <Route path="/hackathon/nft" element={<HackathonNFT />} />
                 <Route path="/profile" element={<ProfilePage />} />
               </Route>
             </Routes>
