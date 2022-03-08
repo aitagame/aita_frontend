@@ -1,56 +1,18 @@
 import { images, gameData, mediaData } from 'game/gameData';
 import { Pointer } from './pointer';
 import { Animation } from './animation';
+import { Collider } from './collider';
+import { Projectile } from './projectile';
 
-class Projectile {
-  element: string;
-  cords: Pointer;
-  direction: string;
-  dx: number;
-  isActive: boolean;
-  creationTime: number;
-  animation: Animation;
-  constructor(element: string) {
-    this.element = element;
-    this.isActive = false;
-    this.creationTime = Date.now();
-    this.animation = new Animation(
-      images[this.element].projectile,
-      mediaData[this.element].projectile
-    );
-  }
-
-  activate(cords: Pointer, direction: string) {
-    if (!this.isActive) {
-      this.isActive = true;
-      if (direction == 'left') {
-        this.dx = -gameData.player.speedProjectile;
-      } else {
-        this.dx = gameData.player.speedProjectile;
-      }
-      this.cords = cords;
-      this.direction = direction;
-    }
-  }
-  update(dt: number) {
-    if (this.isActive) {
-      this.cords.x += this.dx * dt;
-      this.animation.update(dt);
-    }
-  }
-
-  render(ctx: CanvasRenderingContext2D) {
-    if (this.isActive) {
-      this.animation.render(ctx, this.cords, this.direction);
-    }
-  }
-}
+type Element = 'fire' | 'water' | 'earth' | 'wind';
+type State = 'idle' | 'move' | 'attack' | 'hurt' | 'die' | 'died';
 export class Player {
-  element: string;
+  collider: Collider;
+  element: Element;
   cords: Pointer;
   lastCords: Pointer;
-  size: number;
-  state: string;
+  size: Pointer;
+  state: State;
   pressedKeys: Map<string, boolean>;
   dx: number;
   dy: number;
@@ -63,11 +25,12 @@ export class Player {
   timeLastAttack: number;
   projectiles: Projectile[];
   animations: Record<string, Animation>;
-  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: string) {
+  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: Element) {
     this.element = element;
     this.cords = cords;
     this.lastCords = new Pointer(cords.x, cords.y);
-    this.size = gameData.player.size;
+    this.size = new Pointer(gameData.player.size, gameData.player.size);
+    this.collider = new Collider(this.cords, this.size);
     this.state = 'idle';
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
@@ -95,7 +58,30 @@ export class Player {
     };
     this.projectiles = [];
   }
-  changeElement(element: string) {
+
+  getDamage() {
+    console.log('boom:D');
+  }
+
+  collide(obj: Collider) {
+    if (this.lastCords.x + this.size.x <= obj.cords.x) {
+      this.cords.x = obj.cords.x - this.size.x;
+    }
+    if (this.lastCords.x >= obj.cords.x + obj.size.x) {
+      this.cords.x = obj.cords.x + obj.size.x;
+    }
+    if (this.lastCords.y + this.size.x <= obj.cords.y) {
+      this.cords.y = obj.cords.y - this.size.x;
+      this.isJump = false;
+      this.dy = 0;
+    }
+    if (this.lastCords.y >= obj.cords.y + obj.size.y) {
+      this.cords.y = obj.cords.y + obj.size.y + 1;
+      this.dy = 0;
+    }
+  }
+
+  changeElement(element: Element) {
     this.element = element;
     this.animations = {
       idle: new Animation(
@@ -112,6 +98,7 @@ export class Player {
       ),
     };
   }
+
   update(dt: number) {
     this.lastCords.x = this.cords.x;
     this.lastCords.y = this.cords.y;
@@ -139,8 +126,18 @@ export class Player {
         (Date.now() - projectile.creationTime) / 1000 >
         this.attackDelay / mediaData.fire.attackAnimation.speed
       ) {
-        projectile.activate(this.cords.copy(), this.direction);
+        if (this.direction === 'left') {
+          projectile.activate(new Pointer(this.cords.x - 10, this.cords.y + 2), this.direction);
+        } else if (this.direction === 'right') {
+          projectile.activate(new Pointer(this.cords.x + 26, this.cords.y + 2), this.direction);
+        }
       }
+    });
+    this.projectiles = this.projectiles.filter(projectile => {
+      return (
+        projectile.state === 'pending' ||
+        (projectile.state === 'active' && projectile.cords.x > -100 && projectile.cords.x < 3000)
+      );
     });
     if (up && !this.isJump) {
       this.dy = -gameData.player.jumpPower;
@@ -187,5 +184,6 @@ export class Player {
     } else if (this.state == 'attack') {
       this.animations.attack.render(ctx, this.cords, this.direction);
     }
+    // this.collider.render(ctx);
   }
 }
