@@ -48,8 +48,25 @@ export class Game {
     this.players.forEach(player => player.update(dt));
     this.players.forEach(player => {
       this.platforms.forEach(platform => {
-        if (platform.isCollised(player)) {
-          platform.collide(player);
+        if (platform.collider.isCollised(player.collider)) {
+          player.collide(platform.collider);
+        }
+      });
+      player.projectiles.forEach(projectile => {
+        if (projectile.state === 'active') {
+          this.platforms.forEach(platform => {
+            if (projectile.collider.isCollised(platform.collider)) {
+              projectile.collide();
+            }
+          });
+          this.players.forEach(player2 => {
+            if (player2 != player) {
+              if (projectile.collider.isCollised(player2.collider)) {
+                projectile.collide();
+                player2.getDamage();
+              }
+            }
+          });
         }
       });
     });
@@ -57,8 +74,8 @@ export class Game {
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.players.forEach(player => player.render(ctx));
     this.platforms.forEach(platform => platform.render(ctx));
+    this.players.forEach(player => player.render(ctx));
   }
 
   startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
