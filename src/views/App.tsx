@@ -57,7 +57,14 @@ const getIdentifier = (authMethod: AuthMethod) => {
 
 class UserData {
   user: User = {
-    id: '',
+    id: 0,
+    clan_id: null,
+    email: null,
+    firstName: '',
+    lastName: null,
+    created_at: '',
+    updated_at: '',
+    deleted_at: '',
   };
   profile: Profile = {
     id: '',
@@ -72,14 +79,14 @@ class UserData {
   }
 
   *getUser(data: MethodHookValues, identifier: string) {
-    const userId: string = yield AitaService.post(`users/authorization/near`, {
+    const userData: User = yield AitaService.post(`users/authorization/near`, {
       accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
       accountId: data.accountId,
     });
-    console.log(userId);
-    const userProfile: User = yield AitaService.get(`profiles/${userId}`);
+    const userProfile: Profile = yield AitaService.get(`profiles/${userData.id}`);
+    this.user = userData;
     if (userProfile.id) {
-      this.user = userProfile;
+      this.profile = userProfile;
     }
   }
 }
@@ -106,13 +113,12 @@ export const App = observer(() => {
     };
   }, [authMethod, profile, setValues, user, values, walletId]);
 
-  const getUserInfo = useCallback(() => {
+  useEffect(() => {
     if (!!values.accountId && !user.id) {
-      console.log(user.id, values.accountId);
       const identifier = getIdentifier(authMethod);
       identifier && getUser(values, identifier);
     }
-  }, [authMethod, getUser, user.id, values]);
+  }, [authMethod, getUser, user.id, values, values.accountId]);
 
   useEffect(() => {
     localStorage.setItem('method', authMethod);
@@ -123,14 +129,13 @@ export const App = observer(() => {
       try {
         await connect();
         await checkAuth();
-        await getUserInfo();
       } catch (e) {
         console.error(e);
       }
     };
+
     connectWithCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authMethod]);
+  }, [authMethod, connect, checkAuth]);
 
   return (
     <>

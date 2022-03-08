@@ -10,12 +10,22 @@ export class AitaServiceError extends Error {
   }
 }
 
+const getHeaders = () => {
+  const headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    accept: 'application/json',
+    Authorization: '',
+  };
+  const token = localStorage.getItem('token');
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
+};
+
 class AitaService {
   private apiUrl: string | undefined = appConfig.apiUrl;
-  private headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    accept: 'application/json',
-  };
+  private headers: HeadersInit = getHeaders();
 
   private async _retrieveData<I, O>(url: string, method = 'get', data?: I): Promise<O> {
     const body = JSON.stringify(data);
@@ -36,12 +46,16 @@ class AitaService {
     }
 
     try {
-      return await res.json();
+      const responseBody = await res.json();
+      const resToken = res.headers.get('authorization') || '';
+      resToken && localStorage.setItem('token', resToken);
+      return responseBody;
     } catch {
       const body = await res.text();
       throw new AitaServiceError('Aita: Failed during JSON parsing', res.status.toString(), body);
     }
   }
+
   public async get<T>(path: string) {
     const url = `${this.apiUrl}/${path}`;
     return this._retrieveData<unknown, T>(url);

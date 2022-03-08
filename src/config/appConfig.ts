@@ -16,7 +16,7 @@ const getConfigValue = (value: string | undefined, defaultValue = ''): string =>
   value || defaultValue;
 
 export const appConfig = {
-  baseUrl: getConfigValue(baseUrl, 'http://localhost:3005'),
+  baseUrl: getConfigValue(baseUrl, 'http://localhost:3007'),
   apiUrl: getConfigValue(apiUrl),
   nearContractAccess: getConfigValue(nearContractAccess),
   nearNftContract: getConfigValue(nearNftContract),
