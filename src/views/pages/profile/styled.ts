@@ -1,28 +1,9 @@
 import styled from 'styled-components';
-import { MainWrapper } from 'views/components/BaseLayout/styled';
-import { Title } from 'views/components/Title';
-import { desktopDevice } from 'views/theme/mediaQuery';
 import { Input } from 'views/components/Input';
-
-export const UserName = styled(Title)`
-  display: flex;
-  justify-content: center;
-  margin: 2.5rem 0 1.5rem;
-  font-weight: 300;
-  font-size: 1rem;
-  ${desktopDevice} {
-    justify-content: start;
-    margin: 2.5rem 0 1.5rem 6rem;
-  }
-`;
-
-export const ProfileContentWrapper = styled(MainWrapper)`
-  min-height: 100vh;
-`;
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const CreateCharacterWrapper = styled.div`
   width: 86%;
-  border-top: 0.03rem solid white;
   margin: 0 auto;
 `;
 
@@ -36,4 +17,23 @@ export const NameDisplay = styled(Input)`
   text-align: center;
   font-size: 1rem;
   display: flex;
+`;
+
+export const ElementsSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.gutter.elements};
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: ${({ theme }) => theme.gutter.medium};
+  ${desktopDevice} {
+    flex-direction: row;
+  }
+`;
+
+export const ProfileContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
