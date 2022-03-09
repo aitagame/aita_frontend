@@ -1,4 +1,4 @@
-import { Element } from 'views/types/profilePage';
+import { Element } from 'views/types/profile';
 import earthElementImage from 'views/assets/Earth.png';
 import airElementImage from 'views/assets/Air.png';
 import fireElementImage from 'views/assets/Fire.png';
@@ -6,7 +6,7 @@ import waterElementImage from 'views/assets/Water.png';
 
 export const characterTypeElement: Element[] = [
   {
-    id: 'earth',
+    id: 'terrestrial',
     name: 'Earth',
     url: earthElementImage,
   },
@@ -16,12 +16,12 @@ export const characterTypeElement: Element[] = [
     url: airElementImage,
   },
   {
-    id: 'fire',
+    id: 'inferno',
     name: 'Fire',
     url: fireElementImage,
   },
   {
-    id: 'water',
+    id: 'aqua',
     name: 'Water',
     url: waterElementImage,
   },

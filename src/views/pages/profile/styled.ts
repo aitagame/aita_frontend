@@ -8,7 +8,7 @@ export const CreateCharacterWrapper = styled.div`
 `;
 
 export const NameDisplay = styled(Input)`
-  margin: 3rem auto;
+  margin: 0 auto 3rem;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   color: ${({ theme }) => theme.colors.text};
   border-bottom: 0.03rem solid white;
@@ -16,7 +16,6 @@ export const NameDisplay = styled(Input)`
   width: 50%;
   text-align: center;
   font-size: 1rem;
-  display: flex;
 `;
 
 export const ElementsSection = styled.div`

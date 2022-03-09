@@ -3,23 +3,25 @@ import { useCallback, useContext, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
 import { MetamaskAuth, NearAuth } from 'views/types/auth';
 import { NearLSWallet } from 'views/types/near';
-import { Profile } from 'views/types/user';
+import { Profile, User } from 'views/types/user';
 import { useLocalStorage } from './useLocalStorage';
 
 interface UseAuthValues {
   isLoggedIn: boolean | null;
   profile: Profile;
+  user: User;
 }
 
 export const useAuthValues = (): UseAuthValues => {
-  const { isLoggedIn, profile } = useContext(AuthContext);
+  const { isLoggedIn, profile, user } = useContext(AuthContext);
 
   return useMemo(
     () => ({
       isLoggedIn,
       profile,
+      user,
     }),
-    [isLoggedIn, profile]
+    [isLoggedIn, profile, user]
   );
 };
 
