@@ -21,8 +21,9 @@ export class Game {
     );
     this.players = [
       new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire'),
-      new Player(new Pointer(950, 300), new Map(), 'water'),
-      new Player(new Pointer(1060, 300), new Map(), 'wind'),
+      new Player(new Pointer(900, 300), new Map(), 'water'),
+      new Player(new Pointer(990, 300), new Map(), 'fire'),
+      new Player(new Pointer(1080, 300), new Map(), 'wind'),
       new Player(new Pointer(1170, 300), new Map(), 'earth'),
     ];
     this.platforms = gameData.platforms.map(
