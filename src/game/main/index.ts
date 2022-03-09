@@ -60,7 +60,7 @@ export class Game {
             }
           });
           this.players.forEach(player2 => {
-            if (player2 != player) {
+            if (player2.state !== 'died' && player2 != player) {
               if (projectile.collider.isCollised(player2.collider)) {
                 projectile.collide();
                 player2.getDamage();

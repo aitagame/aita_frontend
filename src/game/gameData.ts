@@ -1,24 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import backgroundImage from './assets/backgrounds/background2.png';
-import fireIdleAnimationImage from './assets/character/fire-idle.png';
-import fireMoveAnimationImage from './assets/character/fire-move.png';
-import fireAttackAnimation from './assets/character/fire-attack.png';
-import fireProjectile from './assets/character/fire-projectile.png';
+import fireIdleAnimationImage from './assets/character/fire/idle.png';
+import fireMoveAnimationImage from './assets/character/fire/move.png';
+import fireAttackAnimation from './assets/character/fire/attack.png';
+import fireHurtAnimation from './assets/character/fire/hurt.png';
+import fireDieAnimation from './assets/character/fire/die.png';
+import fireProjectile from './assets/character/fire/projectile.png';
 
-import waterIdleAnimationImage from './assets/character/water-idle.png';
-import waterMoveAnimationImage from './assets/character/water-move.png';
-import waterAttackAnimation from './assets/character/water-attack.png';
-import waterProjectile from './assets/character/water-projectile.png';
+import waterIdleAnimationImage from './assets/character/water/idle.png';
+import waterMoveAnimationImage from './assets/character/water/move.png';
+import waterAttackAnimation from './assets/character/water/attack.png';
+import waterHurtAnimation from './assets/character/water/hurt.png';
+import waterDieAnimation from './assets/character/water/die.png';
+import waterProjectile from './assets/character/water/projectile.png';
 
-import windIdleAnimationImage from './assets/character/wind-idle.png';
-import windMoveAnimationImage from './assets/character/wind-move.png';
-import windAttackAnimation from './assets/character/wind-attack.png';
-import windProjectile from './assets/character/wind-projectile.png';
+import windIdleAnimationImage from './assets/character/wind/idle.png';
+import windMoveAnimationImage from './assets/character/wind/move.png';
+import windAttackAnimation from './assets/character/wind/attack.png';
+import windHurtAnimation from './assets/character/wind/hurt.png';
+import windDieAnimation from './assets/character/wind/die.png';
+import windProjectile from './assets/character/wind/projectile.png';
 
-import earthIdleAnimationImage from './assets/character/earth-idle.png';
-import earthMoveAnimationImage from './assets/character/earth-move.png';
-import earthAttackAnimation from './assets/character/earth-attack.png';
-import earthProjectile from './assets/character/earth-projectile.png';
+import earthIdleAnimationImage from './assets/character/earth/idle.png';
+import earthMoveAnimationImage from './assets/character/earth/move.png';
+import earthAttackAnimation from './assets/character/earth/attack.png';
+import earthHurtAnimation from './assets/character/earth/hurt.png';
+import earthDieAnimation from './assets/character/earth/die.png';
+import earthProjectile from './assets/character/earth/projectile.png';
 import { Pointer } from './main/pointer';
 
 export const images: Record<string, any> = {
@@ -27,24 +35,32 @@ export const images: Record<string, any> = {
     idleAnimation: fireIdleAnimationImage,
     moveAnimation: fireMoveAnimationImage,
     attackAnimation: fireAttackAnimation,
+    hurtAnimation: fireHurtAnimation,
+    dieAnimation: fireDieAnimation,
     projectile: fireProjectile,
   },
   water: {
     idleAnimation: waterIdleAnimationImage,
     moveAnimation: waterMoveAnimationImage,
     attackAnimation: waterAttackAnimation,
+    hurtAnimation: waterHurtAnimation,
+    dieAnimation: waterDieAnimation,
     projectile: waterProjectile,
   },
   wind: {
     idleAnimation: windIdleAnimationImage,
     moveAnimation: windMoveAnimationImage,
     attackAnimation: windAttackAnimation,
+    hurtAnimation: windHurtAnimation,
+    dieAnimation: windDieAnimation,
     projectile: windProjectile,
   },
   earth: {
     idleAnimation: earthIdleAnimationImage,
     moveAnimation: earthMoveAnimationImage,
     attackAnimation: earthAttackAnimation,
+    hurtAnimation: earthHurtAnimation,
+    dieAnimation: earthDieAnimation,
     projectile: earthProjectile,
   },
 };
@@ -87,6 +103,22 @@ export const mediaData: Record<string, any> = {
       countFrame: 10,
       scale: 2,
     },
+    hurtAnimation: {
+      sizeFrame: new Pointer(62, 43),
+      leftShift: new Pointer(-44, -44),
+      rightShift: new Pointer(-44, -44),
+      speed: 17,
+      countFrame: 3,
+      scale: 2,
+    },
+    dieAnimation: {
+      sizeFrame: new Pointer(62, 43),
+      leftShift: new Pointer(-44, -44),
+      rightShift: new Pointer(-44, -44),
+      speed: 17,
+      countFrame: 8,
+      scale: 2,
+    },
     projectile: {
       sizeFrame: new Pointer(32, 16),
       leftShift: new Pointer(-4, -6),
@@ -119,6 +151,22 @@ export const mediaData: Record<string, any> = {
       rightShift: new Pointer(-14, -21),
       speed: 17,
       countFrame: 10,
+      scale: 2,
+    },
+    hurtAnimation: {
+      sizeFrame: new Pointer(41, 32),
+      leftShift: new Pointer(-33, -21),
+      rightShift: new Pointer(-14, -21),
+      speed: 17,
+      countFrame: 3,
+      scale: 2,
+    },
+    dieAnimation: {
+      sizeFrame: new Pointer(41, 32),
+      leftShift: new Pointer(-33, -21),
+      rightShift: new Pointer(-14, -21),
+      speed: 17,
+      countFrame: 8,
       scale: 2,
     },
     projectile: {
@@ -155,6 +203,22 @@ export const mediaData: Record<string, any> = {
       countFrame: 10,
       scale: 2,
     },
+    hurtAnimation: {
+      sizeFrame: new Pointer(45, 45),
+      leftShift: new Pointer(-31, -44),
+      rightShift: new Pointer(-24, -44),
+      speed: 17,
+      countFrame: 3,
+      scale: 2,
+    },
+    dieAnimation: {
+      sizeFrame: new Pointer(45, 45),
+      leftShift: new Pointer(-31, -44),
+      rightShift: new Pointer(-24, -44),
+      speed: 17,
+      countFrame: 8,
+      scale: 2,
+    },
     projectile: {
       sizeFrame: new Pointer(32, 16),
       leftShift: new Pointer(-4, -6),
@@ -189,6 +253,22 @@ export const mediaData: Record<string, any> = {
       countFrame: 10,
       scale: 2,
     },
+    hurtAnimation: {
+      sizeFrame: new Pointer(47, 43),
+      leftShift: new Pointer(-31, -44),
+      rightShift: new Pointer(-31, -44),
+      speed: 17,
+      countFrame: 3,
+      scale: 2,
+    },
+    dieAnimation: {
+      sizeFrame: new Pointer(47, 43),
+      leftShift: new Pointer(-31, -44),
+      rightShift: new Pointer(-31, -44),
+      speed: 17,
+      countFrame: 8,
+      scale: 2,
+    },
     projectile: {
       sizeFrame: new Pointer(32, 16),
       leftShift: new Pointer(-8, -6),
@@ -206,7 +286,8 @@ export const gameData = {
     dx: 400,
     ddy: 900, // gravity
     maxDy: 1350,
-    jumpPower: 580,
+    jumpPower: 580 / 1.4,
+    maxJumps: 2,
     attackInterval: 0.7,
     attackDelay: 6.5,
     speedProjectile: 600,
@@ -214,11 +295,11 @@ export const gameData = {
   },
   platforms: [
     {
-      cords: new Pointer(80, 500),
+      cords: new Pointer(80, 520),
       size: new Pointer(150, 20),
     },
     {
-      cords: new Pointer(500, 309),
+      cords: new Pointer(480, 329),
       size: new Pointer(150, 20),
     },
     {
@@ -239,7 +320,7 @@ export const gameData = {
     },
     {
       cords: new Pointer(80, 600),
-      size: new Pointer(1500, 20),
+      size: new Pointer(1140, 20),
     },
   ],
 };

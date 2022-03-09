@@ -40,7 +40,7 @@ export class Animation {
       ctx.scale(-1, 1);
       ctx.drawImage(
         this.img,
-        this.size.x * (Math.round(this.currentFrame) % this.countFrame),
+        this.size.x * (Math.floor(this.currentFrame) % this.countFrame),
         0,
         this.size.x,
         this.size.y,
@@ -53,7 +53,7 @@ export class Animation {
     } else {
       ctx.drawImage(
         this.img,
-        this.size.x * (Math.round(this.currentFrame) % this.countFrame),
+        this.size.x * (Math.floor(this.currentFrame) % this.countFrame),
         0,
         this.size.x,
         this.size.y,
