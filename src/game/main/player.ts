@@ -14,10 +14,12 @@ export class Player {
   size: Pointer;
   state: State;
   pressedKeys: Map<string, boolean>;
+  hp: number;
   dx: number;
   dy: number;
   ddy: number;
-  isJump: boolean;
+  jumps: number;
+  maxJumps: number;
   direction: string;
   attackInterval: number;
   attackDelay: number;
@@ -34,10 +36,12 @@ export class Player {
     this.state = 'idle';
     this.direction = 'left';
     this.pressedKeys = pressedKeys;
+    this.hp = 100;
     this.dx = gameData.player.dx;
     this.ddy = gameData.player.ddy;
     this.dy = 0;
-    this.isJump = false;
+    this.maxJumps = gameData.player.maxJumps;
+    this.jumps = this.maxJumps;
     this.timeLastChangeElement = 0;
     this.timeLastAttack = 0;
     this.attackInterval = gameData.player.attackInterval;
@@ -55,12 +59,19 @@ export class Player {
         images[this.element].attackAnimation,
         mediaData[this.element].attackAnimation
       ),
+      hurt: new Animation(
+        images[this.element].hurtAnimation,
+        mediaData[this.element].hurtAnimation
+      ),
+      die: new Animation(images[this.element].dieAnimation, mediaData[this.element].dieAnimation),
     };
     this.projectiles = [];
   }
 
   getDamage() {
-    console.log('boom:D');
+    this.hp -= 35;
+    if (this.hp <= 0 && this.state !== 'died') this.state = 'die';
+    else this.state = 'hurt';
   }
 
   collide(obj: Collider) {
@@ -72,7 +83,7 @@ export class Player {
     }
     if (this.lastCords.y + this.size.x <= obj.cords.y) {
       this.cords.y = obj.cords.y - this.size.x;
-      this.isJump = false;
+      this.jumps = this.maxJumps;
       this.dy = 0;
     }
     if (this.lastCords.y >= obj.cords.y + obj.size.y) {
@@ -96,9 +107,20 @@ export class Player {
         images[this.element].attackAnimation,
         mediaData[this.element].attackAnimation
       ),
+      hurt: new Animation(
+        images[this.element].hurtAnimation,
+        mediaData[this.element].hurtAnimation
+      ),
+      die: new Animation(images[this.element].dieAnimation, mediaData[this.element].dieAnimation),
     };
   }
-
+  nextElement() {
+    if (this.element == 'water') this.changeElement('fire');
+    else if (this.element == 'fire') this.changeElement('earth');
+    else if (this.element == 'earth') this.changeElement('wind');
+    else if (this.element == 'wind') this.changeElement('water');
+    this.timeLastChangeElement = Date.now();
+  }
   update(dt: number) {
     this.lastCords.x = this.cords.x;
     this.lastCords.y = this.cords.y;
@@ -108,71 +130,84 @@ export class Player {
     const attack = !!(this.pressedKeys.get('KeyJ') || this.pressedKeys.get('KeyZ'));
     const changeElement = !!this.pressedKeys.get('KeyR');
     if (changeElement && Date.now() - this.timeLastChangeElement > 250) {
-      //AITA -- Aqua Inferno Terra Airos
-      if (this.element == 'water') this.changeElement('fire');
-      else if (this.element == 'fire') this.changeElement('earth');
-      else if (this.element == 'earth') this.changeElement('wind');
-      else if (this.element == 'wind') this.changeElement('water');
-      this.timeLastChangeElement = Date.now();
+      //AITA -- Aqua Inferno Terra Aer
+      this.nextElement();
     }
-    if (attack && (Date.now() - this.timeLastAttack) / 1000 > this.attackInterval) {
-      this.timeLastAttack = Date.now();
-      this.state = 'attack';
-      this.projectiles.push(new Projectile(this.element));
-    }
-    this.projectiles.forEach(projectile => {
-      //TODO: move attackAnimation.speed to gameData
-      if (
-        (Date.now() - projectile.creationTime) / 1000 >
-        this.attackDelay / mediaData.fire.attackAnimation.speed
-      ) {
-        if (this.direction === 'left') {
-          projectile.activate(new Pointer(this.cords.x - 10, this.cords.y + 2), this.direction);
-        } else if (this.direction === 'right') {
-          projectile.activate(new Pointer(this.cords.x + 26, this.cords.y + 2), this.direction);
-        }
+    if (this.state !== 'die' && this.state !== 'died') {
+      // Create projectile
+      if (attack && (Date.now() - this.timeLastAttack) / 1000 > this.attackInterval) {
+        this.timeLastAttack = Date.now();
+        this.state = 'attack';
+        this.projectiles.push(new Projectile(this.element));
       }
-    });
-    this.projectiles = this.projectiles.filter(projectile => {
-      return (
-        projectile.state === 'pending' ||
-        (projectile.state === 'active' && projectile.cords.x > -100 && projectile.cords.x < 3000)
-      );
-    });
-    if (up && !this.isJump) {
-      this.dy = -gameData.player.jumpPower;
-      this.isJump = true;
-    }
-    if (left) {
-      this.cords.x -= this.dx * dt;
-      if (this.state != 'attack') this.state = 'move';
-      if (!right) this.direction = 'left';
-    }
-    if (right) {
-      this.cords.x += this.dx * dt;
-      if (this.state != 'attack') this.state = 'move';
-      if (!left) this.direction = 'right';
-    }
+      // Activate projectile
+      this.projectiles.forEach(projectile => {
+        //TODO: move attackAnimation.speed to gameData
+        if (
+          (Date.now() - projectile.creationTime) / 1000 >
+          this.attackDelay / mediaData.fire.attackAnimation.speed
+        ) {
+          if (this.direction === 'left') {
+            projectile.activate(new Pointer(this.cords.x - 10, this.cords.y + 2), this.direction);
+          } else if (this.direction === 'right') {
+            projectile.activate(new Pointer(this.cords.x + 26, this.cords.y + 2), this.direction);
+          }
+        }
+      });
+      // Delete projectile
+      this.projectiles = this.projectiles.filter(projectile => {
+        return (
+          projectile.state === 'pending' ||
+          (projectile.state === 'active' && projectile.cords.x > -100 && projectile.cords.x < 3000)
+        );
+      });
+      if (up && this.jumps) {
+        this.pressedKeys.set('KeyW', false);
+        this.pressedKeys.set('ArrowUp', false);
+        this.dy = -gameData.player.jumpPower;
+        this.jumps--;
+      }
+      if (left) {
+        this.cords.x -= this.dx * dt;
+        if (this.state != 'attack') this.state = 'move';
+        if (!right) this.direction = 'left';
+      }
+      if (right) {
+        this.cords.x += this.dx * dt;
+        if (this.state != 'attack') this.state = 'move';
+        if (!left) this.direction = 'right';
+      }
 
-    this.cords.y += this.dy * dt;
-    this.dy += this.ddy * dt;
-    this.dy = Math.min(this.dy, gameData.player.maxDy);
-    this.isJump = true;
+      this.cords.y += this.dy * dt;
+      this.dy += this.ddy * dt;
+      this.dy = Math.min(this.dy, gameData.player.maxDy);
 
-    if (left === right && this.state != 'attack') {
-      this.state = 'idle';
+      if (left === right && this.state != 'attack' && this.state != 'hurt') {
+        this.state = 'idle';
+      }
+      this.projectiles.forEach(projectile => projectile.update(dt));
     }
-    this.projectiles.forEach(projectile => projectile.update(dt));
     if (this.state === 'idle') {
       this.animations.idle.update(dt);
     } else if (this.state === 'move') {
       this.animations.move.update(dt);
-    } else if (this.state == 'attack') {
+    } else if (this.state === 'attack') {
       if (this.animations.attack.update(dt)) {
         this.state = 'idle';
         this.animations.attack.reset();
       }
+    } else if (this.state === 'hurt') {
+      if (this.animations.hurt.update(dt)) {
+        this.state = 'idle';
+        this.animations.hurt.reset();
+      }
+    } else if (this.state === 'die') {
+      if (this.animations.die.update(dt)) {
+        this.state = 'died';
+        this.animations.die.reset();
+      }
     }
+    this.jumps = Math.min(this.jumps, this.maxJumps - 1);
   }
 
   render(ctx: CanvasRenderingContext2D) {
@@ -181,8 +216,12 @@ export class Player {
       this.animations.idle.render(ctx, this.cords, this.direction);
     } else if (this.state === 'move') {
       this.animations.move.render(ctx, this.cords, this.direction);
-    } else if (this.state == 'attack') {
+    } else if (this.state === 'attack') {
       this.animations.attack.render(ctx, this.cords, this.direction);
+    } else if (this.state === 'hurt') {
+      this.animations.hurt.render(ctx, this.cords, this.direction);
+    } else if (this.state === 'die') {
+      this.animations.die.render(ctx, this.cords, this.direction);
     }
     // this.collider.render(ctx);
   }
