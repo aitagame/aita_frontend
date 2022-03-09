@@ -1,4 +1,4 @@
-import { Element } from 'views/types/profile';
+import { Element } from 'views/types/profilePage';
 import earthElementImage from 'views/assets/Earth.png';
 import airElementImage from 'views/assets/Air.png';
 import fireElementImage from 'views/assets/Fire.png';

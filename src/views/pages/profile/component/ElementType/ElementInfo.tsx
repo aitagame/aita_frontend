@@ -1,5 +1,5 @@
 import { ElementName, ElementImage } from './styled';
-import { Element } from 'views/types/profile';
+import { Element } from 'views/types/profilePage';
 import { SquareButton } from 'views/components/Button';
 
 interface ElementTypeProps {
