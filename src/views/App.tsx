@@ -9,7 +9,7 @@ import { mainTheme } from './theme/mainTheme';
 import { mobileDevice } from './theme/mediaQuery';
 import { Login } from 'views/pages/login';
 import { AuthContext, AuthContextValues } from './context/Auth';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthMethod, MethodHookValues } from './types/auth';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -80,6 +80,7 @@ class UserData {
 
   *getUser(data: MethodHookValues, identifier: string) {
     const userData: User = yield AitaService.post(`users/authorization/near`, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
       accountId: data.accountId,
     });
