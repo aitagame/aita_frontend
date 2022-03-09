@@ -9,9 +9,9 @@ import { mainTheme } from './theme/mainTheme';
 import { mobileDevice } from './theme/mediaQuery';
 import { Login } from 'views/pages/login';
 import { AuthContext, AuthContextValues } from './context/Auth';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { AuthMethod } from './types/auth';
+import { AuthMethod, MethodHookValues } from './types/auth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthMethod } from './hooks/useAuthMethod';
 import { Profile as ProfilePage } from './pages/profile';
@@ -57,7 +57,14 @@ const getIdentifier = (authMethod: AuthMethod) => {
 
 class UserData {
   user: User = {
-    id: '',
+    id: 0,
+    clan_id: null,
+    email: null,
+    firstName: '',
+    lastName: null,
+    created_at: '',
+    updated_at: '',
+    deleted_at: '',
   };
   profile: Profile = {
     id: '',
@@ -71,12 +78,16 @@ class UserData {
     makeAutoObservable(this);
   }
 
-  // TODO: clarify what endpoint use and how
-  *getUser(key: string) {
-    const userId: string = yield AitaService.get(`users/${key}`);
-    const userProfile: User = yield AitaService.get(`profiles/${userId}`);
+  *getUser(data: MethodHookValues, identifier: string) {
+    const userData: User = yield AitaService.post(`users/authorization/near`, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
+      accountId: data.accountId,
+    });
+    const userProfile: Profile = yield AitaService.get(`profiles/${userData.id}`);
+    this.user = userData;
     if (userProfile.id) {
-      this.user = userProfile;
+      this.profile = userProfile;
     }
   }
 }
@@ -103,13 +114,12 @@ export const App = observer(() => {
     };
   }, [authMethod, profile, setValues, user, values, walletId]);
 
-  const getUserInfo = useCallback(() => {
+  useEffect(() => {
     if (!!values.accountId && !user.id) {
       const identifier = getIdentifier(authMethod);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      identifier && getUser((values as any)[identifier]);
+      identifier && getUser(values, identifier);
     }
-  }, [authMethod, getUser, user.id, values]);
+  }, [authMethod, getUser, user.id, values, values.accountId]);
 
   useEffect(() => {
     localStorage.setItem('method', authMethod);
@@ -117,13 +127,16 @@ export const App = observer(() => {
 
   useEffect(() => {
     const connectWithCheck = async () => {
-      await connect();
-      await checkAuth();
-      await getUserInfo();
+      try {
+        await connect();
+        await checkAuth();
+      } catch (e) {
+        console.error(e);
+      }
     };
+
     connectWithCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authMethod]);
+  }, [authMethod, connect, checkAuth]);
 
   return (
     <>

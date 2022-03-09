@@ -6,7 +6,6 @@ interface BasicAuth {
 export interface MetamaskAuth extends BasicAuth {} //TODO: change on real
 export interface NearAuth extends BasicAuth {
   functionalKey: string;
-  keyStore: string;
 }
 
 export type AuthMethod = 'Near' | 'Metamask';
