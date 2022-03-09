@@ -28,7 +28,14 @@ const AuthContextData: AuthContextValues = {
     is_my: false,
   },
   user: {
-    id: '',
+    id: 0,
+    clan_id: null,
+    email: null,
+    firstName: '',
+    lastName: null,
+    created_at: '',
+    updated_at: '',
+    deleted_at: '',
   },
 };
 

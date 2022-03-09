@@ -28,16 +28,17 @@ export const useNearAuth = () => {
   const [nearAuthData, setNearAuthData] = useState<NearAuth>({
     accountId: null,
     functionalKey: '',
-    keyStore: '',
   });
 
   const checkNearAuth = useCallback(() => {
     const nearWalletData: NearLSWallet = getLSValue('_wallet_auth_key');
     const accountId = nearWalletData.accountId;
     setNearAuthData({
-      accountId: accountId || '',
-      functionalKey: nearWalletData.allKeys ? nearWalletData.allKeys[0] : '',
-      keyStore: getLSValue(`near-api-js:keystore:${accountId}:${appConfig.nearNetworkId}`, false),
+      accountId,
+      functionalKey: getLSValue(
+        `near-api-js:keystore:${accountId}:${appConfig.nearNetworkId}`,
+        false
+      ),
     });
   }, [getLSValue]);
 
