@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { Input } from 'views/components/Input';
+import { Title } from 'views/components/Title';
 import { desktopDevice } from 'views/theme/mediaQuery';
+
+export const ProfileName = styled(Title)`
+  text-align: center;
+`;
 
 export const CreateCharacterWrapper = styled.div`
   width: 86%;
@@ -8,6 +13,7 @@ export const CreateCharacterWrapper = styled.div`
 `;
 
 export const NameDisplay = styled(Input)`
+  display: block;
   margin: 0 auto 3rem;
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   color: ${({ theme }) => theme.colors.text};

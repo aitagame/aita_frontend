@@ -1,6 +1,6 @@
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
-import { ElementsSection, NameDisplay, ProfileContent } from './styled';
+import { ElementsSection, NameDisplay, ProfileContent, ProfileName } from './styled';
 import { Title, TitleH2 } from 'views/components/Title';
 import { Wrapper } from 'views/components/Wrapper';
 import { BaseLayout } from 'views/components/BaseLayout';
@@ -20,10 +20,15 @@ export const Profile: React.FC<{
   const { values, profile } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [classToSave, setClassToSave] = useState('');
+  const [selectedClass, setSelectedClass] = useState('');
   const [profileName, setProfileName] = useState('');
 
-  const selectedClass = useMemo(() => {
+  useEffect(() => {
+    setSelectedClass(profile.class);
+    setProfileName(profile.name);
+  }, [profile]);
+
+  const profileClass = useMemo(() => {
     const selectedElement = characterTypeElement.find(el => el.id === profile.class);
     return selectedElement ? <CharacterType selected elementData={selectedElement} /> : null;
   }, [profile.class]);
@@ -33,8 +38,8 @@ export const Profile: React.FC<{
       navigate('/play');
       return;
     }
-    createProfile(profileName, classToSave, () => navigate('/play'));
-  }, [classToSave, createProfile, navigate, profile.id, profileName]);
+    createProfile(profileName, selectedClass, () => navigate('/play'));
+  }, [selectedClass, createProfile, navigate, profile.id, profileName]);
 
   const isExistingProfile = !!profile.id;
 
@@ -43,7 +48,7 @@ export const Profile: React.FC<{
       <Wrapper>
         <Title mb="3rem">{values?.accountId}</Title>
         {isExistingProfile ? (
-          <Title mb="2rem">{profile.name}</Title>
+          <ProfileName mb="2rem">{profileName}</ProfileName>
         ) : (
           <NameDisplay
             value={profileName}
@@ -56,18 +61,18 @@ export const Profile: React.FC<{
 
           <ElementsSection>
             {profile.class
-              ? selectedClass
+              ? profileClass
               : characterTypeElement.map(el => (
                   <CharacterType
                     elementData={el}
                     key={el.id}
-                    selected={classToSave === el.id}
-                    onClick={setClassToSave}
+                    selected={selectedClass === el.id}
+                    onClick={setSelectedClass}
                   />
                 ))}
           </ElementsSection>
           <Button
-            disabled={Boolean(!profile.name && profileName.length === 0)}
+            disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
             onClick={onProfileCreat}
           >
             Start Game
