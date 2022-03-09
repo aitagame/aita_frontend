@@ -11,16 +11,14 @@ import { Login } from 'views/pages/login';
 import { AuthContext, AuthContextValues } from './context/Auth';
 import { useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { AuthMethod, MethodHookValues } from './types/auth';
+import { AuthMethod } from './types/auth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthMethod } from './hooks/useAuthMethod';
 import { Profile as ProfilePage } from './pages/profile';
-import AitaService from './service/index.service';
-import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { Profile, User } from './types/user';
 import { Hackathon } from './pages/hackathonNEAR';
 import { HackathonNFT } from './pages/hackathonNEAR/nft';
+import { UserData, userStore } from './store/user';
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -55,47 +53,9 @@ const getIdentifier = (authMethod: AuthMethod) => {
   }
 };
 
-class UserData {
-  user: User = {
-    id: 0,
-    clan_id: null,
-    email: null,
-    firstName: '',
-    lastName: null,
-    created_at: '',
-    updated_at: '',
-    deleted_at: '',
-  };
-  profile: Profile = {
-    id: '',
-    name: '',
-    class: '',
-    rating: 0,
-    is_my: false,
-  };
+export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userStore }) => {
+  const { user, profile, getAuthData, createProfile } = userStore;
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  *getUser(data: MethodHookValues, identifier: string) {
-    const userData: User = yield AitaService.post(`users/authorization/near`, {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
-      accountId: data.accountId,
-    });
-    const userProfile: Profile = yield AitaService.get(`profiles/${userData.id}`);
-    this.user = userData;
-    if (userProfile.id) {
-      this.profile = userProfile;
-    }
-  }
-}
-
-const userInfo = new UserData();
-
-export const App = observer(() => {
-  const { user, profile, getUser } = userInfo;
   const { getLSValue } = useLocalStorage();
   const [walletId] = useState(''); // TODO: add after api is ready
   const [authMethod, setAuthMethod] = useState<AuthMethod>(getLSValue('method', false));
@@ -117,9 +77,9 @@ export const App = observer(() => {
   useEffect(() => {
     if (!!values.accountId && !user.id) {
       const identifier = getIdentifier(authMethod);
-      identifier && getUser(values, identifier);
+      identifier && getAuthData(values, identifier);
     }
-  }, [authMethod, getUser, user.id, values, values.accountId]);
+  }, [authMethod, getAuthData, user.id, values, values.accountId]);
 
   useEffect(() => {
     localStorage.setItem('method', authMethod);
@@ -156,7 +116,7 @@ export const App = observer(() => {
               <Route path="/" element={<ProtectedRoute profileCheck={false} />}>
                 <Route path="/hackathon" element={<Hackathon />} />
                 <Route path="/hackathon/nft" element={<HackathonNFT />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile" element={<ProfilePage createProfile={createProfile} />} />
               </Route>
             </Routes>
           </Router>
@@ -165,3 +125,5 @@ export const App = observer(() => {
     </>
   );
 });
+
+export const App = () => <AppObserver userStore={userStore} />;

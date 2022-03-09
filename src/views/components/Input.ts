@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//TODO: concider create a component with onChange function that return target.value
 export const Input = styled.input`
   text-align: center;
   font-size: ${({ theme }) => theme.fonts.sizes.input};
