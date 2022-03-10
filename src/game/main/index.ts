@@ -46,6 +46,7 @@ export class Game {
   }
 
   update(dt: number) {
+    dt = Math.min(dt, 0.04);
     this.players.forEach(player => player.update(dt));
     this.players.forEach(player => {
       this.platforms.forEach(platform => {
@@ -57,7 +58,7 @@ export class Game {
         if (projectile.state === 'active') {
           this.platforms.forEach(platform => {
             if (projectile.collider.isCollised(platform.collider)) {
-              projectile.collide();
+              projectile.collide(platform.collider);
             }
           });
           this.players.forEach(player2 => {
@@ -75,8 +76,8 @@ export class Game {
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.platforms.forEach(platform => platform.render(ctx));
     this.players.forEach(player => player.render(ctx));
+    this.platforms.forEach(platform => platform.render(ctx));
   }
 
   startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
