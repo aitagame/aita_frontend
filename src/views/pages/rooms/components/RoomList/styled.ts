@@ -5,8 +5,8 @@ import { mobileDevice } from 'views/theme/mediaQuery';
 
 export const RoomBaseLayout = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  height: 60vh;
   display: flex;
+  padding: 4rem 1rem;
   justify-content: center;
   align-items: center;
   gap: 1rem;

@@ -1,16 +1,17 @@
 import { BaseLayout } from 'views/components/BaseLayout';
 import { Tabs } from './components/Tabs';
-import { RoomsWrapper, ContentWrapper } from './styled';
+import { RoomsWrapper } from './styled';
 import { RoomsList } from './components/RoomList';
 import { Hackathon } from '../hackathonNEAR';
+import { ComingSoon } from './components/ComingSoon';
 
 const tabs = [
   { title: 'Profile', content: <Hackathon />, id: 'profile' },
   { title: 'Rooms', content: <RoomsList />, id: 'playRooms' },
-  { title: 'Rating', content: <ContentWrapper>Coming Soon</ContentWrapper>, id: 'rating' },
+  { title: 'Rating', content: <ComingSoon />, id: 'rating' },
   {
     title: 'Achievements',
-    content: <ContentWrapper>Coming Soon</ContentWrapper>,
+    content: <ComingSoon />,
     id: 'achievements',
   },
 ];
