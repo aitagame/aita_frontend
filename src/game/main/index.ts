@@ -3,8 +3,23 @@ import getPressedKeys from 'game/utils/useButtons';
 import { images, mediaData, gameData } from '../gameData';
 import { Background } from './background';
 import { Platform } from './platform';
-import { Player } from './player';
+import { Player, Element } from './player';
 import { Pointer } from './pointer';
+
+const translator = new Map<string, Element>([
+  ['air', 'wind'],
+  ['inferno', 'fire'],
+  ['terrestrial', 'earth'],
+  ['aqua', 'water'],
+]);
+interface PlayerProfile {
+  class: string;
+  id: number;
+  is_my: boolean;
+  name: string;
+  rating: number | null;
+  position: Pointer;
+}
 export class Game {
   background: Background;
   players: Player[];
@@ -12,7 +27,32 @@ export class Game {
   lastFrameUpdate: number;
   pressedKeys: Map<string, boolean>;
   idRequestAnimationFrame: number;
-  constructor(canvas: HTMLCanvasElement) {
+  id: number;
+  addPlayer(player: PlayerProfile) {
+    console.log('добавил', player);
+    if (player.is_my || this.id === player.id) {
+      this.id = player.id;
+      this.players[0] = new Player(
+        new Pointer(player.position.x, player.position.y),
+        this.pressedKeys,
+        translator.get(player.class) as Element,
+        player.id
+      );
+    } else {
+      this.players.push(
+        new Player(
+          new Pointer(player.position.x, player.position.y),
+          new Map(),
+          translator.get(player.class) as Element,
+          player.id
+        )
+      );
+    }
+  }
+  removePlayer(id: number) {
+    this.players = this.players.filter(player => player.id != id);
+  }
+  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[]) {
     this.pressedKeys = getPressedKeys();
     this.background = new Background(
       images.background,
@@ -20,12 +60,15 @@ export class Game {
       mediaData.background.center
     );
     this.players = [
-      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire'),
-      new Player(new Pointer(900, 300), new Map(), 'water'),
-      new Player(new Pointer(990, 300), new Map(), 'fire'),
-      new Player(new Pointer(1080, 300), new Map(), 'wind'),
-      new Player(new Pointer(1170, 300), new Map(), 'earth'),
+      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire', 0),
+      new Player(new Pointer(900, 300), new Map(), 'water', 0),
+      new Player(new Pointer(990, 300), new Map(), 'fire', 0),
+      new Player(new Pointer(1080, 300), new Map(), 'wind', 0),
+      new Player(new Pointer(1170, 300), new Map(), 'earth', 0),
     ];
+    players?.forEach(player => {
+      this.addPlayer(player);
+    });
     this.platforms = gameData.platforms.map(
       platform => new Platform(platform.cords, platform.size)
     );
