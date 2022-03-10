@@ -4,7 +4,7 @@ import { Animation } from './animation';
 import { Collider } from './collider';
 import { Projectile } from './projectile';
 
-type Element = 'fire' | 'water' | 'earth' | 'wind';
+export type Element = 'fire' | 'water' | 'earth' | 'wind'; //AITA -- Aqua Inferno Terra Aer
 type State = 'idle' | 'move' | 'attack' | 'hurt' | 'die' | 'died';
 export class Player {
   collider: Collider;
@@ -25,9 +25,11 @@ export class Player {
   attackDelay: number;
   timeLastChangeElement: number;
   timeLastAttack: number;
+  id: number;
   projectiles: Projectile[];
   animations: Record<string, Animation>;
-  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: Element) {
+  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: Element, id: number) {
+    this.id = id;
     this.element = element;
     this.cords = cords;
     this.lastCords = new Pointer(cords.x, cords.y);
@@ -130,7 +132,6 @@ export class Player {
     const attack = !!(this.pressedKeys.get('KeyJ') || this.pressedKeys.get('KeyZ'));
     const changeElement = !!this.pressedKeys.get('KeyR');
     if (changeElement && Date.now() - this.timeLastChangeElement > 250) {
-      //AITA -- Aqua Inferno Terra Aer
       this.nextElement();
     }
     if (this.state !== 'die' && this.state !== 'died') {
