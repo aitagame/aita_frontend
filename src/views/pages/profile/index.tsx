@@ -48,7 +48,7 @@ export const Profile: React.FC<{
       <Wrapper>
         <Title mb="3rem">{values?.accountId}</Title>
         {isExistingProfile ? (
-          <ProfileName mb="2rem">{profileName}</ProfileName>
+          <ProfileName mb="3rem">{profileName}</ProfileName>
         ) : (
           <NameDisplay
             value={profileName}

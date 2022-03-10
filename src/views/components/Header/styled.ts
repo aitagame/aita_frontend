@@ -15,6 +15,9 @@ export const HeaderWrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.backgroundPrimary};
   ${desktopDevice} {
     padding: ${({ theme }) => `1rem ${theme.gutter.medium}}`};
+    ${PlayGameButtonStyled} {
+      margin-left: 25rem;
+    }
   }
   ${mobileDevice} {
     ${PlayGameButtonStyled} {
