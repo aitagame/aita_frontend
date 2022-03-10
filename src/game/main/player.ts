@@ -158,6 +158,7 @@ export class Player {
       this.projectiles = this.projectiles.filter(projectile => {
         return (
           projectile.state === 'pending' ||
+          projectile.state === 'collide' ||
           (projectile.state === 'active' && projectile.cords.x > -100 && projectile.cords.x < 3000)
         );
       });
