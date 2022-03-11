@@ -1,0 +1,20 @@
+import { RoomBaseLayout, RoomHeader, RoomListWrapper, RoomButton } from './styled';
+
+export const RoomsList = () => {
+  return (
+    <RoomBaseLayout>
+      <RoomListWrapper>
+        <RoomHeader>Friendly Game</RoomHeader>
+        <RoomButton>Join</RoomButton>
+      </RoomListWrapper>
+      <RoomListWrapper>
+        <RoomHeader>Normal Game</RoomHeader>
+        <RoomButton>Join</RoomButton>
+      </RoomListWrapper>
+      <RoomListWrapper>
+        <RoomHeader>A Rating Game</RoomHeader>
+        <RoomButton>Join</RoomButton>
+      </RoomListWrapper>
+    </RoomBaseLayout>
+  );
+};
