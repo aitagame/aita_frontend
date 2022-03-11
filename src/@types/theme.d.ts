@@ -1,17 +1,9 @@
 import 'styled-components';
+import { Color } from 'views/types/theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: {
-      primary: string;
-      secondary: string;
-      secondaryLight: string;
-      backgroundPrimary: string;
-      backgroundSecondary: string;
-      text: string;
-      textReverse: string;
-      textDisabled: string;
-    };
+    colors: Record<Color, string>;
     fonts: {
       primary: string;
       sizes: {
