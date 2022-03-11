@@ -1,6 +1,7 @@
-import { ElementName, ElementImage } from './styled';
-import { Element } from 'views/types/profilePage';
+import { ElementName } from './styled';
+import { Element } from 'views/types/classElement';
 import { SquareButton } from 'views/components/Button';
+import { ClassElement } from 'views/components/ClassElement';
 
 interface ElementTypeProps {
   elementData: Element;
@@ -11,7 +12,7 @@ interface ElementTypeProps {
 export const CharacterType: React.FC<ElementTypeProps> = ({ elementData, selected, onClick }) => {
   return (
     <SquareButton onClick={() => onClick && onClick(elementData.id)} active={selected}>
-      <ElementImage src={elementData.url} />
+      <ClassElement elementType={elementData.id} />
       <ElementName>{elementData.name}</ElementName>
     </SquareButton>
   );

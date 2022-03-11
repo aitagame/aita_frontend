@@ -23,7 +23,7 @@ const AuthContextData: AuthContextValues = {
   profile: {
     id: '',
     name: '',
-    class: '',
+    class: undefined,
     rating: 0,
     is_my: false,
   },

@@ -1,3 +1,5 @@
+import { ElementId } from './classElement';
+
 export interface User {
   id: number;
   clan_id: string | null;
@@ -12,7 +14,7 @@ export interface User {
 export interface Profile {
   id: string;
   name: string;
-  class: string;
-  rating: number;
+  class?: ElementId;
+  rating?: number;
   is_my: boolean;
 }

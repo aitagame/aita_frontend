@@ -1,16 +1,4 @@
-import styled from 'styled-components';
-import { desktopDevice } from 'views/theme/mediaQuery';
-
-export const ElementImage = styled.img`
-  width: 15vmax;
-  max-height: 210px;
-  object-fit: contain;
-
-  ${desktopDevice} {
-    width: 10vmax;
-    max-width: 100%;
-  }
-`;
+import styled, { css, keyframes } from 'styled-components';
 
 export const ElementName = styled.p`
   font-size: 1rem;

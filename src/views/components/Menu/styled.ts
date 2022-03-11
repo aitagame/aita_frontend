@@ -74,3 +74,12 @@ export const UserMenuContent = styled.div`
   width: 100%;
   box-shadow: ${({ theme }) => `0 0 80px 20px ${theme.colors.backgroundPrimary}`};
 `;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.gutter.elements};
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 100%;
+`;

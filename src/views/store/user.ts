@@ -18,7 +18,7 @@ export class UserData {
   profile: Profile = {
     id: '',
     name: '',
-    class: '',
+    class: undefined,
     rating: 0,
     is_my: false,
   };

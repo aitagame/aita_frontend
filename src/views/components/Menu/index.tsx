@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Profile } from 'views/types/user';
 import { AppLink } from '../AppLink';
 import { Button } from '../Button';
+import { ClassElement } from '../ClassElement';
 import { Title, TitleH2 } from '../Title';
-import { Burger, Menu, Separator, UserMenuContent } from './styled';
+import { Burger, Menu, Separator, UserMenuContent, ProfileInfo } from './styled';
 
 export const MenuList: React.FC = () => {
   return (
@@ -28,11 +29,10 @@ export const UserMenu: React.FC<UserMenuProps> = ({ profile, accountMethod, acco
       <Title mb="1rem">
         {accountMethod} - {accountId}
       </Title>
-      {profile && (
-        <TitleH2 mb="2rem">
-          {profile.name} - {profile.class}
-        </TitleH2>
-      )}
+      <ProfileInfo>
+        {profile && <TitleH2>{profile.name}</TitleH2>}
+        {profile?.class && <ClassElement elementType={profile.class} />}
+      </ProfileInfo>
       <Button>Logout</Button>
     </UserMenuContent>
   );
