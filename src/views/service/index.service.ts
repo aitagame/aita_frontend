@@ -25,14 +25,13 @@ const getHeaders = () => {
 
 class AitaService {
   private apiUrl: string | undefined = appConfig.apiUrl;
-  private headers: HeadersInit = getHeaders();
 
   private async _retrieveData<I, O>(url: string, method = 'get', data?: I): Promise<O> {
     const body = JSON.stringify(data);
 
     const res = await fetch(url, {
       method,
-      headers: this.headers,
+      headers: getHeaders(),
       body,
     });
 
