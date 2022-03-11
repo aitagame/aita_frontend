@@ -3,7 +3,7 @@ import { Button } from 'views/components/Button';
 import { TitleH2 } from 'views/components/Title';
 import { RoomItem, RoomsWrapper } from './styled';
 
-const rooms = {
+const options = {
   friendly: {
     title: 'Friendly Game',
   },
@@ -15,11 +15,11 @@ const rooms = {
   },
 };
 
-export const Rooms = () => {
+export const BattleSelect = () => {
   return (
     <BaseLayout>
       <RoomsWrapper withGap>
-        {Object.values(rooms).map((room, index) => (
+        {Object.values(options).map((room, index) => (
           <RoomItem key={`room-${index}`}>
             <TitleH2 mb="2rem" color="primary">
               {room.title}

@@ -11,7 +11,6 @@ interface ButtonProps {
 const largeButtonStyle = css`
   width: 100%;
   padding: 1rem;
-  border-radius: 2rem;
   font-size: 1.5rem;
 `;
 
