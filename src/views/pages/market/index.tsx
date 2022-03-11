@@ -1,11 +1,12 @@
-import { ContentWrapper, TitleMarket } from './styled';
 import { BaseLayout } from 'views/components/BaseLayout';
+import { TitleH1 } from 'views/components/Title';
+import { ContentWrapper } from './styled';
 
 export const Market = () => {
   return (
     <BaseLayout>
-      <ContentWrapper>
-        <TitleMarket>Coming Soon</TitleMarket>
+      <ContentWrapper withGap>
+        <TitleH1>Coming Soon</TitleH1>
       </ContentWrapper>
     </BaseLayout>
   );

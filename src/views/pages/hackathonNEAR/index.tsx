@@ -5,6 +5,7 @@ import { Button } from 'views/components/Button';
 import { HackathonModal, HackathonModalStatus } from './components/HackathonModal';
 import { useNear } from 'views/hooks/useNear';
 import { AppLink } from 'views/components/AppLink';
+import { BaseLayout } from 'views/components/BaseLayout';
 
 export const Hackathon = () => {
   const { contract } = useNear();
@@ -29,8 +30,8 @@ export const Hackathon = () => {
   };
 
   return (
-    <>
-      <HackathonWrapper>
+    <BaseLayout>
+      <HackathonWrapper withGap>
         <TitleH1>Hello there!</TitleH1>
         <FormWrapper>
           <FormInput
@@ -47,6 +48,6 @@ export const Hackathon = () => {
       {modalStatus && (
         <HackathonModal onClose={closeModal} status={modalStatus} message={message} />
       )}
-    </>
+    </BaseLayout>
   );
 };

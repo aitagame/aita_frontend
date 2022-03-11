@@ -1,13 +1,16 @@
 import styled from 'styled-components';
-import { MainWrapper } from 'views/components/BaseLayout/styled';
 import { Input } from 'views/components/Input';
+import { Wrapper } from 'views/components/Wrapper';
 import { desktopDevice } from 'views/theme/mediaQuery';
 
-export const HackathonWrapper = styled(MainWrapper)`
+export const HackathonWrapper = styled(Wrapper)`
+  display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
   padding: 0 2rem;
+  height: 100%;
 `;
 
 export const FormWrapper = styled.form`

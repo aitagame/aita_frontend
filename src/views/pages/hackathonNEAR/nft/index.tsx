@@ -6,6 +6,7 @@ import { HackathonModal, HackathonModalStatus } from '../components/HackathonMod
 import { useNear } from 'views/hooks/useNear';
 import { v4 as guid } from 'uuid';
 import { AppLink } from 'views/components/AppLink';
+import { BaseLayout } from 'views/components/BaseLayout';
 
 const MINT_NFT_GAS_LIMIT = 300000000000000;
 const MINT_NFT_STORAGE_LIMIT = 0.1 * 10 ** 24;
@@ -54,7 +55,7 @@ export const HackathonNFT = () => {
   };
 
   return (
-    <>
+    <BaseLayout>
       <HackathonWrapper>
         <TitleH1>Mint NFT!</TitleH1>
         {!transactionId && (
@@ -77,6 +78,6 @@ export const HackathonNFT = () => {
       {modalStatus && (
         <HackathonModal onClose={closeModal} status={modalStatus} message={message} />
       )}
-    </>
+    </BaseLayout>
   );
 };

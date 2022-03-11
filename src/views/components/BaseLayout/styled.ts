@@ -12,7 +12,4 @@ export const MainWrapper = styled.main`
 export const BaseContent = styled.div`
   flex: 2;
   padding-top: 3.9rem;
-  justify-content: center;
-  align-items: center;
-  display: flex;
 `;

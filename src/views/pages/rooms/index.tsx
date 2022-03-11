@@ -18,7 +18,7 @@ const rooms = {
 export const Rooms = () => {
   return (
     <BaseLayout>
-      <RoomsWrapper>
+      <RoomsWrapper withGap>
         {Object.values(rooms).map((room, index) => (
           <RoomItem key={`room-${index}`}>
             <TitleH2 mb="2rem" color="primary">
