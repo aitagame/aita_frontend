@@ -18,7 +18,10 @@ export const RoomsWrapper = styled(Wrapper)`
 
 export const RoomItem = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryLight};
-  min-height: 40vh;
+  height: 40vh;
+  max-height: 50rem;
+  width: 20vw;
+  max-width: 40rem;
   border-radius: 0.625rem;
   display: flex;
   flex-direction: column;
@@ -32,6 +35,6 @@ export const RoomItem = styled.div`
   ${mobileDevice} {
     width: 100%;
     border-radius: 0;
-    min-height: 20vw;
+    height: 20vw;
   }
 `;

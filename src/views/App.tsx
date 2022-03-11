@@ -67,7 +67,7 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
       setAuthMethod,
       values,
       setValues,
-      isLoggedIn: values.accountId === null ? null : !!values.accountId,
+      isLoggedIn: Boolean(values.accountId),
       walletId,
       user,
       profile,

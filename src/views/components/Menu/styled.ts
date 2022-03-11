@@ -47,8 +47,8 @@ export const Burger = styled.div<{ open: boolean }>`
 export const Menu = styled.nav<{ open: boolean }>`
   display: none;
   flex-direction: column;
-  justify-content: center;
-  background: ${({ theme }) => `${theme.colors.backgroundSecondary}d9`};
+  align-items: center;
+  background: ${({ theme }) => `${theme.colors.backgroundPrimary}e5`};
   text-align: center;
   padding: ${({ theme }) => theme.gutter.small};
   position: absolute;
@@ -62,4 +62,15 @@ export const Menu = styled.nav<{ open: boolean }>`
   ${mobileDevice} {
     display: flex;
   }
+`;
+
+export const Separator = styled.hr`
+  color: ${({ theme }) => theme.colors.text};
+  width: 100%;
+`;
+
+export const UserMenuContent = styled.div`
+  background: ${({ theme }) => theme.colors.backgroundPrimary};
+  width: 100%;
+  box-shadow: ${({ theme }) => `0 0 80px 20px ${theme.colors.backgroundPrimary}`};
 `;

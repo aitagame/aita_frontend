@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 interface BasicAuth {
-  accountId: string | null;
+  accountId?: string;
 }
 
 export interface MetamaskAuth extends BasicAuth {} //TODO: change on real

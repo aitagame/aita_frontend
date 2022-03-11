@@ -7,28 +7,32 @@ import { Profile, User } from 'views/types/user';
 import { useLocalStorage } from './useLocalStorage';
 
 interface UseAuthValues {
-  isLoggedIn: boolean | null;
+  isLoggedIn: boolean;
   profile: Profile;
   user: User;
+  accountId?: string;
+  authMethod?: string;
 }
 
 export const useAuthValues = (): UseAuthValues => {
-  const { isLoggedIn, profile, user } = useContext(AuthContext);
+  const { isLoggedIn, profile, user, values, authMethod } = useContext(AuthContext);
 
   return useMemo(
     () => ({
       isLoggedIn,
       profile,
       user,
+      accountId: values?.accountId,
+      authMethod,
     }),
-    [isLoggedIn, profile, user]
+    [authMethod, isLoggedIn, profile, user, values?.accountId]
   );
 };
 
 export const useNearAuth = () => {
   const { getLSValue } = useLocalStorage();
   const [nearAuthData, setNearAuthData] = useState<NearAuth>({
-    accountId: null,
+    accountId: '',
     functionalKey: '',
   });
 

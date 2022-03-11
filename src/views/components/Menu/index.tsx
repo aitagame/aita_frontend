@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { Profile } from 'views/types/user';
 import { AppLink } from '../AppLink';
-import { Burger, Menu } from './styled';
+import { Button } from '../Button';
+import { Title, TitleH2 } from '../Title';
+import { Burger, Menu, Separator, UserMenuContent } from './styled';
 
 export const MenuList: React.FC = () => {
   return (
@@ -13,8 +16,38 @@ export const MenuList: React.FC = () => {
     </>
   );
 };
+interface UserMenuProps {
+  profile?: Profile;
+  accountMethod?: string;
+  accountId?: string;
+}
 
-export const BurgerMenu: React.FC = () => {
+export const UserMenu: React.FC<UserMenuProps> = ({ profile, accountMethod, accountId }) => {
+  return (
+    <UserMenuContent>
+      <Title mb="1rem">
+        {accountMethod} - {accountId}
+      </Title>
+      {profile && (
+        <TitleH2 mb="2rem">
+          {profile.name} - {profile.class}
+        </TitleH2>
+      )}
+      <Button>Logout</Button>
+    </UserMenuContent>
+  );
+};
+
+interface BurgerMenuProps extends UserMenuProps {
+  isLoggedIn: boolean;
+}
+
+export const BurgerMenu: React.FC<BurgerMenuProps> = ({
+  isLoggedIn,
+  profile,
+  accountMethod,
+  accountId,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,6 +58,12 @@ export const BurgerMenu: React.FC = () => {
         <div />
       </Burger>
       <Menu open={open}>
+        {isLoggedIn && (
+          <>
+            <UserMenu profile={profile} accountMethod={accountMethod} accountId={accountId} />
+            <Separator />
+          </>
+        )}
         <MenuList />
       </Menu>
     </>

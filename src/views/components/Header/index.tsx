@@ -1,27 +1,37 @@
 import { Logo } from '../Logo';
-import { HeaderWrapper, HeaderContent } from './styled';
+import { HeaderWrapper, HeaderContent, DinamicContent, IconContainer } from './styled';
 import { BurgerMenu, MenuList } from '../Menu';
 import { PlayGameButton } from '../PlayGameButton';
 import { ProfileIcon } from 'views/icons/ProfileIcon';
 import { useAuthValues } from 'views/hooks/useAuthValues';
+
 interface HeaderProps {
   withMenu?: boolean;
   withPlayButton?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ withMenu = true, withPlayButton = true }) => {
-  const { isLoggedIn } = useAuthValues();
+  const { isLoggedIn, profile, accountId, authMethod } = useAuthValues();
   return (
     <HeaderWrapper>
       <HeaderContent>
         <Logo />
         {withMenu && <MenuList />}
       </HeaderContent>
-      <div>
+      <DinamicContent>
         {withPlayButton && <PlayGameButton />}
-        {isLoggedIn && <ProfileIcon fill="white" />}
-      </div>
-      {withMenu && <BurgerMenu />}
+        <IconContainer withMenu={withMenu}>
+          {isLoggedIn && <ProfileIcon fill="white" />}
+        </IconContainer>
+      </DinamicContent>
+      {withMenu && (
+        <BurgerMenu
+          isLoggedIn={isLoggedIn}
+          profile={profile}
+          accountId={accountId}
+          accountMethod={authMethod}
+        />
+      )}
     </HeaderWrapper>
   );
 };
