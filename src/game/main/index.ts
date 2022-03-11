@@ -5,6 +5,7 @@ import { Background } from './background';
 import { Platform } from './platform';
 import { Player, Element } from './player';
 import { Pointer } from './pointer';
+import { Socket } from 'socket.io-client';
 
 const translator = new Map<string, Element>([
   ['air', 'wind'],
@@ -28,8 +29,8 @@ export class Game {
   pressedKeys: Map<string, boolean>;
   idRequestAnimationFrame: number;
   id: number;
+  socket: Socket;
   addPlayer(player: PlayerProfile) {
-    console.log('добавил', player);
     if (player.is_my || this.id === player.id) {
       this.id = player.id;
       this.players[0] = new Player(
@@ -42,7 +43,7 @@ export class Game {
       this.players.push(
         new Player(
           new Pointer(player.position.x, player.position.y),
-          new Map(),
+          getPressedKeys(this.socket, true, player.id),
           translator.get(player.class) as Element,
           player.id
         )
@@ -52,8 +53,9 @@ export class Game {
   removePlayer(id: number) {
     this.players = this.players.filter(player => player.id != id);
   }
-  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[]) {
-    this.pressedKeys = getPressedKeys();
+  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[], socket: Socket) {
+    this.socket = socket;
+    this.pressedKeys = getPressedKeys(this.socket, false);
     this.background = new Background(
       images.background,
       mediaData.background.size,
