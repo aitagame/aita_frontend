@@ -3,8 +3,24 @@ import getPressedKeys from 'game/utils/useButtons';
 import { images, mediaData, gameData } from '../gameData';
 import { Background } from './background';
 import { Platform } from './platform';
-import { Player } from './player';
+import { Player, Element } from './player';
 import { Pointer } from './pointer';
+import { Socket } from 'socket.io-client';
+
+const translator = new Map<string, Element>([
+  ['air', 'wind'],
+  ['inferno', 'fire'],
+  ['terrestrial', 'earth'],
+  ['aqua', 'water'],
+]);
+interface PlayerProfile {
+  class: string;
+  id: number;
+  is_my: boolean;
+  name: string;
+  rating: number | null;
+  position: Pointer;
+}
 export class Game {
   background: Background;
   players: Player[];
@@ -12,20 +28,49 @@ export class Game {
   lastFrameUpdate: number;
   pressedKeys: Map<string, boolean>;
   idRequestAnimationFrame: number;
-  constructor(canvas: HTMLCanvasElement) {
-    this.pressedKeys = getPressedKeys();
+  id: number;
+  socket: Socket;
+  addPlayer(player: PlayerProfile) {
+    if (player.is_my || this.id === player.id) {
+      this.id = player.id;
+      this.players[0] = new Player(
+        new Pointer(player.position.x, player.position.y),
+        this.pressedKeys,
+        translator.get(player.class) as Element,
+        player.id
+      );
+    } else {
+      this.players.push(
+        new Player(
+          new Pointer(player.position.x, player.position.y),
+          getPressedKeys(this.socket, true, player.id),
+          translator.get(player.class) as Element,
+          player.id
+        )
+      );
+    }
+  }
+  removePlayer(id: number) {
+    this.players = this.players.filter(player => player.id != id);
+  }
+  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[], socket: Socket) {
+    this.socket = socket;
+    this.pressedKeys = getPressedKeys(this.socket, false);
     this.background = new Background(
       images.background,
       mediaData.background.size,
       mediaData.background.center
     );
     this.players = [
-      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire'),
-      new Player(new Pointer(900, 300), new Map(), 'water'),
-      new Player(new Pointer(990, 300), new Map(), 'fire'),
-      new Player(new Pointer(1080, 300), new Map(), 'wind'),
-      new Player(new Pointer(1170, 300), new Map(), 'earth'),
+      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire', 0),
+      new Player(new Pointer(900, 300), new Map(), 'water', 0),
+      new Player(new Pointer(990, 300), new Map(), 'fire', 0),
+      new Player(new Pointer(1080, 300), new Map(), 'wind', 0),
+      new Player(new Pointer(1170, 300), new Map(), 'earth', 0),
     ];
+    players?.forEach(player => {
+      this.addPlayer(player);
+    });
     this.platforms = gameData.platforms.map(
       platform => new Platform(platform.cords, platform.size)
     );
@@ -46,6 +91,7 @@ export class Game {
   }
 
   update(dt: number) {
+    dt = Math.min(dt, 0.04);
     this.players.forEach(player => player.update(dt));
     this.players.forEach(player => {
       this.platforms.forEach(platform => {
@@ -57,7 +103,7 @@ export class Game {
         if (projectile.state === 'active') {
           this.platforms.forEach(platform => {
             if (projectile.collider.isCollised(platform.collider)) {
-              projectile.collide();
+              projectile.collide(platform.collider);
             }
           });
           this.players.forEach(player2 => {
@@ -75,8 +121,8 @@ export class Game {
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.platforms.forEach(platform => platform.render(ctx));
     this.players.forEach(player => player.render(ctx));
+    this.platforms.forEach(platform => platform.render(ctx));
   }
 
   startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {

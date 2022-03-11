@@ -6,6 +6,7 @@ import fireAttackAnimation from './assets/character/fire/attack.png';
 import fireHurtAnimation from './assets/character/fire/hurt.png';
 import fireDieAnimation from './assets/character/fire/die.png';
 import fireProjectile from './assets/character/fire/projectile.png';
+import fireProjectileCollide from './assets/character/fire/projectile-collide.png';
 
 import waterIdleAnimationImage from './assets/character/water/idle.png';
 import waterMoveAnimationImage from './assets/character/water/move.png';
@@ -13,6 +14,7 @@ import waterAttackAnimation from './assets/character/water/attack.png';
 import waterHurtAnimation from './assets/character/water/hurt.png';
 import waterDieAnimation from './assets/character/water/die.png';
 import waterProjectile from './assets/character/water/projectile.png';
+import waterProjectileCollide from './assets/character/water/projectile-collide.png';
 
 import windIdleAnimationImage from './assets/character/wind/idle.png';
 import windMoveAnimationImage from './assets/character/wind/move.png';
@@ -20,6 +22,7 @@ import windAttackAnimation from './assets/character/wind/attack.png';
 import windHurtAnimation from './assets/character/wind/hurt.png';
 import windDieAnimation from './assets/character/wind/die.png';
 import windProjectile from './assets/character/wind/projectile.png';
+import windProjectileCollide from './assets/character/wind/projectile-collide.png';
 
 import earthIdleAnimationImage from './assets/character/earth/idle.png';
 import earthMoveAnimationImage from './assets/character/earth/move.png';
@@ -27,6 +30,7 @@ import earthAttackAnimation from './assets/character/earth/attack.png';
 import earthHurtAnimation from './assets/character/earth/hurt.png';
 import earthDieAnimation from './assets/character/earth/die.png';
 import earthProjectile from './assets/character/earth/projectile.png';
+import earthProjectileCollide from './assets/character/earth/projectile-collide.png';
 import { Pointer } from './main/pointer';
 
 export const images: Record<string, any> = {
@@ -38,6 +42,7 @@ export const images: Record<string, any> = {
     hurtAnimation: fireHurtAnimation,
     dieAnimation: fireDieAnimation,
     projectile: fireProjectile,
+    projectileCollide: fireProjectileCollide,
   },
   water: {
     idleAnimation: waterIdleAnimationImage,
@@ -46,6 +51,7 @@ export const images: Record<string, any> = {
     hurtAnimation: waterHurtAnimation,
     dieAnimation: waterDieAnimation,
     projectile: waterProjectile,
+    projectileCollide: waterProjectileCollide,
   },
   wind: {
     idleAnimation: windIdleAnimationImage,
@@ -54,6 +60,7 @@ export const images: Record<string, any> = {
     hurtAnimation: windHurtAnimation,
     dieAnimation: windDieAnimation,
     projectile: windProjectile,
+    projectileCollide: windProjectileCollide,
   },
   earth: {
     idleAnimation: earthIdleAnimationImage,
@@ -62,6 +69,7 @@ export const images: Record<string, any> = {
     hurtAnimation: earthHurtAnimation,
     dieAnimation: earthDieAnimation,
     projectile: earthProjectile,
+    projectileCollide: earthProjectileCollide,
   },
 };
 export interface IAnimation {
@@ -127,6 +135,14 @@ export const mediaData: Record<string, any> = {
       countFrame: 4,
       scale: 2,
     },
+    projectileCollide: {
+      sizeFrame: new Pointer(32, 26),
+      leftShift: new Pointer(-4, -6 - 5 - 1),
+      rightShift: new Pointer(-39, -6 - 5 - 1),
+      speed: 8,
+      countFrame: 6,
+      scale: 2,
+    },
   },
   water: {
     idleAnimation: {
@@ -175,6 +191,14 @@ export const mediaData: Record<string, any> = {
       rightShift: new Pointer(-35, -8),
       speed: 8,
       countFrame: 4,
+      scale: 2,
+    },
+    projectileCollide: {
+      sizeFrame: new Pointer(32, 26),
+      leftShift: new Pointer(-12, -13 - 5),
+      rightShift: new Pointer(-33, -13 - 5),
+      speed: 8,
+      countFrame: 6,
       scale: 2,
     },
   },
@@ -227,6 +251,14 @@ export const mediaData: Record<string, any> = {
       countFrame: 4,
       scale: 2,
     },
+    projectileCollide: {
+      sizeFrame: new Pointer(32, 26),
+      leftShift: new Pointer(-4, -6 - 5 - 5),
+      rightShift: new Pointer(-39, -6 - 5 - 5),
+      speed: 8,
+      countFrame: 6,
+      scale: 2,
+    },
   },
   earth: {
     idleAnimation: {
@@ -275,6 +307,14 @@ export const mediaData: Record<string, any> = {
       rightShift: new Pointer(-35, -6),
       speed: 8,
       countFrame: 4,
+      scale: 2,
+    },
+    projectileCollide: {
+      sizeFrame: new Pointer(32, 26),
+      leftShift: new Pointer(-8, -6 - 5 - 5),
+      rightShift: new Pointer(-35, -6 - 5 - 5),
+      speed: 8,
+      countFrame: 6,
       scale: 2,
     },
   },
