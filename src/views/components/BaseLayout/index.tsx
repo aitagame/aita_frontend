@@ -11,8 +11,8 @@ interface BaseLayoutProps {
 export const BaseLayout: React.FC<BaseLayoutProps> = ({
   children,
   withMenu = true,
-  withFooter = true,
-  withPlayButton = true,
+  withFooter = false,
+  withPlayButton = false,
 }) => {
   return (
     <MainWrapper>

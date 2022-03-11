@@ -5,7 +5,7 @@ import { Burger, Menu } from './styled';
 export const MenuList: React.FC = () => {
   return (
     <>
-      <AppLink to="/">Main</AppLink>
+      <AppLink to="/profile">Profile</AppLink>
       <AppLink to="/market">Market</AppLink>
       <AppLink to="/rooms">Rooms</AppLink>
       <AppLink to="/play">Play</AppLink>

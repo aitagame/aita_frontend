@@ -5,7 +5,7 @@ import { WalletName } from './styled';
 export const Metamask: React.FC = () => {
   return (
     <SquareButton>
-      <MetamaskIcon fill="black" />
+      <MetamaskIcon />
       <WalletName>Metamask</WalletName>
     </SquareButton>
   );

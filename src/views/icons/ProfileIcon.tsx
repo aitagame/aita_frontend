@@ -1,9 +1,14 @@
 import { CSSProperties } from 'styled-components';
+import { IconProps } from 'views/types/icon';
 
-export const ProfileIcon: React.FC<{ fill?: string }> = ({ fill = 'unset' }) => (
+export const ProfileIcon: React.FC<IconProps> = ({
+  fill = 'unset',
+  width = '2rem',
+  height = '2rem',
+}) => (
   <svg
-    width="40px"
-    height="40px"
+    width={width}
+    height={height}
     viewBox="0 0 52 52"
     fill={fill}
     style={
