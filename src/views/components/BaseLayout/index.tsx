@@ -6,16 +6,18 @@ interface BaseLayoutProps {
   withMenu?: boolean;
   withFooter?: boolean;
   withPlayButton?: boolean;
+  className?: string;
 }
 
 export const BaseLayout: React.FC<BaseLayoutProps> = ({
   children,
   withMenu = true,
-  withFooter = true,
-  withPlayButton = true,
+  withFooter = false,
+  withPlayButton = false,
+  className,
 }) => {
   return (
-    <MainWrapper>
+    <MainWrapper className={className}>
       <Header withMenu={withMenu} withPlayButton={withPlayButton} />
       <BaseContent>{children}</BaseContent>
       {withFooter && <Footer />}

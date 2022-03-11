@@ -1,8 +1,14 @@
 import { CSSProperties } from 'styled-components';
+import { IconProps } from 'views/types/icon';
 
-export const FacebookIcon: React.FC<{ fill?: string }> = ({ fill = 'unset' }) => (
+export const FacebookIcon: React.FC<IconProps> = ({
+  fill = 'unset',
+  width = '100%',
+  height = '100%',
+}) => (
   <svg
-    height="100%"
+    width={width}
+    height={height}
     style={
       {
         fillRule: 'evenodd',
@@ -13,7 +19,6 @@ export const FacebookIcon: React.FC<{ fill?: string }> = ({ fill = 'unset' }) =>
     }
     version="1.1"
     viewBox="0 0 512 512"
-    width="100%"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     fill={fill}

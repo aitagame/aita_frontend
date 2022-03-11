@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from 'views/types/theme';
 
 export const Title = styled.h5<{ fz?: string; mb?: string }>`
   font-size: ${({ fz }) => fz || '1.5rem'};
@@ -14,10 +15,10 @@ export const TitleH1 = styled.h1<{ fz?: string; mb?: string }>`
   font-weight: 500;
 `;
 
-export const TitleH2 = styled.h2<{ fz?: string; mb?: string }>`
+export const TitleH2 = styled.h2<{ fz?: string; mb?: string; color?: Color }>`
   font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.subtitle};
   margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme, color = 'text' }) => theme.colors[color]};
   font-weight: 500;
 `;
 

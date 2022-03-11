@@ -1,7 +1,7 @@
 import { Routes } from 'react-router';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Main } from 'views/pages/main';
-import { Rooms } from 'views/pages/rooms';
+import { BattleSelect } from 'views/pages/battleSelect';
 import { Market } from 'views/pages/market';
 import { Game } from '../game';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
@@ -109,7 +109,7 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
               <Route path="/" element={<Main />} />
               <Route path="/" element={<ProtectedRoute />}>
                 <Route path="/market" element={<Market />} />
-                <Route path="/rooms" element={<Rooms />} />
+                <Route path="/battle-select" element={<BattleSelect />} />
                 <Route path="/play" element={<Game />} />
               </Route>
               <Route path="/" element={<ProtectedRoute profileCheck={false} />}>

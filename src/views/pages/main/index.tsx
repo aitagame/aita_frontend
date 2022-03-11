@@ -9,7 +9,7 @@ import { BaseLayout } from 'views/components/BaseLayout';
 
 export const Main: React.FC = () => {
   return (
-    <BaseLayout>
+    <BaseLayout withMenu={false} withFooter withPlayButton>
       <PromoWrapper background={promoImage}>
         <PromoContent>
           <PromoTitle>Main Promo Title</PromoTitle>

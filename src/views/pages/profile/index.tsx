@@ -44,11 +44,11 @@ export const Profile: React.FC<{
   const isExistingProfile = !!profile.id;
 
   return (
-    <BaseLayout withMenu={false} withFooter={false} withPlayButton={false}>
+    <BaseLayout>
       <Wrapper>
         <Title mb="3rem">{values?.accountId}</Title>
         {isExistingProfile ? (
-          <ProfileName mb="2rem">{profileName}</ProfileName>
+          <ProfileName mb="3rem">{profileName}</ProfileName>
         ) : (
           <NameDisplay
             value={profileName}

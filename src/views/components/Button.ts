@@ -4,12 +4,13 @@ import { desktopDevice } from 'views/theme/mediaQuery';
 interface ButtonProps {
   size?: 'medium' | 'large';
   active?: boolean;
+  color?: 'primary' | 'secondary';
+  shape?: 'round' | 'square';
 }
 
 const largeButtonStyle = css`
   width: 100%;
   padding: 1rem;
-  border-radius: 2rem;
   font-size: 1.5rem;
 `;
 
@@ -19,16 +20,32 @@ const activeButton = css`
   box-shadow: ${({ theme }) => `inset 0 0 20px 1px ${theme.colors.secondary}`};
 `;
 
-export const Button = styled.button<ButtonProps>`
+const primaryButton = css`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
+  :hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textReverse};
+  }
+`;
+
+const secondaryButton = css`
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.textReverse};
+  :hover {
+    background-color: ${({ theme }) => theme.colors.secondaryLight};
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+export const Button = styled.button<ButtonProps>`
+  ${({ color = 'secondary' }) => (color === 'primary' ? primaryButton : secondaryButton)}
   border: 0;
-  border-radius: 2rem;
+  border-radius: ${({ shape = 'round' }) => (shape === 'round' ? '2rem' : '0.2rem')};
   outline: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
   :hover {
-    background-color: ${({ theme }) => theme.colors.secondaryLight};
     ${({ active }) => active && activeButton}
   }
   :disabled {
