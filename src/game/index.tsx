@@ -69,7 +69,7 @@ export const Game = React.memo(() => {
         } else {
           socket.on(ROOMS_GET, e => {
             console.log('rooms get', e);
-            game = new GameConstuctor(canvas, e.players);
+            game = new GameConstuctor(canvas, e.players, socket);
             game.startGame(ctx, canvas);
             socket.on(BROADCAST_ROOMS_DISCONNECTED, (roomdIdFromDisconnected, playerId) => {
               console.log('broadcast disconnected', roomdIdFromDisconnected, playerId);
