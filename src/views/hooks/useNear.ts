@@ -46,6 +46,10 @@ const signIn = () => {
   );
 };
 
+const signOut = () => {
+  wallet.signOut();
+};
+
 export const useNear = () => {
   return useMemo(
     () => ({
@@ -54,6 +58,7 @@ export const useNear = () => {
       contract,
       nftContract,
       wallet,
+      signOut,
     }),
     []
   );

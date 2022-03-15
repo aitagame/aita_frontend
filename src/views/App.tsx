@@ -66,7 +66,7 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
   const { getLSValue } = useLocalStorage();
   const [walletId] = useState(''); // TODO: add after api is ready
   const [authMethod, setAuthMethod] = useState<AuthMethod>(getLSValue('method', false));
-  const { checkAuth, values, setValues, connect } = useAuthMethod(authMethod);
+  const { checkAuth, values, setValues, connect, signOut } = useAuthMethod(authMethod);
 
   const authValue = useMemo((): AuthContextValues => {
     return {
@@ -78,8 +78,13 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
       walletId,
       user,
       profile,
+      signOut: () => {
+        signOut();
+        localStorage.clear();
+        window.location.reload();
+      },
     };
-  }, [authMethod, profile, setValues, user, values, walletId]);
+  }, [authMethod, profile, setValues, signOut, user, values, walletId]);
 
   useEffect(() => {
     if (!!values.accountId && !user.id) {

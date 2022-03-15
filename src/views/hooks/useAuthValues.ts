@@ -1,7 +1,7 @@
 import { appConfig } from 'config/appConfig';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
-import { MetamaskAuth, NearAuth } from 'views/types/auth';
+import { AuthMethod, MetamaskAuth, NearAuth } from 'views/types/auth';
 import { NearLSWallet } from 'views/types/near';
 import { Profile, User } from 'views/types/user';
 import { useLocalStorage } from './useLocalStorage';
@@ -11,11 +11,12 @@ interface UseAuthValues {
   profile: Profile;
   user: User;
   accountId?: string;
-  authMethod?: string;
+  authMethod?: AuthMethod;
+  signOut: () => void;
 }
 
 export const useAuthValues = (): UseAuthValues => {
-  const { isLoggedIn, profile, user, values, authMethod } = useContext(AuthContext);
+  const { isLoggedIn, profile, user, values, authMethod, signOut } = useContext(AuthContext);
 
   return useMemo(
     () => ({
@@ -24,8 +25,9 @@ export const useAuthValues = (): UseAuthValues => {
       user,
       accountId: values?.accountId,
       authMethod,
+      signOut,
     }),
-    [authMethod, isLoggedIn, profile, user, values?.accountId]
+    [authMethod, isLoggedIn, profile, signOut, user, values?.accountId]
   );
 };
 

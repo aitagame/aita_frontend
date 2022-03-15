@@ -97,6 +97,7 @@ export const UserMenuModal = styled.div<{ isOpened: boolean }>`
   bottom: -11.5rem;
   right: 0;
   width: 20rem;
+  max-width: 100vw;
   padding: ${({ theme }) => theme.gutter.small};
   background-color: ${({ theme }) => theme.colors.text};
   border-radius: 0.8rem;

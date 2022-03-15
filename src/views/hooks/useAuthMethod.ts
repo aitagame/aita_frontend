@@ -4,7 +4,7 @@ import { useMetamaskAuth, useNearAuth } from './useAuthValues';
 import { useMetamask } from './useMetamask';
 import { useNear } from './useNear';
 
-export const useAuthMethod = (method: AuthMethod) => {
+export const useAuthMethod = (method?: AuthMethod) => {
   const getMethodHook = useCallback((): (() => AuthMethodHook) => {
     switch (method) {
       case 'Near':
@@ -29,7 +29,7 @@ export const useAuthMethod = (method: AuthMethod) => {
 
   const { values, setValues, checkAuth } = getMethodHook()();
 
-  const { connect } = getConnectHook()();
+  const { connect, signOut } = getConnectHook()();
 
   return useMemo(
     () => ({
@@ -37,7 +37,8 @@ export const useAuthMethod = (method: AuthMethod) => {
       setValues,
       checkAuth,
       connect,
+      signOut,
     }),
-    [checkAuth, setValues, values, connect]
+    [values, setValues, checkAuth, connect, signOut]
   );
 };

@@ -19,6 +19,7 @@ export interface AuthMethodHook {
 export interface AuthConnectHook {
   connect: () => Promise<void>;
   signIn: () => void;
+  signOut: () => void;
 }
 
 export type MethodHookValues = NearAuth | MetamaskAuth;

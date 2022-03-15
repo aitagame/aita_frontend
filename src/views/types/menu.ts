@@ -1,8 +1,9 @@
+import { AuthMethod } from './auth';
 import { Profile } from './user';
 
 export interface UserMenuProps {
   profile?: Profile;
-  accountMethod?: string;
+  accountMethod?: AuthMethod;
   accountId?: string;
 }
 

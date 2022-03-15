@@ -11,6 +11,7 @@ export interface AuthContextValues {
   setValues?: (data: MethodHookValues) => void;
   profile: Profile;
   user: User;
+  signOut: () => void;
 }
 
 const AuthContextData: AuthContextValues = {
@@ -20,6 +21,7 @@ const AuthContextData: AuthContextValues = {
   values: { accountId: undefined },
   setValues: () => null,
   setAuthMethod: () => null,
+  signOut: () => null,
   profile: {
     id: '',
     name: '',
