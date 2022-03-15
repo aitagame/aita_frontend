@@ -41,6 +41,13 @@ const GlobalStyle = createGlobalStyle`
     ${mobileDevice} {
       text-align: center;
     }
+
+    button {
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
   }
 	`;
 

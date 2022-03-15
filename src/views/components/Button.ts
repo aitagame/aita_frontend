@@ -40,11 +40,8 @@ const secondaryButton = css`
 
 export const Button = styled.button<ButtonProps>`
   ${({ color = 'secondary' }) => (color === 'primary' ? primaryButton : secondaryButton)}
-  border: 0;
   border-radius: ${({ shape = 'round' }) => (shape === 'round' ? '2rem' : '0.2rem')};
-  outline: none;
   padding: 0.5rem 1rem;
-  cursor: pointer;
   :hover {
     ${({ active }) => active && activeButton}
   }

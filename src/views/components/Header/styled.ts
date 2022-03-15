@@ -39,7 +39,7 @@ export const DinamicContent = styled.div`
   }
 `;
 
-export const IconContainer = styled.div<{ withMenu: boolean }>`
+export const UserMenuContainer = styled.div<{ withMenu: boolean }>`
   ${mobileDevice} {
     display: ${({ withMenu }) => withMenu && 'none'};
   }

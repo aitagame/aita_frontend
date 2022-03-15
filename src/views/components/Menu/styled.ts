@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { mobileDevice } from 'views/theme/mediaQuery';
+import { UserMenuTheme } from 'views/types/menu';
 
 export const Burger = styled.div<{ open: boolean }>`
   display: none;
@@ -69,10 +70,12 @@ export const Separator = styled.hr`
   width: 100%;
 `;
 
-export const UserMenuContent = styled.div`
-  background: ${({ theme }) => theme.colors.backgroundPrimary};
+export const UserMenuContent = styled.div<{ displayTheme: UserMenuTheme }>`
   width: 100%;
-  box-shadow: ${({ theme }) => `0 0 80px 20px ${theme.colors.backgroundPrimary}`};
+  background: ${({ theme, displayTheme }) =>
+    theme.colors[displayTheme === 'dark' ? 'backgroundPrimary' : 'text']};
+  box-shadow: ${({ theme, displayTheme }) =>
+    displayTheme === 'dark' && `0 0 80px 20px ${theme.colors.backgroundPrimary}`};
 `;
 
 export const ProfileInfo = styled.div`
@@ -82,4 +85,19 @@ export const ProfileInfo = styled.div`
   justify-content: center;
   margin-bottom: 2rem;
   width: 100%;
+`;
+
+export const UserMenuWrapper = styled.div`
+  position: relative;
+`;
+
+export const UserMenuModal = styled.div<{ isOpened: boolean }>`
+  display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
+  position: absolute;
+  bottom: -11.5rem;
+  right: 0;
+  width: 20rem;
+  padding: ${({ theme }) => theme.gutter.small};
+  background-color: ${({ theme }) => theme.colors.text};
+  border-radius: 0.8rem;
 `;
