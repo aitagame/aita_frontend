@@ -1,8 +1,8 @@
 import { ElementId, Element } from 'views/types/classElement';
-import earthElementImage from 'views/assets/earth.png';
+import earthElementImage from 'views/assets/terra.png';
 import airElementImage from 'views/assets/wind.png';
-import fireElementImage from 'views/assets/fire.png';
-import waterElementImage from 'views/assets/water.png';
+import fireElementImage from 'views/assets/inferno.png';
+import waterElementImage from 'views/assets/aqua.png';
 
 export const elementTypes: Record<ElementId, Element> = {
   terrestrial: {

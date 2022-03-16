@@ -5,19 +5,15 @@ import { Title, TitleH2 } from 'views/components/Title';
 import { Wrapper } from 'views/components/Wrapper';
 import { BaseLayout } from 'views/components/BaseLayout';
 import { CharacterType } from './component/ElementType/ElementInfo';
-import { Profile as ProfileType } from 'views/types/user';
 import { Button } from 'views/components/Button';
 import { useNavigate } from 'react-router';
 import { elementTypes } from 'views/components/ClassElement/data';
 import { ElementId } from 'views/types/classElement';
+import { userStore } from 'views/store/user';
+import { Loading } from 'views/components/Loading';
 
-export const Profile: React.FC<{
-  createProfile: (
-    name: string,
-    elementClass: string,
-    callback: () => void
-  ) => Generator<Promise<unknown>, void, ProfileType>;
-}> = ({ createProfile }) => {
+export const Profile: React.FC = () => {
+  const { createProfile, profileCreating } = userStore;
   const { values, profile } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -71,14 +67,17 @@ export const Profile: React.FC<{
                   />
                 ))}
           </ElementsSection>
-          <Button
-            disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
-            onClick={onProfileCreat}
-          >
-            Start Game
-          </Button>
+          {!profile.id && (
+            <Button
+              disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
+              onClick={onProfileCreat}
+            >
+              Create profile
+            </Button>
+          )}
         </ProfileContent>
       </Wrapper>
+      {profileCreating && <Loading />}
     </BaseLayout>
   );
 };

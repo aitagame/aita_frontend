@@ -1,24 +1,16 @@
-import { Routes } from 'react-router';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { Main } from 'views/pages/main';
-import { BattleSelect } from 'views/pages/battleSelect';
-import { Market } from 'views/pages/market';
-import { Game } from '../game';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { mainTheme } from './theme/mainTheme';
 import { mobileDevice } from './theme/mediaQuery';
-import { Login } from 'views/pages/login';
 import { AuthContext, AuthContextValues } from './context/Auth';
 import { useEffect, useMemo, useState } from 'react';
-import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthMethod } from './types/auth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthMethod } from './hooks/useAuthMethod';
-import { Profile as ProfilePage } from './pages/profile';
 import { observer } from 'mobx-react-lite';
-import { Hackathon } from './pages/hackathonNEAR';
-import { HackathonNFT } from './pages/hackathonNEAR/nft';
+
 import { UserData, userStore } from './store/user';
+import { Loading } from './components/Loading';
+import { AppRoute } from './AppRoute';
 
 const GlobalStyle = createGlobalStyle`
 		* {
@@ -38,8 +30,14 @@ const GlobalStyle = createGlobalStyle`
     font-stretch: normal;
     font-style: normal;
     letter-spacing: normal;
+    
     ${mobileDevice} {
       text-align: center;
+    }
+
+    #root {
+      min-height: 100vh;
+      min-width: 100vw;
     }
 
     button {
@@ -61,7 +59,7 @@ const getIdentifier = (authMethod: AuthMethod) => {
 };
 
 export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userStore }) => {
-  const { user, profile, getAuthData, createProfile } = userStore;
+  const { user, profile, getAuthData, createProfile, loading } = userStore;
 
   const { getLSValue } = useLocalStorage();
   const [walletId] = useState(''); // TODO: add after api is ready
@@ -115,22 +113,7 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
       <GlobalStyle />
       <ThemeProvider theme={mainTheme}>
         <AuthContext.Provider value={authValue}>
-          <Router>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Main />} />
-              <Route path="/" element={<ProtectedRoute />}>
-                <Route path="/market" element={<Market />} />
-                <Route path="/battle-select" element={<BattleSelect />} />
-                <Route path="/play" element={<Game />} />
-              </Route>
-              <Route path="/" element={<ProtectedRoute profileCheck={false} />}>
-                <Route path="/hackathon" element={<Hackathon />} />
-                <Route path="/hackathon/nft" element={<HackathonNFT />} />
-                <Route path="/profile" element={<ProfilePage createProfile={createProfile} />} />
-              </Route>
-            </Routes>
-          </Router>
+          {loading ? <Loading overlay={false} /> : <AppRoute />}
         </AuthContext.Provider>
       </ThemeProvider>
     </>
