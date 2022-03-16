@@ -1,28 +1,29 @@
 import styled from 'styled-components';
 import { Button } from 'views/components/Button';
 import { Wrapper } from 'views/components/Wrapper';
-import { mobileDevice } from 'views/theme/mediaQuery';
+import { desktopDevice } from 'views/theme/mediaQuery';
 
 export const RoomsWrapper = styled(Wrapper)`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.gutter.elements};
   width: 100%;
   height: 100%;
 
-  ${mobileDevice} {
-    flex-direction: column;
+  ${desktopDevice} {
+    flex-direction: row;
   }
 `;
 
 export const RoomItem = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryLight};
-  height: 40vh;
+  height: fit-content;
   max-height: 50rem;
-  width: 20vw;
-  max-width: 40rem;
-  border-radius: 0.625rem;
+  width: 100%;
+  border-radius: 0;
+  min-height: 20vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,9 +33,10 @@ export const RoomItem = styled.div`
   ${Button} {
     width: 50%;
   }
-  ${mobileDevice} {
-    width: 100%;
-    border-radius: 0;
-    height: 20vw;
+  ${desktopDevice} {
+    min-height: 30vh;
+    width: 20vw;
+    max-width: 40rem;
+    border-radius: 0.625rem;
   }
 `;
