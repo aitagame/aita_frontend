@@ -59,7 +59,7 @@ const getIdentifier = (authMethod: AuthMethod) => {
 };
 
 export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userStore }) => {
-  const { user, profile, getAuthData, createProfile, loading } = userStore;
+  const { user, profile, getAuthData, loading } = userStore;
 
   const { getLSValue } = useLocalStorage();
   const [walletId] = useState(''); // TODO: add after api is ready
