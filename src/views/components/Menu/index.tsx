@@ -33,7 +33,7 @@ export const MenuList: React.FC = () => {
   return (
     <>
       {Object.values(menuLinks).map(link => (
-        <AppLink key={link.path} to={link.path} active={location.pathname === link.path}>
+        <AppLink key={link.path} to={link.path} selected={location.pathname === link.path}>
           {link.title}
         </AppLink>
       ))}

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const AppLink = styled(Link)<{ active?: boolean }>`
+export const AppLink = styled(Link)<{ selected?: boolean }>`
   padding: 0 0.5rem;
-  color: ${({ theme, active }) => (active ? theme.colors.secondary : theme.colors.text)};
+  color: ${({ theme, selected }) => (selected ? theme.colors.secondary : theme.colors.text)};
   text-decoration: none;
   font-weight: 500;
   :hover {
