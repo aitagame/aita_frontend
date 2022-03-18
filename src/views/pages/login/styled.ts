@@ -22,6 +22,6 @@ export const ConnectWalletWrapper = styled.div`
     flex-direction: row;
     justify-content: space-evenly;
     gap: 1vmax;
-    padding: 10vh;
+    padding: 15vh;
   }
 `;

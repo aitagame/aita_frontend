@@ -12,7 +12,7 @@ export const Main: React.FC = () => {
     <BaseLayout withMenu={false} withFooter withPlayButton>
       <PromoWrapper background={promoImage}>
         <PromoContent>
-          <PromoTitle>Main Promo Title</PromoTitle>
+          <PromoTitle>Discover the mysterious power within </PromoTitle>
           <PlayGameButton title="Join Today" />
         </PromoContent>
       </PromoWrapper>

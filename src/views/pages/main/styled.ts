@@ -24,4 +24,5 @@ export const PromoContent = styled.div`
 
 export const PromoTitle = styled.h1`
   font-size: ${({ theme }) => theme.fonts.sizes.title};
+  padding-bottom: 1rem;
 `;

@@ -20,8 +20,8 @@ export const Login: React.FC = () => {
   return (
     <BaseLayout>
       <LoginContent>
-        <TitleH2 mb="1rem">Sample heading here</TitleH2>
-        <Title>sample paragraph short description inserted in here</Title>
+        <TitleH2 mb="2rem">Connect your wallet</TitleH2>
+        <Title>Create or connect existing wallet to play the game</Title>
         <ConnectWalletWrapper>
           <Near />
           <Metamask />
