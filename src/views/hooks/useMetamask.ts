@@ -9,6 +9,7 @@ export const useMetamask = () => {
     () => ({
       connect,
       signIn: () => null,
+      signOut: () => null,
     }),
     []
   );

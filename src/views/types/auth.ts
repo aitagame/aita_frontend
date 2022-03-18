@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 interface BasicAuth {
-  accountId: string | null;
+  accountId?: string;
 }
 
 export interface MetamaskAuth extends BasicAuth {} //TODO: change on real
@@ -19,6 +19,7 @@ export interface AuthMethodHook {
 export interface AuthConnectHook {
   connect: () => Promise<void>;
   signIn: () => void;
+  signOut: () => void;
 }
 
 export type MethodHookValues = NearAuth | MetamaskAuth;

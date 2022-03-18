@@ -4,19 +4,16 @@ import { ElementsSection, NameDisplay, ProfileContent, ProfileName } from './sty
 import { Title, TitleH2 } from 'views/components/Title';
 import { Wrapper } from 'views/components/Wrapper';
 import { BaseLayout } from 'views/components/BaseLayout';
-import { characterTypeElement } from './data';
 import { CharacterType } from './component/ElementType/ElementInfo';
-import { Profile as ProfileType } from 'views/types/user';
 import { Button } from 'views/components/Button';
 import { useNavigate } from 'react-router';
+import { elementTypes } from 'views/components/ClassElement/data';
+import { ElementId } from 'views/types/classElement';
+import { userStore } from 'views/store/user';
+import { Loading } from 'views/components/Loading';
 
-export const Profile: React.FC<{
-  createProfile: (
-    name: string,
-    elementClass: string,
-    callback: () => void
-  ) => Generator<Promise<unknown>, void, ProfileType>;
-}> = ({ createProfile }) => {
+export const Profile: React.FC = () => {
+  const { createProfile, profileCreating } = userStore;
   const { values, profile } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -24,12 +21,12 @@ export const Profile: React.FC<{
   const [profileName, setProfileName] = useState('');
 
   useEffect(() => {
-    setSelectedClass(profile.class);
+    profile.class && setSelectedClass(profile.class);
     setProfileName(profile.name);
   }, [profile]);
 
   const profileClass = useMemo(() => {
-    const selectedElement = characterTypeElement.find(el => el.id === profile.class);
+    const selectedElement = profile.class && elementTypes[profile.class];
     return selectedElement ? <CharacterType selected elementData={selectedElement} /> : null;
   }, [profile.class]);
 
@@ -58,27 +55,29 @@ export const Profile: React.FC<{
         )}
         <ProfileContent>
           {!isExistingProfile && <TitleH2 mb="1.5rem">Select Class Type</TitleH2>}
-
           <ElementsSection>
             {profile.class
               ? profileClass
-              : characterTypeElement.map(el => (
+              : Object.keys(elementTypes).map(key => (
                   <CharacterType
-                    elementData={el}
-                    key={el.id}
-                    selected={selectedClass === el.id}
+                    elementData={elementTypes[key as ElementId]}
+                    key={key}
+                    selected={selectedClass === key}
                     onClick={setSelectedClass}
                   />
                 ))}
           </ElementsSection>
-          <Button
-            disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
-            onClick={onProfileCreat}
-          >
-            Start Game
-          </Button>
+          {!profile.id && (
+            <Button
+              disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
+              onClick={onProfileCreat}
+            >
+              Create profile
+            </Button>
+          )}
         </ProfileContent>
       </Wrapper>
+      {profileCreating && <Loading />}
     </BaseLayout>
   );
 };

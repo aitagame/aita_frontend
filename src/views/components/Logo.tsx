@@ -10,5 +10,5 @@ export const LogoLink = styled(Link)`
 `;
 
 export const Logo: React.FC = () => {
-  return <LogoLink to="/">Aita</LogoLink>;
+  return <LogoLink to="/profile">Aita</LogoLink>;
 };

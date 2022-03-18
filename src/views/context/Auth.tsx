@@ -3,27 +3,29 @@ import { AuthMethod, MethodHookValues } from 'views/types/auth';
 import { Profile, User } from 'views/types/user';
 
 export interface AuthContextValues {
-  isLoggedIn: boolean | null;
-  authMethod: AuthMethod | null;
+  isLoggedIn: boolean;
+  authMethod?: AuthMethod;
   setAuthMethod: (method: AuthMethod) => void;
   walletId: string | null;
-  values?: MethodHookValues | null;
+  values?: MethodHookValues;
   setValues?: (data: MethodHookValues) => void;
   profile: Profile;
   user: User;
+  signOut: () => void;
 }
 
 const AuthContextData: AuthContextValues = {
-  isLoggedIn: null,
+  isLoggedIn: false,
   walletId: null,
-  authMethod: null,
-  values: null,
+  authMethod: undefined,
+  values: { accountId: undefined },
   setValues: () => null,
   setAuthMethod: () => null,
+  signOut: () => null,
   profile: {
     id: '',
     name: '',
-    class: '',
+    class: undefined,
     rating: 0,
     is_my: false,
   },

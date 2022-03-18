@@ -18,36 +18,48 @@ export class UserData {
   profile: Profile = {
     id: '',
     name: '',
-    class: '',
+    class: undefined,
     rating: 0,
     is_my: false,
   };
+  loading = false;
+  profileCreating = false;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
   *getAuthData(data: MethodHookValues, identifier: string) {
-    const userData: User = yield AitaService.post(`users/authorization/near`, {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
-      accountId: data.accountId,
-    });
-    this.user = userData;
+    this.loading = true;
+    try {
+      const userData: User = yield AitaService.post(`users/authorization/near`, {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        accessKey: (data as any)[identifier], //TODO: fix MethodHookValues type
+        accountId: data.accountId,
+      });
+      this.user = userData;
 
-    const userProfiles: ListResponse<Profile> = yield AitaService.get(
-      `profiles?user_id=${this.user.id}`
-    );
-    const userProfile = userProfiles.data[0];
-    if (userProfile && userProfile.is_my) {
-      this.profile = userProfile;
+      const userProfiles: ListResponse<Profile> = yield AitaService.get(
+        `profiles?user_id=${this.user.id}`
+      );
+      const userProfile = userProfiles.data[0];
+      if (userProfile && userProfile.is_my) {
+        this.profile = userProfile;
+      }
+    } finally {
+      this.loading = false;
     }
   }
 
   *createProfile(name: string, elementClass: string, callback: () => void) {
-    const newProfile: Profile = yield AitaService.post(`profiles`, { name, class: elementClass });
-    this.profile = newProfile;
-    callback();
+    this.profileCreating = true;
+    try {
+      const newProfile: Profile = yield AitaService.post(`profiles`, { name, class: elementClass });
+      this.profile = newProfile;
+      callback();
+    } finally {
+      this.profileCreating = false;
+    }
   }
 }
 

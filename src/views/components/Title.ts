@@ -1,30 +1,37 @@
-import styled from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 import { Color } from 'views/types/theme';
 
-export const Title = styled.h5<{ fz?: string; mb?: string }>`
-  font-size: ${({ fz }) => fz || '1.5rem'};
-  margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: ${({ theme }) => theme.colors.text};
+interface TypographyProps {
+  fz?: string;
+  mb?: string;
+  color?: Color;
+}
+interface CommonStyleProps extends TypographyProps {
+  theme: DefaultTheme;
+}
+
+const getCommonStyles = ({ theme, fz, mb, color = 'text' }: CommonStyleProps) => css`
+  font-size: ${fz || '1.5rem'};
+  margin-bottom: ${mb || 'initial'};
+  color: ${theme.colors[color]};
   font-weight: 500;
 `;
 
-export const TitleH1 = styled.h1<{ fz?: string; mb?: string }>`
-  font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.title};
-  margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 500;
+export const Title = styled.h5<TypographyProps>`
+  ${({ theme, ...props }) => getCommonStyles({ theme, ...props })}
 `;
 
-export const TitleH2 = styled.h2<{ fz?: string; mb?: string; color?: Color }>`
-  font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.subtitle};
-  margin-bottom: ${({ mb }) => mb || 'initial'};
-  color: ${({ theme, color = 'text' }) => theme.colors[color]};
-  font-weight: 500;
+export const TitleH1 = styled.h1<TypographyProps>`
+  ${({ theme, fz, mb, color }) =>
+    getCommonStyles({ theme, fz: fz || theme.fonts.sizes.title, mb, color })}
 `;
 
-export const Label = styled.h2<{ fz?: string; mb?: string }>`
-  font-size: ${({ theme, fz }) => fz || theme.fonts.sizes.input};
-  margin-bottom: ${({ mb }) => mb || '0.5rem'};
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 500;
+export const TitleH2 = styled.h2<TypographyProps>`
+  ${({ theme, fz, mb, color }) =>
+    getCommonStyles({ theme, fz: fz || theme.fonts.sizes.subtitle, mb, color })}
+`;
+
+export const Label = styled.h2<TypographyProps>`
+  ${({ theme, fz, mb, color }) =>
+    getCommonStyles({ theme, fz: fz || theme.fonts.sizes.input, mb: mb || '0.5rem', color })}
 `;

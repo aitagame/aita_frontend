@@ -1,34 +1,40 @@
 import { appConfig } from 'config/appConfig';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
-import { MetamaskAuth, NearAuth } from 'views/types/auth';
+import { AuthMethod, MetamaskAuth, NearAuth } from 'views/types/auth';
 import { NearLSWallet } from 'views/types/near';
 import { Profile, User } from 'views/types/user';
 import { useLocalStorage } from './useLocalStorage';
 
 interface UseAuthValues {
-  isLoggedIn: boolean | null;
+  isLoggedIn: boolean;
   profile: Profile;
   user: User;
+  accountId?: string;
+  authMethod?: AuthMethod;
+  signOut: () => void;
 }
 
 export const useAuthValues = (): UseAuthValues => {
-  const { isLoggedIn, profile, user } = useContext(AuthContext);
+  const { isLoggedIn, profile, user, values, authMethod, signOut } = useContext(AuthContext);
 
   return useMemo(
     () => ({
       isLoggedIn,
       profile,
       user,
+      accountId: values?.accountId,
+      authMethod,
+      signOut,
     }),
-    [isLoggedIn, profile, user]
+    [authMethod, isLoggedIn, profile, signOut, user, values?.accountId]
   );
 };
 
 export const useNearAuth = () => {
   const { getLSValue } = useLocalStorage();
   const [nearAuthData, setNearAuthData] = useState<NearAuth>({
-    accountId: null,
+    accountId: '',
     functionalKey: '',
   });
 
