@@ -1,52 +1,43 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const earthPlay = keyframes`
-100% {
-  background-position: -188px;
-}
-`;
-const firePlay = keyframes`
-100% {
-  background-position: -248px;
-}
-`;
-const waterPlay = keyframes`
-100% {
-  background-position: -164px;
-}
-`;
-const airPlay = keyframes`
-100% {
-  background-position: -180px;
-}
-`;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data: Record<string, any> = {
+  inferno: {
+    frameWidth: 62,
+    frameHeight: 43,
+    shightX: 0,
+  },
+  aqua: {
+    frameWidth: 41,
+    frameHeight: 32,
+    shightX: -6,
+  },
+  air: {
+    frameWidth: 45,
+    frameHeight: 45,
+    shightX: 0,
+  },
+  terrestrial: {
+    frameWidth: 47,
+    frameHeight: 43,
+    shightX: 0,
+  },
+};
 
 export const ElementImage = styled.div<{ image: string; elementType: string }>`
-  width: 56px;
-  height: 56px;
+  width: ${({ elementType }) => data[elementType].frameWidth + 'px'};
+  height: ${({ elementType }) => data[elementType].frameHeight + 'px'};
+  transform: scale(2.5) ${({ elementType }) => `translate(${data[elementType].shightX + 'px'})`};
   background-image: ${({ image }) => `url(${image})`};
-  animation-name: ${({ elementType }) => {
-    switch (elementType) {
-      case 'terrestrial':
-        return css`
-          ${earthPlay}
-        `;
-      case 'air':
-        return css`
-          ${airPlay}
-        `;
-      case 'inferno':
-        return css`
-          ${firePlay}
-        `;
-      case 'aqua':
-        return css`
-          ${waterPlay}
-        `;
-    }
-  }};
   background-repeat: no-repeat;
-  animation-duration: 1s;
+  animation-duration: 0.57s;
   animation-timing-function: steps(4);
   animation-iteration-count: infinite;
+  animation-name: ${({ elementType }) => {
+    return keyframes`
+    100% {
+      background-position: ${-data[elementType].frameWidth * 4 + 'px'};
+    }
+  `;
+  }};
 `;
