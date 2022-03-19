@@ -51,6 +51,7 @@ const signOut = () => {
 };
 
 const getAccountBalance = (accountId: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (contract as any).ft_balance_of({ account_id: accountId });
 };
 
