@@ -1,4 +1,3 @@
-import loaderImages from '../utils/loaderImages';
 import getPressedKeys from 'game/utils/useButtons';
 import { images, mediaData, gameData } from '../gameData';
 import { Background } from './background';
@@ -43,6 +42,8 @@ export class Game {
   idRequestAnimationFrame: number;
   id: number;
   socket: Socket;
+  ctx: CanvasRenderingContext2D;
+  canvas: HTMLCanvasElement;
   addPlayer(player: PlayerProfile) {
     if (player.is_my || this.id === player.id) {
       this.id = player.id;
@@ -68,8 +69,15 @@ export class Game {
   removePlayer(id: number) {
     this.players = this.players.filter(player => player.id != id);
   }
-  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[], socket: Socket) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    ctx: CanvasRenderingContext2D,
+    players: PlayerProfile[],
+    socket: Socket
+  ) {
     this.socket = socket;
+    this.canvas = canvas;
+    this.ctx = ctx;
     this.pressedKeys = getPressedKeys(this.socket, false);
     this.background = new Background(
       images.background,
@@ -96,12 +104,12 @@ export class Game {
     });
   }
 
-  play(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+  play() {
     const now = Date.now();
     const dt = (now - this.lastFrameUpdate) / 1000;
     this.update(dt);
-    this.render(ctx, canvas);
-    this.idRequestAnimationFrame = requestAnimationFrame(() => this.play(ctx, canvas));
+    this.render(this.ctx, this.canvas);
+    this.idRequestAnimationFrame = requestAnimationFrame(this.play.bind(this));
     this.lastFrameUpdate = now;
   }
 
@@ -138,17 +146,6 @@ export class Game {
     this.background.render(ctx, canvas);
     this.platforms.forEach(platform => platform.render(ctx));
     this.players.forEach(player => player.render(ctx));
-  }
-
-  startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    loaderImages(
-      [this.background.img, this.players[0].animations.idle.img],
-      this.play.bind(this),
-      ctx,
-      canvas
-    );
   }
 
   stopGame() {
