@@ -32,7 +32,7 @@ export const Game = React.memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isModal, setModal] = useState(false);
-  const [isLoading, setLoading] = useState(true);
+  const [loadingPercentage, setLoadingPercentage] = useState(0);
   const isModalForEvent = useRef(false);
   const socketRef = useRef<null | Socket>(null);
   const gameRef = useRef<GameConstuctor | null>(null);
@@ -41,11 +41,12 @@ export const Game = React.memo(() => {
     setModal(isModalForEvent.current);
   }
   useEffect(() => {
-    if (!isLoading) {
+    console.log(loadingPercentage);
+    if (loadingPercentage == 100) {
       gameRef.current?.play();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [loadingPercentage]);
   useEffect(() => {
     const canvas = canvasRef.current;
     const audio = audioRef.current;
@@ -85,10 +86,18 @@ export const Game = React.memo(() => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             loaderImages(
-              [gameRef.current.background.img, gameRef.current.players[0].animations.idle.img],
-              () => setLoading(false)
+              [
+                // TODO: Выдергивать картинки из другого места:D
+                gameRef.current.background.img,
+                gameRef.current.players[0].animations.idle.img,
+                gameRef.current.players[0].animations.move.img,
+                gameRef.current.players[0].animations.attack.img,
+                gameRef.current.players[0].animations.hurt.img,
+                gameRef.current.players[0].animations.die.img,
+              ],
+              (done, all) => setLoadingPercentage(Math.floor(done / all) * 100)
             );
-            /*То, что ниже, вынести внутрь game */
+            // TODO: То, что ниже, вынести внутрь game
             socket.on(BROADCAST_ROOMS_DISCONNECTED, (roomdIdFromDisconnected, playerId) => {
               console.log('broadcast disconnected', roomdIdFromDisconnected, playerId);
               if (roomId == roomdIdFromDisconnected) {
@@ -140,7 +149,7 @@ export const Game = React.memo(() => {
         src={`${appConfig.baseUrl}/${AUDIO_FILE_NAME}`}
       />
       {isModal && <Modal onClose={toggleModal} onExit={handleExit} />}
-      {isLoading && <Loading />}
+      {loadingPercentage !== 100 && <Loading percent={loadingPercentage} />}
     </>
   );
 });
