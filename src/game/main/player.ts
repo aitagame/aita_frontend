@@ -6,6 +6,7 @@ import { Projectile } from './projectile';
 
 export type Element = 'fire' | 'water' | 'earth' | 'wind'; //AITA -- Aqua Inferno Terra Aer
 type State = 'idle' | 'move' | 'attack' | 'hurt' | 'die' | 'died';
+type Direction = 'left' | 'right';
 export class Player {
   collider: Collider;
   element: Element;
@@ -20,7 +21,7 @@ export class Player {
   ddy: number;
   jumps: number;
   maxJumps: number;
-  direction: string;
+  direction: Direction;
   attackInterval: number;
   attackDelay: number;
   timeLastChangeElement: number;
@@ -28,7 +29,13 @@ export class Player {
   id: number;
   projectiles: Projectile[];
   animations: Record<string, Animation>;
-  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: Element, id: number) {
+  constructor(
+    cords: Pointer,
+    pressedKeys: Map<string, boolean>,
+    element: Element,
+    id: number,
+    direction?: Direction
+  ) {
     this.id = id;
     this.element = element;
     this.cords = cords;
@@ -36,7 +43,7 @@ export class Player {
     this.size = new Pointer(gameData.player.size, gameData.player.size);
     this.collider = new Collider(this.cords, this.size);
     this.state = 'idle';
-    this.direction = 'left';
+    this.direction = direction || 'left';
     this.pressedKeys = pressedKeys;
     this.hp = 100;
     this.dx = gameData.player.dx;
