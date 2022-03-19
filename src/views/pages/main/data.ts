@@ -8,7 +8,7 @@ import earthCrystal from 'views/assets/earthCrystal.png';
 import fireCrystal from 'views/assets/fireCrystal.png';
 import lifeCrystal from 'views/assets/lifeCrystal.png';
 import waterCrystal from 'views/assets/waterCrystal.png';
-import gamePlay from 'views/assets/gameplay.png';
+import gamePlay from 'views/assets/gameplay.jpg';
 
 export const mainBackground =
   'https://store-images.s-microsoft.com/image/apps.59352.14333371177529780.b6b0e65b-5f45-4caa-81d5-0a50416a56ba.cfeee9be-c402-4365-9ed4-f3d18bdc14a4?mode=scale&q=90&h=1080&w=1920';
