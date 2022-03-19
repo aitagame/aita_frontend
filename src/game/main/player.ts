@@ -100,7 +100,14 @@ export class Player {
       this.dy = 0;
     }
   }
-
+  die() {
+    this.hp = 100;
+    this.state = 'idle';
+    this.cords.x = 200;
+    this.cords.y = -200;
+    this.dy = 0;
+    // this.cords = new Pointer(200, -200);
+  }
   changeElement(element: Element) {
     this.element = element;
     this.animations = {
@@ -194,8 +201,11 @@ export class Player {
       if (left === right && this.state != 'attack' && this.state != 'hurt') {
         this.state = 'idle';
       }
-      this.projectiles.forEach(projectile => projectile.update(dt));
+      if (this.cords.y > 1000) {
+        this.state = 'died';
+      }
     }
+    this.projectiles.forEach(projectile => projectile.update(dt));
     if (this.state === 'idle') {
       this.animations.idle.update(dt);
     } else if (this.state === 'move') {
