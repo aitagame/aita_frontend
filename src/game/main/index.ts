@@ -13,13 +13,26 @@ const translator = new Map<string, Element>([
   ['terrestrial', 'earth'],
   ['aqua', 'water'],
 ]);
+
+interface Position {
+  direction: -1 | 1;
+  id: number;
+  keys: Record<string, string>[];
+  time: string;
+  x: number;
+  y: number;
+}
 interface PlayerProfile {
   class: string;
   id: number;
   is_my: boolean;
   name: string;
   rating: number | null;
-  position: Pointer;
+  position: Position;
+}
+
+function minmax(n: number) {
+  return Math.max(90, Math.min(n, 1200));
 }
 export class Game {
   background: Background;
@@ -34,18 +47,20 @@ export class Game {
     if (player.is_my || this.id === player.id) {
       this.id = player.id;
       this.players[0] = new Player(
-        new Pointer(player.position.x, player.position.y),
+        new Pointer(minmax(player.position.x), player.position.y),
         this.pressedKeys,
         translator.get(player.class) as Element,
-        player.id
+        player.id,
+        player.position.direction === -1 ? 'left' : 'right'
       );
     } else {
       this.players.push(
         new Player(
-          new Pointer(player.position.x, player.position.y),
+          new Pointer(minmax(player.position.x), player.position.y),
           getPressedKeys(this.socket, true, player.id),
           translator.get(player.class) as Element,
-          player.id
+          player.id,
+          player.position.direction === -1 ? 'left' : 'right'
         )
       );
     }
@@ -72,7 +87,7 @@ export class Game {
       this.addPlayer(player);
     });
     this.platforms = gameData.platforms.map(
-      platform => new Platform(platform.cords, platform.size)
+      platform => new Platform(platform.cords, platform.size, platform.type)
     );
     this.lastFrameUpdate = Date.now();
     window.addEventListener('resize', () => {
@@ -121,8 +136,8 @@ export class Game {
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.players.forEach(player => player.render(ctx));
     this.platforms.forEach(platform => platform.render(ctx));
+    this.players.forEach(player => player.render(ctx));
   }
 
   startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {

@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import backgroundImage from './assets/backgrounds/background2.png';
+import downPlatform from './assets/platforms/down_light.png';
+import firstSmall from './assets/platforms/left_down_light.png';
+import secondSmall from './assets/platforms/top_light.png';
+import middlePlatform from './assets/platforms/short_right.png';
+import tPlatform from './assets/platforms/T_light.png';
+
 import fireIdleAnimationImage from './assets/character/fire/idle.png';
 import fireMoveAnimationImage from './assets/character/fire/move.png';
 import fireAttackAnimation from './assets/character/fire/attack.png';
@@ -35,6 +41,13 @@ import { Pointer } from './main/pointer';
 
 export const images: Record<string, any> = {
   background: backgroundImage,
+  platforms: {
+    down: downPlatform,
+    firstSmall: firstSmall,
+    secondSmall: secondSmall,
+    middle: middlePlatform,
+    t: tPlatform,
+  },
   fire: {
     idleAnimation: fireIdleAnimationImage,
     moveAnimation: fireMoveAnimationImage,
@@ -85,6 +98,28 @@ export const mediaData: Record<string, any> = {
   background: {
     size: new Pointer(1600, 844),
     center: new Pointer(980, 400),
+  },
+  platforms: {
+    down: {
+      size: new Pointer(1145, 60),
+      shift: new Pointer(0, -15),
+    },
+    firstSmall: {
+      size: new Pointer(154, 45),
+      shift: new Pointer(0, -15),
+    },
+    secondSmall: {
+      size: new Pointer(154, 45),
+      shift: new Pointer(0, -15),
+    },
+    middle: {
+      size: new Pointer(320, 45),
+      shift: new Pointer(0, -10),
+    },
+    t: {
+      size: new Pointer(326, 170),
+      shift: new Pointer(-3, -125),
+    },
   },
   fire: {
     idleAnimation: {
@@ -337,30 +372,37 @@ export const gameData = {
     {
       cords: new Pointer(80, 520),
       size: new Pointer(150, 20),
+      type: 'firstSmall',
     },
     {
       cords: new Pointer(480, 329),
       size: new Pointer(150, 20),
+      type: 'secondSmall',
     },
     {
       cords: new Pointer(900, 250),
-      size: new Pointer(150, 20),
+      size: new Pointer(157, 20),
+      type: 't',
     },
     {
-      cords: new Pointer(1050, 120),
-      size: new Pointer(20, 150),
+      cords: new Pointer(1057, 126),
+      size: new Pointer(20, 144),
+      type: 'invisible',
+    },
+    {
+      cords: new Pointer(1077, 250),
+      size: new Pointer(143, 20),
+      type: 'invisible',
     },
     {
       cords: new Pointer(900, 410),
       size: new Pointer(320, 20),
-    },
-    {
-      cords: new Pointer(1070, 250),
-      size: new Pointer(150, 20),
+      type: 'middle',
     },
     {
       cords: new Pointer(80, 600),
       size: new Pointer(1140, 20),
+      type: 'down',
     },
   ],
 };
