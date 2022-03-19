@@ -132,6 +132,11 @@ export class Game {
         }
       });
     });
+    this.players.forEach(player => {
+      if (player.state == 'died') {
+        player.die();
+      }
+    });
   }
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
