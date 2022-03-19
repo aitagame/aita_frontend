@@ -29,7 +29,7 @@ export const useAuthMethod = (method?: AuthMethod) => {
 
   const { values, setValues, checkAuth } = getMethodHook()();
 
-  const { connect, signOut } = getConnectHook()();
+  const { connect, signOut, getAccountBalance } = getConnectHook()();
 
   return useMemo(
     () => ({
@@ -38,7 +38,8 @@ export const useAuthMethod = (method?: AuthMethod) => {
       checkAuth,
       connect,
       signOut,
+      getAccountBalance,
     }),
-    [values, setValues, checkAuth, connect, signOut]
+    [values, setValues, checkAuth, connect, signOut, getAccountBalance]
   );
 };

@@ -24,9 +24,16 @@ export class UserData {
   };
   loading = false;
   profileCreating = false;
+  balance = {
+    dark: 0,
+  };
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  setDarkCrystal(darkCrystalAmmount: number) {
+    this.balance.dark = darkCrystalAmmount;
   }
 
   *getAuthData(data: MethodHookValues, identifier: string) {

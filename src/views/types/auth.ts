@@ -20,6 +20,7 @@ export interface AuthConnectHook {
   connect: () => Promise<void>;
   signIn: () => void;
   signOut: () => void;
+  getAccountBalance: (accountId: string) => number;
 }
 
 export type MethodHookValues = NearAuth | MetamaskAuth;

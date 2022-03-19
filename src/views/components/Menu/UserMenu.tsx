@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useAuthValues } from 'views/hooks/useAuthValues';
 import { useClickAwayListener } from 'views/hooks/useClickAwayListener';
 import { ProfileIcon } from 'views/icons/ProfileIcon';
+import { userStore } from 'views/store/user';
 import { UserMenuListProps, UserMenuProps } from 'views/types/menu';
 import { Color } from 'views/types/theme';
 import { ClassElement } from '../ClassElement';
@@ -14,6 +15,7 @@ export const UserMenuList: React.FC<UserMenuListProps> = ({
   accountId,
   displayTheme = 'light',
 }) => {
+  const { balance } = userStore;
   const { signOut } = useAuthValues();
 
   const textColor: Color = displayTheme === 'dark' ? 'text' : 'textReverse';
@@ -21,6 +23,7 @@ export const UserMenuList: React.FC<UserMenuListProps> = ({
     <UserMenuContent displayTheme={displayTheme}>
       <Title mb="1rem" color={textColor}>
         {accountMethod} - {accountId}
+        {balance.dark}
       </Title>
       <ProfileInfo>
         {profile && <TitleH2 color={textColor}>{profile.name}</TitleH2>}
