@@ -7,6 +7,8 @@ import { io, Socket, SocketOptions } from 'socket.io-client';
 import { appConfig } from '../config/appConfig';
 import loaderImages from './utils/loaderImages';
 
+const AUDIO_FILE_NAME = 'assets/ncs_firefly.mp3';
+
 export const ROOMS_LIST = 'rooms.list';
 export const ROOMS_GET = 'rooms.get';
 export const ROOMS_GET_ID = 'rooms.get.id';
@@ -28,6 +30,7 @@ export const ROOMS_STATE_ENDGAME = 'endgame'; //Room is in state of closing game
 
 export const Game = React.memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [isModal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const isModalForEvent = useRef(false);
@@ -45,6 +48,7 @@ export const Game = React.memo(() => {
   }, [isLoading]);
   useEffect(() => {
     const canvas = canvasRef.current;
+    const audio = audioRef.current;
     if (!canvas) throw new Error('Canvas not found');
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Context identifier is not supported');
@@ -108,7 +112,16 @@ export const Game = React.memo(() => {
         toggleModal();
       }
     }
+    function handleSound() {
+      if (audio?.paused) {
+        audio.crossOrigin = 'anonymous';
+        audio.play();
+        window.removeEventListener('keydown', handleSound);
+      }
+    }
     window.addEventListener('keydown', handleEsc);
+    //Cannot play sound without interaction according to https://developer.chrome.com/blog/autoplay/
+    window.addEventListener('keydown', handleSound);
     return () => {
       window.removeEventListener('keydown', handleEsc);
       if (gameRef.current) gameRef.current.stopGame();
@@ -120,6 +133,12 @@ export const Game = React.memo(() => {
   return (
     <>
       <Canvas width="800px" height="600px" ref={canvasRef}></Canvas>
+      <audio
+        ref={audioRef}
+        crossOrigin="anonymous"
+        loop
+        src={`${appConfig.baseUrl}/${AUDIO_FILE_NAME}`}
+      />
       {isModal && <Modal onClose={toggleModal} onExit={handleExit} />}
       {isLoading && <Loading />}
     </>
