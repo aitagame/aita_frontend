@@ -9,7 +9,9 @@ export const Content = styled.section`
   align-items: center;
   gap: ${({ theme }) => theme.gutter.medium};
   flex-direction: column;
-
+  ${ItemCardWrapper} {
+    width: 100%;
+  }
   ${desktopDevice} {
     flex-direction: row;
     ${ItemCardWrapper} {

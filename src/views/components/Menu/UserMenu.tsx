@@ -7,7 +7,16 @@ import { UserMenuListProps, UserMenuProps } from 'views/types/menu';
 import { Color } from 'views/types/theme';
 import { ClassElement } from '../ClassElement';
 import { Title, TitleH2 } from '../Title';
-import { ProfileInfo, UserMenuContent, UserMenuModal, UserMenuWrapper } from './styled';
+import {
+  AccountInfo,
+  Balance,
+  DarkCrystalIcon,
+  ProfileInfo,
+  UserMenuContent,
+  UserMenuModal,
+  UserMenuWrapper,
+} from './styled';
+import darkCrystal from 'views/assets/darkCrystal.png';
 
 export const UserMenuList: React.FC<UserMenuListProps> = ({
   profile,
@@ -21,12 +30,21 @@ export const UserMenuList: React.FC<UserMenuListProps> = ({
   const textColor: Color = displayTheme === 'dark' ? 'text' : 'textReverse';
   return (
     <UserMenuContent displayTheme={displayTheme}>
-      <Title mb="1rem" color={textColor}>
-        {accountMethod} - {accountId}
-        {balance.dark}
-      </Title>
+      <AccountInfo>
+        <Title fz="1rem" color={textColor}>
+          {accountMethod} - {accountId}
+        </Title>
+        <Balance>
+          <DarkCrystalIcon src={darkCrystal} />
+          {balance.dark}
+        </Balance>
+      </AccountInfo>
       <ProfileInfo>
-        {profile && <TitleH2 color={textColor}>{profile.name}</TitleH2>}
+        {profile && (
+          <TitleH2 fz="1.5rem" color={textColor}>
+            {profile.name}
+          </TitleH2>
+        )}
         {profile?.class && <ClassElement elementType={profile.class} />}
       </ProfileInfo>
       <button onClick={signOut}>

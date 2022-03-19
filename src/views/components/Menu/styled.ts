@@ -76,6 +76,8 @@ export const UserMenuContent = styled.div<{ displayTheme: UserMenuTheme }>`
     theme.colors[displayTheme === 'dark' ? 'backgroundPrimary' : 'text']};
   box-shadow: ${({ theme, displayTheme }) =>
     displayTheme === 'dark' && `0 0 80px 20px ${theme.colors.backgroundPrimary}`};
+  color: ${({ theme, displayTheme }) =>
+    theme.colors[displayTheme === 'dark' ? 'text' : 'textReverse']};
 `;
 
 export const ProfileInfo = styled.div`
@@ -101,4 +103,20 @@ export const UserMenuModal = styled.div<{ isOpened: boolean }>`
   padding: ${({ theme }) => theme.gutter.small};
   background-color: ${({ theme }) => theme.colors.text};
   border-radius: 0.8rem;
+`;
+
+export const AccountInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+export const DarkCrystalIcon = styled.img`
+  width: 1rem;
+`;
+
+export const Balance = styled.div`
+  display: flex;
+  align-items: center;
 `;

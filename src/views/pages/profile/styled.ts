@@ -3,8 +3,31 @@ import { Input } from 'views/components/Input';
 import { Title } from 'views/components/Title';
 import { desktopDevice } from 'views/theme/mediaQuery';
 
+export const AccountInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+`;
+
+export const AccountBalance = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const DarkCristalImage = styled.img`
+  width: 2rem;
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ProfileName = styled(Title)`
   text-align: center;
+  margin-right: 2rem;
 `;
 
 export const CreateCharacterWrapper = styled.div`
