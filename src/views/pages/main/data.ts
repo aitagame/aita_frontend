@@ -83,7 +83,7 @@ export const itemsSectionData: SectionItem[] = [
   {
     id: 'death crystal',
     title: 'Death Crystal',
-    text: 'The elemental crystal of death',
+    text: 'The crystal of death',
     url: deathCrystal,
   },
   {
