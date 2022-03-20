@@ -23,7 +23,7 @@ export const PromoContent = styled.div`
 `;
 
 export const PromoTitle = styled.h1`
-  color: #232323;
   font-size: ${({ theme }) => theme.fonts.sizes.title};
   padding-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.text};
 `;

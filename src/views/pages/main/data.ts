@@ -26,7 +26,7 @@ export const mainSectionsData: SectionItem[] = [
   {
     id: 'gameplay',
     title: 'Aita Gameplay',
-    text: 'Create your own character and select a room. Once done, you can start playing and collecting crystals to gain eternal life and powerful assets. The gameplay is simple and interactive which is suitable to all players regardless of their experience',
+    text: 'A p2e multiplayer game where you create your own character and select a room. Once done, you can start playing and collecting crystals to gain eternal life and powerful assets. The gameplay is simple and interactive which is suitable to all players regardless of their experience. Throughout the game, you can earn tokens by taking part in rating battles, clan wars with the use of DAO and more.',
     url: gamePlay,
   },
 ];
