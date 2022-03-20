@@ -1,7 +1,9 @@
 import { BaseLayout } from 'views/components/BaseLayout';
-import { Button } from 'views/components/Button';
 import { TitleH2 } from 'views/components/Title';
 import { RoomItem, RoomsWrapper } from './styled';
+import { Button } from 'views/components/Button';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const options = {
   friendly: {
@@ -16,6 +18,12 @@ const options = {
 };
 
 export const BattleSelect = () => {
+  const navigate = useNavigate();
+
+  const onPlay = useCallback(() => {
+    navigate('/play');
+  }, [navigate]);
+
   return (
     <BaseLayout>
       <RoomsWrapper withGap>
@@ -24,7 +32,7 @@ export const BattleSelect = () => {
             <TitleH2 mb="2rem" color="primary">
               {room.title}
             </TitleH2>
-            <Button color="primary" shape="square">
+            <Button color="primary" shape="square" onClick={onPlay}>
               Join
             </Button>
           </RoomItem>

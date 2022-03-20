@@ -11,6 +11,7 @@ import { elementTypes } from 'views/components/ClassElement/data';
 import { ElementId } from 'views/types/classElement';
 import { userStore } from 'views/store/user';
 import { Loading } from 'views/components/Loading';
+import { PlayGameButton } from 'views/components/PlayGameButton';
 
 export const Profile: React.FC = () => {
   const { createProfile, profileCreating } = userStore;
@@ -75,6 +76,7 @@ export const Profile: React.FC = () => {
               Create profile
             </Button>
           )}
+          <PlayGameButton title="Start Game" />
         </ProfileContent>
       </Wrapper>
       {profileCreating && <Loading />}

@@ -18,9 +18,9 @@ const menuLinks = {
     path: '/battle-select',
     title: 'Battle',
   },
-  game: {
-    path: '/play',
-    title: 'Play',
+  tree: {
+    path: '/worldTree',
+    title: 'World Tree',
   },
   near: {
     path: '/hackathon',
