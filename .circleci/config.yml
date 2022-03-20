@@ -1,0 +1,113 @@
+version: 2.1
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:16.14.0-browsers
+      
+jobs:
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+      - run: 
+          name: "Install dependencies"
+          command: |
+            npm i;
+      - save_cache:
+          key: node_modules-{{ checksum "package-lock.json" }}
+          paths: 
+            - node_modules
+      - run: 
+          name: "Build app"
+          command: |
+            env > .env;
+            npm run build;
+      # - save_cache:
+      #     key: build-{{ checksum "package-lock.json" }}
+      #     paths: 
+      #       - build
+
+  fail:
+    executor: node-executor
+    steps:
+      - run:
+          name: "Throw an error on unsupported branch"
+          command: |
+            exit 1;
+            
+  deploy:
+    executor: node-executor
+    parameters:
+      target_host:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: "Test target availability"
+          command: |
+            ssh -o StrictHostKeyChecking=no << parameters.target_host >> 'echo test';
+      - restore_cache:
+          keys:
+            - node_modules-{{ checksum "package-lock.json" }}
+            - node_modules-
+      # - restore_cache:
+      #     keys:
+      #       - build-{{ checksum "package-lock.json" }}
+      #       - build-
+      - run: 
+          name: "Build app"
+          command: |
+            env > .env;
+            npm run build;
+      - run: 
+          name: "Deploy"
+          command: |
+            rm -f aita-fe-build.zip ;
+            zip aita-fe-build.zip -r .;
+            chmod +x ./install.sh;
+            scp -o StrictHostKeyChecking=no aita-fe-build.zip << parameters.target_host >>:aita-fe-build.zip;
+            scp -o StrictHostKeyChecking=no install.sh << parameters.target_host >>:aita-fe-install.sh;
+            ssh -o StrictHostKeyChecking=no << parameters.target_host >> './aita-fe-install.sh';
+
+workflows:
+  aita-fe-deploy-dev:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: develop
+      - deploy:
+          target_host: $DEV_SSH_HOST
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
+
+  aita-fe-deploy-prod:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          target_host: $PROD_SSH_HOST
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+
+  aita-fe-test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /AITA-\d{1}\d*_[a-zA-Z1-9_-]*/
+
+  aita-fe-fail:
+    jobs:
+      - fail:
+          filters:
+            branches:
+              ignore: /develop|master|(AITA-\d{1}\d*_[a-zA-Z1-9_-]*)/
