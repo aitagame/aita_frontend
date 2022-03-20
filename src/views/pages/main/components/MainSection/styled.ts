@@ -23,7 +23,7 @@ export const SectionImage = styled.span`
     object-fit: cover;
   }
   ${desktopDevice} {
-    width: 40vw;
+    width: 45vw;
   }
 `;
 
@@ -31,7 +31,7 @@ export const Content = styled.section`
   width: 100%;
   text-align: center;
   ${desktopDevice} {
-    width: 60vw;
+    width: 55vw;
     text-align: left;
   }
 `;
