@@ -54,7 +54,7 @@ export const Profile: React.FC = () => {
           />
         )}
         <ProfileContent>
-          {!isExistingProfile && <TitleH2 mb="1.5rem">Select Class Type</TitleH2>}
+          {!isExistingProfile && <TitleH2 mb="1.5rem">Choose your class</TitleH2>}
           <ElementsSection>
             {profile.class
               ? profileClass

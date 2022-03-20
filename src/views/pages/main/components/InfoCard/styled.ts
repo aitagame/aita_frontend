@@ -36,5 +36,6 @@ export const SectionTitle = styled.h5`
 `;
 export const SectionText = styled.p`
   letter-spacing: 1px;
+  line-height: 1.25;
   color: ${({ theme }) => theme.colors.textReverse};
 `;

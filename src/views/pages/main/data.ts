@@ -10,8 +10,7 @@ import lifeCrystal from 'views/assets/lifeCrystal.png';
 import waterCrystal from 'views/assets/waterCrystal.png';
 import gamePlay from 'views/assets/gameplay.png';
 
-export const mainBackground =
-  'https://store-images.s-microsoft.com/image/apps.59352.14333371177529780.b6b0e65b-5f45-4caa-81d5-0a50416a56ba.cfeee9be-c402-4365-9ed4-f3d18bdc14a4?mode=scale&q=90&h=1080&w=1920';
+export const mainBackground = 'https://dev-aita.itracers.xyz/assets/background.jpeg';
 
 // FIRST SECTION
 export const mainSectionTitle = 'Where does it come from?';
@@ -21,13 +20,13 @@ export const mainSectionsData: SectionItem[] = [
   {
     id: 'story background',
     title: 'Enter the world of Atia',
-    text: "Despite the beauty of the planet Atia, there was always a hostile atmosphere on it.The planet was inhabited by magical creatures with immortality and great power. There was a crystal in everyone's chest that gave them magical power. There were only two classes of these beings: Magicians of darkness and magicians of light, some believed that the world should embrace darkness, others - that light should reign in the world... ",
+    text: 'Despite the beauty of the planet Atia, there has always been a hostile atmosphere. The planet was inhabited by magical creatures endowed with immortality and enormous power. They had a crystal in their chest that gave them their abilities. There were only two kinds of these creatures: mages of darkness and mages of light. Some of them believed that the world should be embraced by darkness, others were sure that light should reign the world...',
     url: mainInfoImage,
   },
   {
     id: 'gameplay',
-    title: 'Aita Battle',
-    text: 'Create your own character and select a room. Once done, start battling and collecting crystals to gain eternal life and powerful assets. The game play is simple and interactive which is suitable to any levels of gamers',
+    title: 'Aita Gameplay',
+    text: 'Create your own character and select a room. Once done, you can start playing and collecting crystals to gain eternal life and powerful assets. The gameplay is simple and interactive which is suitable to all players regardless of their experience',
     url: gamePlay,
   },
 ];
@@ -72,7 +71,7 @@ export const itemsSectionData: SectionItem[] = [
   {
     id: 'dark crystal',
     title: 'Dark Crystal',
-    text: 'The powerful crystal which can be obtain with 20 life crystals',
+    text: 'The powerful crystal which can be obtained with 20 life crystals',
     url: darkCrystal,
   },
   {
@@ -84,7 +83,7 @@ export const itemsSectionData: SectionItem[] = [
   {
     id: 'death crystal',
     title: 'Death Crystal',
-    text: 'The crystal of death',
+    text: 'The elemental crystal of death',
     url: deathCrystal,
   },
   {

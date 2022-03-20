@@ -38,4 +38,5 @@ export const SectionTitle = styled.h5`
 `;
 export const SectionText = styled.p`
   color: ${({ theme }) => theme.colors.text};
+  line-height: 1.25;
 `;
