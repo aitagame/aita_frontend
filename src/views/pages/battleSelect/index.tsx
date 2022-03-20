@@ -1,5 +1,4 @@
 import { BaseLayout } from 'views/components/BaseLayout';
-// import { Button } from 'views/components/Button';
 import { PlayGameButton } from 'views/components/PlayGameButton';
 import { TitleH2 } from 'views/components/Title';
 import { RoomItem, RoomsWrapper } from './styled';
@@ -22,13 +21,10 @@ export const BattleSelect = () => {
       <RoomsWrapper withGap>
         {Object.values(options).map((room, index) => (
           <RoomItem key={`room-${index}`}>
-            <TitleH2 mb="2rem" color="primary">
+            <TitleH2 mb="2rem" color="text">
               {room.title}
             </TitleH2>
-            {/* <Button color="primary" shape="square">
-              Join
-            </Button> */}
-            <PlayGameButton color="primary" shape="square" />
+            <PlayGameButton title="Join" />
           </RoomItem>
         ))}
       </RoomsWrapper>

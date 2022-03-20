@@ -9,7 +9,7 @@ export const PlayGameButton: React.FC<{ title?: string; disabled?: boolean }> = 
   const navigate = useNavigate();
 
   const onPlay = useCallback(() => {
-    navigate('/battle-select');
+    navigate('/play');
   }, [navigate]);
 
   return (

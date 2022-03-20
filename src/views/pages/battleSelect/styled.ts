@@ -11,6 +11,7 @@ export const RoomsWrapper = styled(Wrapper)`
   gap: ${({ theme }) => theme.gutter.elements};
   width: 100%;
   height: 100%;
+  background-color: ${({ theme }) => theme.colors.secondaryLight};
 
   ${desktopDevice} {
     flex-direction: row;
@@ -18,7 +19,7 @@ export const RoomsWrapper = styled(Wrapper)`
 `;
 
 export const RoomItem = styled.div`
-  background-color: ${({ theme }) => theme.colors.secondaryLight};
+  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
   height: fit-content;
   max-height: 50rem;
   width: 100%;
