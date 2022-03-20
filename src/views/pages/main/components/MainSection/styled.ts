@@ -42,5 +42,6 @@ export const SectionTitle = styled.h5`
   font-weight: 500;
 `;
 export const SectionText = styled.p`
+  line-height: 1.25;
   letter-spacing: 1px;
 `;

@@ -24,6 +24,7 @@ export const SectionTitle = styled.h5`
 `;
 export const SectionText = styled.p`
   letter-spacing: 1px;
+  line-height: 1.25;
   font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
   margin-bottom: 2rem;
 `;

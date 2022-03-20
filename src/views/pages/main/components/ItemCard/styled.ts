@@ -6,6 +6,12 @@ export const ItemCardWrapper = styled.div`
   flex-direction: column;
   text-align: center;
 
+  ${props =>
+    props.onClick &&
+    `{
+      cursor: pointer;
+    }`}
+
   ${tabletDevice} {
     flex-direction: row;
     text-align: left;
@@ -32,4 +38,5 @@ export const SectionTitle = styled.h5`
 `;
 export const SectionText = styled.p`
   color: ${({ theme }) => theme.colors.text};
+  line-height: 1.25;
 `;

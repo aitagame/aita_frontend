@@ -11,8 +11,8 @@ export const Main: React.FC = () => {
     <BaseLayout withMenu={false} withFooter withPlayButton>
       <PromoWrapper background={promoImage}>
         <PromoContent>
-          <PromoTitle>Discover the mysterious power within </PromoTitle>
           <PlayGameButton title="Join Today" />
+          <PromoTitle>And discover the mysterious power of Atia</PromoTitle>
         </PromoContent>
       </PromoWrapper>
       {mainSectionsData.map((section, i) => (
