@@ -49,6 +49,7 @@ export const Game = React.memo(() => {
 
   function handleExit() {
     socketRef.current?.emit('rooms.leave');
+    socketRef.current?.close();
   }
 
   const handleSound = useCallback(() => {
