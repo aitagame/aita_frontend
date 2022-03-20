@@ -1,5 +1,6 @@
 import { BaseLayout } from 'views/components/BaseLayout';
-import { Button } from 'views/components/Button';
+// import { Button } from 'views/components/Button';
+import { PlayGameButton } from 'views/components/PlayGameButton';
 import { TitleH2 } from 'views/components/Title';
 import { RoomItem, RoomsWrapper } from './styled';
 
@@ -24,9 +25,10 @@ export const BattleSelect = () => {
             <TitleH2 mb="2rem" color="primary">
               {room.title}
             </TitleH2>
-            <Button color="primary" shape="square">
+            {/* <Button color="primary" shape="square">
               Join
-            </Button>
+            </Button> */}
+            <PlayGameButton color="primary" shape="square" />
           </RoomItem>
         ))}
       </RoomsWrapper>
