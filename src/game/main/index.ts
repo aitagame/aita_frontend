@@ -86,13 +86,7 @@ export class Game {
       mediaData.background.size,
       mediaData.background.center
     );
-    this.players = [
-      new Player(gameData.player.startPosition.copy(), this.pressedKeys, 'fire', 0),
-      new Player(new Pointer(900, 300), new Map(), 'water', 0),
-      new Player(new Pointer(990, 300), new Map(), 'fire', 0),
-      new Player(new Pointer(1080, 300), new Map(), 'wind', 0),
-      new Player(new Pointer(1170, 300), new Map(), 'earth', 0),
-    ];
+    this.players = [];
     players?.forEach(player => {
       this.addPlayer(player);
     });
