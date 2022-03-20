@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Canvas } from './styled';
 import { Game as GameConstuctor } from './main';
 import { Modal } from './components/modal';
 import { Loading } from 'views/components/Loading';
 import { io, Socket, SocketOptions } from 'socket.io-client';
 import { appConfig } from '../config/appConfig';
-import loaderImages from './utils/loaderImages';
+import { loader } from './data/images';
 
 const AUDIO_FILE_NAME = 'assets/ncs_firefly.mp3';
 
@@ -40,6 +40,26 @@ export const Game = React.memo(() => {
     isModalForEvent.current = !isModalForEvent.current;
     setModal(isModalForEvent.current);
   }
+
+  const handleEsc = useCallback((event: KeyboardEvent) => {
+    if (event.key == 'Escape') {
+      toggleModal();
+    }
+  }, []);
+
+  function handleExit() {
+    socketRef.current?.emit('rooms.leave');
+  }
+
+  const handleSound = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio?.paused && loadingPercentage === 100) {
+      audio.crossOrigin = 'anonymous';
+      audio.play();
+      window.removeEventListener('keydown', handleSound);
+    }
+  }, [loadingPercentage]);
+
   useEffect(() => {
     console.log(loadingPercentage);
     if (loadingPercentage == 100) {
@@ -47,9 +67,9 @@ export const Game = React.memo(() => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingPercentage]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    const audio = audioRef.current;
     if (!canvas) throw new Error('Canvas not found');
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Context identifier is not supported');
@@ -85,18 +105,10 @@ export const Game = React.memo(() => {
             gameRef.current = new GameConstuctor(canvas, ctx, e.players, socket);
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            loaderImages(
-              [
-                // TODO: Выдергивать картинки из другого места:D
-                gameRef.current.background.img,
-                gameRef.current.players[0].animations.idle.img,
-                gameRef.current.players[0].animations.move.img,
-                gameRef.current.players[0].animations.attack.img,
-                gameRef.current.players[0].animations.hurt.img,
-                gameRef.current.players[0].animations.die.img,
-              ],
-              (done, all) => setLoadingPercentage(Math.floor(done / all) * 100)
+            const [done, all] = loader.setCallback((done, all) =>
+              setLoadingPercentage(Math.floor((done * 100) / all))
             );
+            setLoadingPercentage(Math.floor((done * 100) / all));
             // TODO: То, что ниже, вынести внутрь game
             socket.on(BROADCAST_ROOMS_DISCONNECTED, (roomdIdFromDisconnected, playerId) => {
               console.log('broadcast disconnected', roomdIdFromDisconnected, playerId);
@@ -116,29 +128,21 @@ export const Game = React.memo(() => {
       });
       socket.emit(ROOMS_GET_ID);
     });
-    function handleEsc(event: KeyboardEvent) {
-      if (event.key == 'Escape') {
-        toggleModal();
-      }
-    }
-    function handleSound() {
-      if (audio?.paused) {
-        audio.crossOrigin = 'anonymous';
-        audio.play();
-        window.removeEventListener('keydown', handleSound);
-      }
-    }
-    window.addEventListener('keydown', handleEsc);
-    //Cannot play sound without interaction according to https://developer.chrome.com/blog/autoplay/
-    window.addEventListener('keydown', handleSound);
     return () => {
-      window.removeEventListener('keydown', handleEsc);
       if (gameRef.current) gameRef.current.stopGame();
     };
   }, []);
-  function handleExit() {
-    socketRef.current?.emit('rooms.leave');
-  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEsc);
+    // Cannot play sound without interaction according to https://developer.chrome.com/blog/autoplay/
+    window.addEventListener('keydown', handleSound);
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [handleEsc, handleSound]);
+
   return (
     <>
       <Canvas width="800px" height="600px" ref={canvasRef}></Canvas>

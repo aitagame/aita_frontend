@@ -1,4 +1,6 @@
-import { images, gameData, mediaData } from 'game/gameData';
+import { gameData } from 'game/data/config';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 import { Pointer } from './pointer';
 import { Animation } from './animation';
 import { Collider } from './collider';

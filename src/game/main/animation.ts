@@ -1,5 +1,5 @@
 import { Pointer } from './pointer';
-import { IAnimation } from 'game/gameData';
+import { IAnimation } from 'game/data/media';
 
 export class Animation {
   img: HTMLImageElement;
@@ -10,9 +10,8 @@ export class Animation {
   speed: number;
   scale: number;
   currentFrame: number;
-  constructor(src: string, params: IAnimation) {
-    this.img = new Image(params.sizeFrame.x, params.sizeFrame.y);
-    this.img.src = src;
+  constructor(img: HTMLImageElement, params: IAnimation) {
+    this.img = img;
     this.size = params.sizeFrame;
     this.leftShift = params.leftShift;
     this.rightShift = params.rightShift;

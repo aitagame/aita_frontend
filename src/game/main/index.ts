@@ -1,5 +1,7 @@
 import getPressedKeys from 'game/utils/useButtons';
-import { images, mediaData, gameData } from '../gameData';
+import { gameData } from 'game/data/config';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 import { Background } from './background';
 import { Platform } from './platform';
 import { Player, Element } from './player';

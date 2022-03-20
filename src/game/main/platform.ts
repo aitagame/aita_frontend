@@ -1,6 +1,7 @@
 import { Pointer } from './pointer';
 import { Collider } from './collider';
-import { images, mediaData } from 'game/gameData';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 export class Platform {
   cords: Pointer;
   size: Pointer;
@@ -12,8 +13,7 @@ export class Platform {
     this.size = size;
     this.type = type;
     if (type && type !== 'invisible') {
-      this.texture = new Image(this.size.x, this.size.y);
-      this.texture.src = images.platforms[type];
+      this.texture = images.platforms[type];
     }
     this.collider = new Collider(cords, size);
   }
