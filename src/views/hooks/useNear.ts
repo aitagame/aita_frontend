@@ -31,8 +31,8 @@ const connectNear = async () => {
     sender: wallet.account(),
   } as ContractMethods);
   nftContract = new Contract(wallet.account(), appConfig.nearNftContract, {
-    viewMethods: [],
-    changeMethods: ['nft_mint'],
+    viewMethods: ['nft_tokens_for_owner'],
+    changeMethods: ['nft_mint', 'nft_mint_purchase'],
     sender: wallet.account(),
   } as ContractMethods);
 };

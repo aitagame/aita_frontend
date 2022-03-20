@@ -1,77 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import backgroundImage from './assets/backgrounds/background2.png';
-import fireIdleAnimationImage from './assets/character/fire/idle.png';
-import fireMoveAnimationImage from './assets/character/fire/move.png';
-import fireAttackAnimation from './assets/character/fire/attack.png';
-import fireHurtAnimation from './assets/character/fire/hurt.png';
-import fireDieAnimation from './assets/character/fire/die.png';
-import fireProjectile from './assets/character/fire/projectile.png';
-import fireProjectileCollide from './assets/character/fire/projectile-collide.png';
-
-import waterIdleAnimationImage from './assets/character/water/idle.png';
-import waterMoveAnimationImage from './assets/character/water/move.png';
-import waterAttackAnimation from './assets/character/water/attack.png';
-import waterHurtAnimation from './assets/character/water/hurt.png';
-import waterDieAnimation from './assets/character/water/die.png';
-import waterProjectile from './assets/character/water/projectile.png';
-import waterProjectileCollide from './assets/character/water/projectile-collide.png';
-
-import windIdleAnimationImage from './assets/character/wind/idle.png';
-import windMoveAnimationImage from './assets/character/wind/move.png';
-import windAttackAnimation from './assets/character/wind/attack.png';
-import windHurtAnimation from './assets/character/wind/hurt.png';
-import windDieAnimation from './assets/character/wind/die.png';
-import windProjectile from './assets/character/wind/projectile.png';
-import windProjectileCollide from './assets/character/wind/projectile-collide.png';
-
-import earthIdleAnimationImage from './assets/character/earth/idle.png';
-import earthMoveAnimationImage from './assets/character/earth/move.png';
-import earthAttackAnimation from './assets/character/earth/attack.png';
-import earthHurtAnimation from './assets/character/earth/hurt.png';
-import earthDieAnimation from './assets/character/earth/die.png';
-import earthProjectile from './assets/character/earth/projectile.png';
-import earthProjectileCollide from './assets/character/earth/projectile-collide.png';
-import { Pointer } from './main/pointer';
-
-export const images: Record<string, any> = {
-  background: backgroundImage,
-  fire: {
-    idleAnimation: fireIdleAnimationImage,
-    moveAnimation: fireMoveAnimationImage,
-    attackAnimation: fireAttackAnimation,
-    hurtAnimation: fireHurtAnimation,
-    dieAnimation: fireDieAnimation,
-    projectile: fireProjectile,
-    projectileCollide: fireProjectileCollide,
-  },
-  water: {
-    idleAnimation: waterIdleAnimationImage,
-    moveAnimation: waterMoveAnimationImage,
-    attackAnimation: waterAttackAnimation,
-    hurtAnimation: waterHurtAnimation,
-    dieAnimation: waterDieAnimation,
-    projectile: waterProjectile,
-    projectileCollide: waterProjectileCollide,
-  },
-  wind: {
-    idleAnimation: windIdleAnimationImage,
-    moveAnimation: windMoveAnimationImage,
-    attackAnimation: windAttackAnimation,
-    hurtAnimation: windHurtAnimation,
-    dieAnimation: windDieAnimation,
-    projectile: windProjectile,
-    projectileCollide: windProjectileCollide,
-  },
-  earth: {
-    idleAnimation: earthIdleAnimationImage,
-    moveAnimation: earthMoveAnimationImage,
-    attackAnimation: earthAttackAnimation,
-    hurtAnimation: earthHurtAnimation,
-    dieAnimation: earthDieAnimation,
-    projectile: earthProjectile,
-    projectileCollide: earthProjectileCollide,
-  },
-};
+import { Pointer } from '../main/pointer';
 export interface IAnimation {
   sizeFrame: Pointer;
   leftShift: Pointer;
@@ -85,6 +13,28 @@ export const mediaData: Record<string, any> = {
   background: {
     size: new Pointer(1600, 844),
     center: new Pointer(980, 400),
+  },
+  platforms: {
+    down: {
+      size: new Pointer(1145, 60),
+      shift: new Pointer(0, -15),
+    },
+    firstSmall: {
+      size: new Pointer(154, 45),
+      shift: new Pointer(0, -15),
+    },
+    secondSmall: {
+      size: new Pointer(154, 45),
+      shift: new Pointer(0, -15),
+    },
+    middle: {
+      size: new Pointer(320, 45),
+      shift: new Pointer(0, -10),
+    },
+    t: {
+      size: new Pointer(326, 170),
+      shift: new Pointer(-3, -125),
+    },
   },
   fire: {
     idleAnimation: {
@@ -318,49 +268,4 @@ export const mediaData: Record<string, any> = {
       scale: 2,
     },
   },
-};
-
-export const gameData = {
-  player: {
-    size: 32,
-    dx: 400,
-    ddy: 900, // gravity
-    maxDy: 1350,
-    jumpPower: 580 / 1.4,
-    maxJumps: 2,
-    attackInterval: 0.7,
-    attackDelay: 6.5,
-    speedProjectile: 600,
-    startPosition: new Pointer(800, 400),
-  },
-  platforms: [
-    {
-      cords: new Pointer(80, 520),
-      size: new Pointer(150, 20),
-    },
-    {
-      cords: new Pointer(480, 329),
-      size: new Pointer(150, 20),
-    },
-    {
-      cords: new Pointer(900, 250),
-      size: new Pointer(150, 20),
-    },
-    {
-      cords: new Pointer(1050, 120),
-      size: new Pointer(20, 150),
-    },
-    {
-      cords: new Pointer(900, 410),
-      size: new Pointer(320, 20),
-    },
-    {
-      cords: new Pointer(1070, 250),
-      size: new Pointer(150, 20),
-    },
-    {
-      cords: new Pointer(80, 600),
-      size: new Pointer(1140, 20),
-    },
-  ],
 };

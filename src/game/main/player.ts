@@ -1,4 +1,6 @@
-import { images, gameData, mediaData } from 'game/gameData';
+import { gameData } from 'game/data/config';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 import { Pointer } from './pointer';
 import { Animation } from './animation';
 import { Collider } from './collider';
@@ -6,6 +8,7 @@ import { Projectile } from './projectile';
 
 export type Element = 'fire' | 'water' | 'earth' | 'wind'; //AITA -- Aqua Inferno Terra Aer
 type State = 'idle' | 'move' | 'attack' | 'hurt' | 'die' | 'died';
+type Direction = 'left' | 'right';
 export class Player {
   collider: Collider;
   element: Element;
@@ -20,7 +23,7 @@ export class Player {
   ddy: number;
   jumps: number;
   maxJumps: number;
-  direction: string;
+  direction: Direction;
   attackInterval: number;
   attackDelay: number;
   timeLastChangeElement: number;
@@ -28,7 +31,13 @@ export class Player {
   id: number;
   projectiles: Projectile[];
   animations: Record<string, Animation>;
-  constructor(cords: Pointer, pressedKeys: Map<string, boolean>, element: Element, id: number) {
+  constructor(
+    cords: Pointer,
+    pressedKeys: Map<string, boolean>,
+    element: Element,
+    id: number,
+    direction?: Direction
+  ) {
     this.id = id;
     this.element = element;
     this.cords = cords;
@@ -36,7 +45,7 @@ export class Player {
     this.size = new Pointer(gameData.player.size, gameData.player.size);
     this.collider = new Collider(this.cords, this.size);
     this.state = 'idle';
-    this.direction = 'left';
+    this.direction = direction || 'left';
     this.pressedKeys = pressedKeys;
     this.hp = 100;
     this.dx = gameData.player.dx;
@@ -93,7 +102,14 @@ export class Player {
       this.dy = 0;
     }
   }
-
+  die() {
+    this.hp = 100;
+    this.state = 'idle';
+    this.cords.x = 200;
+    this.cords.y = -200;
+    this.dy = 0;
+    // this.cords = new Pointer(200, -200);
+  }
   changeElement(element: Element) {
     this.element = element;
     this.animations = {
@@ -187,8 +203,11 @@ export class Player {
       if (left === right && this.state != 'attack' && this.state != 'hurt') {
         this.state = 'idle';
       }
-      this.projectiles.forEach(projectile => projectile.update(dt));
+      if (this.cords.y > 1000) {
+        this.state = 'died';
+      }
     }
+    this.projectiles.forEach(projectile => projectile.update(dt));
     if (this.state === 'idle') {
       this.animations.idle.update(dt);
     } else if (this.state === 'move') {

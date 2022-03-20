@@ -1,6 +1,7 @@
-import loaderImages from '../utils/loaderImages';
 import getPressedKeys from 'game/utils/useButtons';
-import { images, mediaData, gameData } from '../gameData';
+import { gameData } from 'game/data/config';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 import { Background } from './background';
 import { Platform } from './platform';
 import { Player, Element } from './player';
@@ -13,13 +14,26 @@ const translator = new Map<string, Element>([
   ['terrestrial', 'earth'],
   ['aqua', 'water'],
 ]);
+
+interface Position {
+  direction: -1 | 1;
+  id: number;
+  keys: Record<string, string>[];
+  time: string;
+  x: number;
+  y: number;
+}
 interface PlayerProfile {
   class: string;
   id: number;
   is_my: boolean;
   name: string;
   rating: number | null;
-  position: Pointer;
+  position: Position;
+}
+
+function minmax(n: number) {
+  return Math.max(90, Math.min(n, 1200));
 }
 export class Game {
   background: Background;
@@ -30,22 +44,26 @@ export class Game {
   idRequestAnimationFrame: number;
   id: number;
   socket: Socket;
+  ctx: CanvasRenderingContext2D;
+  canvas: HTMLCanvasElement;
   addPlayer(player: PlayerProfile) {
     if (player.is_my || this.id === player.id) {
       this.id = player.id;
       this.players[0] = new Player(
-        new Pointer(player.position.x, player.position.y),
+        new Pointer(minmax(player.position.x), player.position.y),
         this.pressedKeys,
         translator.get(player.class) as Element,
-        player.id
+        player.id,
+        player.position.direction === -1 ? 'left' : 'right'
       );
     } else {
       this.players.push(
         new Player(
-          new Pointer(player.position.x, player.position.y),
+          new Pointer(minmax(player.position.x), player.position.y),
           getPressedKeys(this.socket, true, player.id),
           translator.get(player.class) as Element,
-          player.id
+          player.id,
+          player.position.direction === -1 ? 'left' : 'right'
         )
       );
     }
@@ -53,8 +71,15 @@ export class Game {
   removePlayer(id: number) {
     this.players = this.players.filter(player => player.id != id);
   }
-  constructor(canvas: HTMLCanvasElement, players: PlayerProfile[], socket: Socket) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    ctx: CanvasRenderingContext2D,
+    players: PlayerProfile[],
+    socket: Socket
+  ) {
     this.socket = socket;
+    this.canvas = canvas;
+    this.ctx = ctx;
     this.pressedKeys = getPressedKeys(this.socket, false);
     this.background = new Background(
       images.background,
@@ -72,7 +97,7 @@ export class Game {
       this.addPlayer(player);
     });
     this.platforms = gameData.platforms.map(
-      platform => new Platform(platform.cords, platform.size)
+      platform => new Platform(platform.cords, platform.size, platform.type)
     );
     this.lastFrameUpdate = Date.now();
     window.addEventListener('resize', () => {
@@ -81,12 +106,12 @@ export class Game {
     });
   }
 
-  play(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+  play() {
     const now = Date.now();
     const dt = (now - this.lastFrameUpdate) / 1000;
     this.update(dt);
-    this.render(ctx, canvas);
-    this.idRequestAnimationFrame = requestAnimationFrame(() => this.play(ctx, canvas));
+    this.render(this.ctx, this.canvas);
+    this.idRequestAnimationFrame = requestAnimationFrame(this.play.bind(this));
     this.lastFrameUpdate = now;
   }
 
@@ -117,23 +142,17 @@ export class Game {
         }
       });
     });
+    this.players.forEach(player => {
+      if (player.state == 'died') {
+        player.die();
+      }
+    });
   }
 
   render(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     this.background.render(ctx, canvas);
-    this.players.forEach(player => player.render(ctx));
     this.platforms.forEach(platform => platform.render(ctx));
-  }
-
-  startGame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    loaderImages(
-      [this.background.img, this.players[0].animations.idle.img],
-      this.play.bind(this),
-      ctx,
-      canvas
-    );
+    this.players.forEach(player => player.render(ctx));
   }
 
   stopGame() {

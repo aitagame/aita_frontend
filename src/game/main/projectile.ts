@@ -1,5 +1,7 @@
 import { Pointer } from './pointer';
-import { images, mediaData, gameData } from 'game/gameData';
+import { gameData } from 'game/data/config';
+import { mediaData } from 'game/data/media';
+import { images } from 'game/data/images';
 import { Animation } from './animation';
 import { Collider } from './collider';
 

@@ -4,10 +4,9 @@ export class Background {
   size: Pointer;
   center: Pointer;
   img: HTMLImageElement;
-  constructor(src: string, size: Pointer, center?: Pointer) {
+  constructor(img: HTMLImageElement, size: Pointer, center?: Pointer) {
     this.size = size;
-    this.img = new Image(size.x, size.y);
-    this.img.src = src;
+    this.img = img;
     if (center) this.center = center;
     else this.center = new Pointer(size.x / 2, size.y / 2);
   }
