@@ -13,7 +13,7 @@ import gamePlay from 'views/assets/gameplay.png';
 export const mainBackground = 'https://dev-aita.itracers.xyz/assets/background.jpeg';
 
 // FIRST SECTION
-export const mainSectionTitle = 'Where does it come from?';
+export const mainSectionTitle = 'Game currencies';
 export const mainSectionText =
   'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.';
 export const mainSectionsData: SectionItem[] = [
@@ -32,7 +32,7 @@ export const mainSectionsData: SectionItem[] = [
 ];
 
 // SECOND SECTION
-export const infoSectionTitle = 'Where does it come from?';
+export const infoSectionTitle = '';
 export const infoSectionText =
   'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.';
 
@@ -65,7 +65,7 @@ export const infoSectionData: SectionItem[] = [
 
 // 3 SECTION
 
-export const SectionTitle = 'Where does it come from?';
+export const SectionTitle = '';
 
 export const itemsSectionData: SectionItem[] = [
   {
