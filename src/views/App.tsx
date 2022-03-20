@@ -59,12 +59,13 @@ const getIdentifier = (authMethod: AuthMethod) => {
 };
 
 export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userStore }) => {
-  const { user, profile, getAuthData, loading } = userStore;
+  const { user, profile, getAuthData, loading, setDarkCrystal } = userStore;
 
   const { getLSValue } = useLocalStorage();
   const [walletId] = useState(''); // TODO: add after api is ready
   const [authMethod, setAuthMethod] = useState<AuthMethod>(getLSValue('method', false));
-  const { checkAuth, values, setValues, connect, signOut } = useAuthMethod(authMethod);
+  const { checkAuth, values, setValues, connect, signOut, getAccountBalance } =
+    useAuthMethod(authMethod);
 
   const authValue = useMemo((): AuthContextValues => {
     return {
@@ -104,9 +105,18 @@ export const AppObserver: React.FC<{ userStore: UserData }> = observer(({ userSt
         console.error(e);
       }
     };
-
     connectWithCheck();
   }, [authMethod, connect, checkAuth]);
+
+  useEffect(() => {
+    const getWalletbalance = async (accountId: string) => {
+      const walletBalance = await getAccountBalance(accountId);
+      setDarkCrystal(walletBalance);
+    };
+    if (values.accountId) {
+      getWalletbalance(values.accountId);
+    }
+  }, [getAccountBalance, setDarkCrystal, values.accountId]);
 
   return (
     <>

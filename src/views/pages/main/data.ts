@@ -8,7 +8,7 @@ import earthCrystal from 'views/assets/earthCrystal.png';
 import fireCrystal from 'views/assets/fireCrystal.png';
 import lifeCrystal from 'views/assets/lifeCrystal.png';
 import waterCrystal from 'views/assets/waterCrystal.png';
-import gamePlay from 'views/assets/gameplay.png';
+import gamePlay from 'views/assets/gameplay.jpg';
 
 export const mainBackground = 'https://dev-aita.itracers.xyz/assets/background.jpeg';
 

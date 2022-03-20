@@ -26,7 +26,7 @@ const connectNear = async () => {
   const near = await connect(nearConfig);
   wallet = new WalletConnection(near, '');
   contract = new Contract(wallet.account(), appConfig.nearContractAccess, {
-    viewMethods: ['hello'],
+    viewMethods: ['hello', 'ft_balance_of'],
     changeMethods: [],
     sender: wallet.account(),
   } as ContractMethods);
@@ -50,6 +50,11 @@ const signOut = () => {
   wallet.signOut();
 };
 
+const getAccountBalance = (accountId: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (contract as any).ft_balance_of({ account_id: accountId });
+};
+
 export const useNear = () => {
   return useMemo(
     () => ({
@@ -59,6 +64,7 @@ export const useNear = () => {
       nftContract,
       wallet,
       signOut,
+      getAccountBalance,
     }),
     []
   );

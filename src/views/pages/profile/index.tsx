@@ -1,6 +1,15 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
-import { ElementsSection, NameDisplay, ProfileContent, ProfileName } from './styled';
+import {
+  AccountBalance,
+  AccountInfo,
+  DarkCristalImage,
+  ElementsSection,
+  NameDisplay,
+  ProfileContent,
+  ProfileInfo,
+  ProfileName,
+} from './styled';
 import { Title, TitleH2 } from 'views/components/Title';
 import { Wrapper } from 'views/components/Wrapper';
 import { BaseLayout } from 'views/components/BaseLayout';
@@ -11,9 +20,11 @@ import { elementTypes } from 'views/components/ClassElement/data';
 import { ElementId } from 'views/types/classElement';
 import { userStore } from 'views/store/user';
 import { Loading } from 'views/components/Loading';
+import darkCrystal from 'views/assets/darkCrystal.png';
+import { ClassElement } from 'views/components/ClassElement';
 
 export const Profile: React.FC = () => {
-  const { createProfile, profileCreating } = userStore;
+  const { createProfile, profileCreating, balance } = userStore;
   const { values, profile } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -27,7 +38,7 @@ export const Profile: React.FC = () => {
 
   const profileClass = useMemo(() => {
     const selectedElement = profile.class && elementTypes[profile.class];
-    return selectedElement ? <CharacterType selected elementData={selectedElement} /> : null;
+    return selectedElement ? <ClassElement elementType={selectedElement.id} /> : null;
   }, [profile.class]);
 
   const onProfileCreat = useCallback(() => {
@@ -43,9 +54,18 @@ export const Profile: React.FC = () => {
   return (
     <BaseLayout>
       <Wrapper>
-        <Title mb="3rem">{values?.accountId}</Title>
+        <AccountInfo>
+          <Title>{values?.accountId}</Title>
+          <AccountBalance>
+            <DarkCristalImage src={darkCrystal} />
+            {balance.dark}
+          </AccountBalance>
+        </AccountInfo>
         {isExistingProfile ? (
-          <ProfileName mb="3rem">{profileName}</ProfileName>
+          <ProfileInfo>
+            <ProfileName>{profileName}</ProfileName>
+            {profileClass}
+          </ProfileInfo>
         ) : (
           <NameDisplay
             value={profileName}
@@ -56,16 +76,15 @@ export const Profile: React.FC = () => {
         <ProfileContent>
           {!isExistingProfile && <TitleH2 mb="1.5rem">Choose your class</TitleH2>}
           <ElementsSection>
-            {profile.class
-              ? profileClass
-              : Object.keys(elementTypes).map(key => (
-                  <CharacterType
-                    elementData={elementTypes[key as ElementId]}
-                    key={key}
-                    selected={selectedClass === key}
-                    onClick={setSelectedClass}
-                  />
-                ))}
+            {!profile.class &&
+              Object.keys(elementTypes).map(key => (
+                <CharacterType
+                  elementData={elementTypes[key as ElementId]}
+                  key={key}
+                  selected={selectedClass === key}
+                  onClick={setSelectedClass}
+                />
+              ))}
           </ElementsSection>
           {!profile.id && (
             <Button
