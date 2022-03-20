@@ -78,3 +78,25 @@ export const SquareButton = styled(Button)`
     max-width: 14vmax;
   }
 `;
+
+export const ButtonBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${desktopDevice} {
+    flex-direction: row;
+  }
+
+  & > button {
+    margin-bottom: ${({ theme }) => theme.gutter.elements};
+    ${desktopDevice} {
+      margin-bottom: 0px;
+      margin-right: ${({ theme }) => theme.gutter.elements};
+    }
+  }
+  & > button:last-child {
+    margin-bottom: 0px;
+    ${desktopDevice} {
+      margin-right: 0px;
+    }
+  }
+`;
