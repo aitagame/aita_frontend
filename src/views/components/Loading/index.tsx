@@ -1,10 +1,13 @@
 import { Title } from '../Title';
 import { LoadingWrapper } from './styled';
 
-export const Loading: React.FC<{ overlay?: boolean }> = ({ overlay = true }) => {
+export const Loading: React.FC<{ overlay?: boolean; percent?: number }> = ({
+  overlay = true,
+  percent,
+}) => {
   return (
     <LoadingWrapper overlay={overlay}>
-      <Title>Loading ...</Title>
+      <Title>Loading ... {percent ? ` ${percent}%` : ''}</Title>
     </LoadingWrapper>
   );
 };

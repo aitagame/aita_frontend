@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Canvas } from './styled';
 import { Game as GameConstuctor } from './main';
 import { Modal } from './components/modal';
+import { Loading } from 'views/components/Loading';
 import { io, Socket, SocketOptions } from 'socket.io-client';
 import { appConfig } from '../config/appConfig';
+import { loader } from './data/images';
 
 const AUDIO_FILE_NAME = 'assets/ncs_firefly.mp3';
 
@@ -30,20 +32,47 @@ export const Game = React.memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isModal, setModal] = useState(false);
+  const [loadingPercentage, setLoadingPercentage] = useState(0);
   const isModalForEvent = useRef(false);
   const socketRef = useRef<null | Socket>(null);
+  const gameRef = useRef<GameConstuctor | null>(null);
   function toggleModal() {
     isModalForEvent.current = !isModalForEvent.current;
     setModal(isModalForEvent.current);
   }
 
+  const handleEsc = useCallback((event: KeyboardEvent) => {
+    if (event.key == 'Escape') {
+      toggleModal();
+    }
+  }, []);
+
+  function handleExit() {
+    socketRef.current?.emit('rooms.leave');
+  }
+
+  const handleSound = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio?.paused && loadingPercentage === 100) {
+      audio.crossOrigin = 'anonymous';
+      audio.play();
+      window.removeEventListener('keydown', handleSound);
+    }
+  }, [loadingPercentage]);
+
+  useEffect(() => {
+    console.log(loadingPercentage);
+    if (loadingPercentage == 100) {
+      gameRef.current?.play();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingPercentage]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    const audio = audioRef.current;
     if (!canvas) throw new Error('Canvas not found');
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Context identifier is not supported');
-    let game: GameConstuctor | null;
     const opts = {
       auth: {
         authorization: localStorage.getItem('token'),
@@ -73,18 +102,24 @@ export const Game = React.memo(() => {
         } else {
           socket.on(ROOMS_GET, e => {
             console.log('rooms get', e);
-            game = new GameConstuctor(canvas, e.players, socket);
-            game.startGame(ctx, canvas);
+            gameRef.current = new GameConstuctor(canvas, ctx, e.players, socket);
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const [done, all] = loader.setCallback((done, all) =>
+              setLoadingPercentage(Math.floor((done * 100) / all))
+            );
+            setLoadingPercentage(Math.floor((done * 100) / all));
+            // TODO: То, что ниже, вынести внутрь game
             socket.on(BROADCAST_ROOMS_DISCONNECTED, (roomdIdFromDisconnected, playerId) => {
               console.log('broadcast disconnected', roomdIdFromDisconnected, playerId);
               if (roomId == roomdIdFromDisconnected) {
-                game?.removePlayer(playerId);
+                gameRef.current?.removePlayer(playerId);
               }
             });
             socket.on(BROADCAST_ROOMS_CONNECTED, (roomdIdFromConnected, player) => {
               console.log('broadcast connected', roomdIdFromConnected, player);
               if (roomId == roomdIdFromConnected) {
-                game?.addPlayer(player);
+                gameRef.current?.addPlayer(player);
               }
             });
           });
@@ -93,30 +128,21 @@ export const Game = React.memo(() => {
       });
       socket.emit(ROOMS_GET_ID);
     });
-    function handleEsc(event: KeyboardEvent) {
-      if (event.key == 'Escape') {
-        toggleModal();
-      }
-    }
-    function handleSound() {
-      if (audio?.paused) {
-        audio.crossOrigin = 'anonymous';
-        audio.play();
-        window.removeEventListener('keydown', handleSound);
-      }
-    }
-    window.addEventListener('keydown', handleEsc);
-    //Cannot play sound without interaction according to https://developer.chrome.com/blog/autoplay/
-    window.addEventListener('keydown', handleSound);
     return () => {
-      window.removeEventListener('keydown', handleEsc);
-      if (game) game.stopGame();
+      if (gameRef.current) gameRef.current.stopGame();
     };
   }, []);
 
-  function handleExit() {
-    socketRef.current?.emit('rooms.leave');
-  }
+  useEffect(() => {
+    window.addEventListener('keydown', handleEsc);
+    // Cannot play sound without interaction according to https://developer.chrome.com/blog/autoplay/
+    window.addEventListener('keydown', handleSound);
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [handleEsc, handleSound]);
+
   return (
     <>
       <Canvas width="800px" height="600px" ref={canvasRef}></Canvas>
@@ -127,6 +153,7 @@ export const Game = React.memo(() => {
         src={`${appConfig.baseUrl}/${AUDIO_FILE_NAME}`}
       />
       {isModal && <Modal onClose={toggleModal} onExit={handleExit} />}
+      {loadingPercentage !== 100 && <Loading percent={loadingPercentage} />}
     </>
   );
 });
