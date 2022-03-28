@@ -75,7 +75,7 @@ export const Profile: React.FC = () => {
               Create profile
             </CreateButton>
           )}
-          <PlayGameButton title="Start Game" />
+          {profile.id && <PlayGameButton title="Start Game" />}
         </ProfileContent>
       </Wrapper>
       {profileCreating && <Loading />}
