@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'views/components/Button';
 import { Input } from 'views/components/Input';
 import { Title } from 'views/components/Title';
 import { desktopDevice } from 'views/theme/mediaQuery';
@@ -41,4 +42,10 @@ export const ProfileContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const CreateButton = styled(Button)`
+  margin: 1rem 0;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
 `;
