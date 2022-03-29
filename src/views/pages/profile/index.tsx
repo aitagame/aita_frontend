@@ -1,11 +1,10 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthContext } from 'views/context/Auth';
-import { ElementsSection, NameDisplay, ProfileContent, ProfileName } from './styled';
+import { ElementsSection, NameDisplay, ProfileContent, ProfileName, CreateButton } from './styled';
 import { Title, TitleH2 } from 'views/components/Title';
 import { Wrapper } from 'views/components/Wrapper';
 import { BaseLayout } from 'views/components/BaseLayout';
 import { CharacterType } from './component/ElementType/ElementInfo';
-import { Button } from 'views/components/Button';
 import { useNavigate } from 'react-router';
 import { elementTypes } from 'views/components/ClassElement/data';
 import { ElementId } from 'views/types/classElement';
@@ -69,14 +68,14 @@ export const Profile: React.FC = () => {
                 ))}
           </ElementsSection>
           {!profile.id && (
-            <Button
+            <CreateButton
               disabled={Boolean((!isExistingProfile && profileName.length === 0) || !selectedClass)}
               onClick={onProfileCreat}
             >
               Create profile
-            </Button>
+            </CreateButton>
           )}
-          <PlayGameButton title="Start Game" />
+          {profile.id && <PlayGameButton title="Start Game" />}
         </ProfileContent>
       </Wrapper>
       {profileCreating && <Loading />}
