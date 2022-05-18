@@ -1,5 +1,8 @@
 import { Socket } from 'socket.io-client';
+import { EventManager } from './eventManager';
 
+export const eventManager = new EventManager();
+// Преобразует массив нажатых клавиш в Map
 function setMap(arr: string[], map: Map<string, boolean>) {
   const buttons = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
   for (let i = 0; i < 26; i++) {
@@ -9,6 +12,7 @@ function setMap(arr: string[], map: Map<string, boolean>) {
   arr.forEach(btn => map.set(btn, true));
 }
 
+// Получение массива нажатых клавиш из Map
 function getArr(map: Map<string, boolean>) {
   const buttons = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
   for (let i = 0; i < 26; i++) {
@@ -31,17 +35,17 @@ export default function getPressedKeys(socket: Socket, server: boolean, id?: num
       }
     });
   } else {
-    document.addEventListener('keydown', event => {
+    eventManager.add(document, 'keydown', event => {
       pressedKeys.set(event.code, true);
       // console.log('я что-то нажал');
       socket.emit('players.move', { keys: getArr(pressedKeys), time: Date.now() });
     });
-    document.addEventListener('keyup', event => {
+    eventManager.add(document, 'keyup', event => {
       // console.log('test, отжата');
       pressedKeys.set(event.code, false);
       socket.emit('players.move', { keys: getArr(pressedKeys), time: Date.now() });
     });
-    window.addEventListener('blur', () => {
+    eventManager.add(window, 'blur', () => {
       pressedKeys.clear();
       socket.emit('players.move', { keys: getArr(pressedKeys), time: Date.now() });
     });

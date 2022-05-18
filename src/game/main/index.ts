@@ -1,4 +1,4 @@
-import getPressedKeys from 'game/utils/useButtons';
+import getPressedKeys, { eventManager } from 'game/utils/useButtons';
 import { gameData } from 'game/data/config';
 import { mediaData } from 'game/data/media';
 import { images } from 'game/data/images';
@@ -94,7 +94,7 @@ export class Game {
       platform => new Platform(platform.cords, platform.size, platform.type)
     );
     this.lastFrameUpdate = Date.now();
-    window.addEventListener('resize', () => {
+    eventManager.add(window, 'resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
@@ -151,5 +151,6 @@ export class Game {
 
   stopGame() {
     cancelAnimationFrame(this.idRequestAnimationFrame);
+    eventManager.removeAll();
   }
 }

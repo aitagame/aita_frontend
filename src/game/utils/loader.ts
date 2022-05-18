@@ -1,4 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+// TODO: Переименовать, к примеру DataManager или LoadManager
 export class Loader {
   all: number;
   counter: number;
