@@ -7,8 +7,8 @@ import { Collider } from './collider';
 import { Projectile } from './projectile';
 
 export type Element = 'fire' | 'water' | 'earth' | 'wind'; //AITA -- Aqua Inferno Terra Aer
+export type Direction = 'left' | 'right';
 type State = 'idle' | 'move' | 'attack' | 'hurt' | 'die' | 'died';
-type Direction = 'left' | 'right';
 export class Player {
   collider: Collider;
   element: Element;
@@ -230,7 +230,11 @@ export class Player {
     }
     this.jumps = Math.min(this.jumps, this.maxJumps - 1);
   }
-
+  correctState(cords: Pointer, direction: Direction) {
+    this.cords.x = cords.x;
+    this.cords.y = cords.y;
+    this.direction = direction;
+  }
   render(ctx: CanvasRenderingContext2D) {
     this.projectiles.forEach(projectile => projectile.render(ctx));
     if (this.state === 'idle') {
