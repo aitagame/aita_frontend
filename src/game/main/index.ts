@@ -41,6 +41,7 @@ export class Game {
   platforms: Platform[];
   lastFrameUpdate: number;
   lastUpdateStateInServer: number;
+  readyUpdateStateInServer: boolean;
   pressedKeys: Map<string, boolean>;
   idRequestAnimationFrame: number;
   id: number;
@@ -71,6 +72,7 @@ export class Game {
     );
     this.lastFrameUpdate = Date.now();
     this.lastUpdateStateInServer = Date.now();
+    this.readyUpdateStateInServer = true;
     eventManager.add(window, 'resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -98,6 +100,7 @@ export class Game {
     if (id == this.id) return;
     const player = this.players.find(player => player.id == id);
     player?.correctState(cords, direction);
+    this.readyUpdateStateInServer = true;
   }
 
   addPlayer(player: PlayerProfile) {
@@ -167,9 +170,13 @@ export class Game {
         player.die();
       }
     });
-    if (Date.now() - this.lastUpdateStateInServer >= 80) {
+    if (
+      Date.now() - this.lastUpdateStateInServer >= 1000 ||
+      (this.readyUpdateStateInServer && Date.now() - this.lastUpdateStateInServer >= 100)
+    ) {
       this.sendUpdatedPlayerServerState(this.id);
       this.lastUpdateStateInServer = Date.now();
+      this.readyUpdateStateInServer = false;
     }
   }
 
